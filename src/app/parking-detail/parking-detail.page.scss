@@ -1,0 +1,14 @@
+.msg{
+    text-align: center;
+    color: red;
+    display: block;
+}
+
+.spinning{
+    position: absolute;
+    top:15em;
+    left: 20em;
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+  }

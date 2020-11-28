@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-buttons *ngIf="!showSearchbar" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Checkout </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p *ngIf="ordersCount==0" style="  margin-left: 84px;font-size: 20px;margin-top: 386px;">No Cart Items Available</p>
+ <!--  <div #mapCanvas class="map-canvas"></div>-->
+ <div class="row mt-4" *ngFor="let propertyGroup of cartPropertyGroup; let i = index">
+  
+  <div class="col-md-12">
+
+    <div class="row">
+      <div class="col-md-10">
+        {{propertyGroup.propertyname}}
+      </div>
+      <div class="col-md-2">
+        ${{propertyGroup.pricingAmount}}
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-10">
+        <a routerLink="" (click)="goToPlace(propertyGroup)">Details</a>
+      </div>
+      <div class="col-md-2">
+        <a routerLink="" (click)="deletePlace(i)">Delete</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+</ion-content>

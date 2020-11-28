@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Account Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <br><br>
+    <ion-label position="floating" style="margin-left: 322px;" (click)="login()" color="secondary">Login</ion-label>
+    <br><br>
+    <!--#form="ngForm"-->
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <ion-label position="floating" style="margin-left: 122px;" (click)="login()">Login As Guest User</ion-label>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input  type="email"  [formControlName]="CART_CHECKOUT_METADATA.email" required></ion-input>
+        </ion-item>
+      <br>
+        <ion-item>
+          <ion-label position="floating">Phone Number</ion-label>
+          <ion-input  type="tel" [formControlName]="CART_CHECKOUT_METADATA.phone" required></ion-input>
+        </ion-item>
+      <br>
+        <p text-right style="margin-left: 122px;">Forgot Password?</p>
+      
+        <ion-button type="submit" expand="full" color="primary">Submit</ion-button>
+      </form>
+      <p text-center style="margin-left: 122px;">Don't have a account?</p>
+      <ion-button expand="full" color="danger" (click)="registerModal()">Register</ion-button>
+ 
+    
+
+</ion-content>

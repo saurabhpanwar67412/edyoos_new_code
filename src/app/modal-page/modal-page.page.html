@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ModalPage</ion-title>
+    <ion-buttons end>
+      <button ion-button color="primary" (click)="closeModal()">Close</button>
+      </ion-buttons>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div  >
+  <ion-card >
+    <img src={{item.files[0].filePath}} />
+   
+</ion-card>
+  <br>
+  <ion-list padding>
+
+    <div>
+      <h2> {{item.propertyname}}</h2>
+      <p>{{item.propertyGroupAddress}}</p><h3> <pre>${{item.calculatedAmount}}</pre></h3>
+      <p>{{item.distance}}</p>
+    </div>
+    <ion-button color="warning" (click)="addtobag()">Add to Bag</ion-button> 
+    <ion-button color="primary" (click)="Reservenow()">Reserve Now ${{item.calculatedAmount}} </ion-button>
+  </ion-list>
+  <br><br>
+
+  <ion-segment scrollable  [(ngModel)]="segment"  (ionChange)="segmentChanged($event)" color="primary">
+    <ion-segment-button value="details">
+      <ion-label>Details</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Operational">
+      <ion-label>Operational Hours</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Tip">
+      <ion-label>Tip to Find</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+    <ion-card *ngSwitchCase="'details'">
+      <ion-card-header>
+    <h4>  {{item.details}} </h4>
+      </ion-card-header>
+      <ion-card-content>
+       <h2>Amenities</h2><br>
+       <p>{{item.amenities}}</p>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card *ngSwitchCase="'Operational'">
+      <ion-card-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Day
+            </ion-col>
+            <ion-col>
+              From Time
+            </ion-col>
+            <ion-col>
+           To Time
+            </ion-col>
+          </ion-row>
+    <div *ngFor="let items of item.searchParkingOperationHours">        
+        <ion-row *ngIf=" [items.blockedDate] " >
+            <ion-col  >
+    <p> Sunday  </p>  
+            </ion-col >
+            <ion-col >
+              <p>     {{items.parkingFromTime}} </p>
+            </ion-col>
+            <ion-col>
+              <p>     {{items.parkingToTime}} </p>
+            </ion-col>
+            
+          </ion-row>
+        </div>
+
+          </ion-grid>
+      </ion-card-header>
+    
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'Tip'">
+      <ion-card-header>
+     <h1>Tip to Find</h1>  
+     <h4>{{item.tipToFind}}</h4>
+      </ion-card-header>
+    </ion-card>
+  </div>
+  </div>
+
+</ion-content>

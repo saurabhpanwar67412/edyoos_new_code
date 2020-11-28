@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Parking Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div *ngIf="showMessage">
+    <p  class="msg">{{message}}</p>
+    <div class="ion-text-center">
+    </div>
+</div>
+    <ion-card *ngFor="let parkingDetail of parkingDetailsList">
+      <img src={{parkingDetail.files[0].filePath}} />
+      <ion-card-header>
+        <ion-card-subtitle> </ion-card-subtitle>
+        <ion-card-title>{{parkingDetail.propertyname}}</ion-card-title>
+      </ion-card-header>
+      <br>
+      <ion-card-content>
+        <p *ngIf="parkingDetail.amenities!=null"><b>Amenities:</b>{{parkingDetail.amenities}} </p>
+        <p><b></b>{{parkingDetail.distance}} miles away </p>
+       <br>
+        <p><b>${{parkingDetail.calculatedAmount}}:</b>Per day</p>
+       
+      </ion-card-content>
+      <ion-item>
+        <ion-button fill="outline" slot="end" (click)="details(parkingDetail)">View details</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button fill="outline" slot="end" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
+      </ion-item>
+    </ion-card>
+
+</ion-content>

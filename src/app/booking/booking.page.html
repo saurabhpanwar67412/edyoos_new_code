@@ -1,0 +1,70 @@
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Booking Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container" >
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card card-1" >
+          <ion-item-divider>
+            <h3>Order Summary</h3> </ion-item-divider>
+
+          <p>Parking(1) : {{ data.propertyname }}</p>
+        <p>Total before tax : ${{data.calculatedAmount}}</p><hr />
+   
+    <p>Order Total : ${{data.calculatedAmount}} </p> <br>
+    <div class="bg-light p-2 pt-0" style="font-size: 0.7rem;">By placing your order, you are agree to Edyoos's 
+      <a style="cursor: pointer;" class="btn-link" (click)="openPrivacyNewWindow()"> Privacy Notice</a>
+      and
+      <a style="cursor: pointer;" class="btn-link" (click)="openTermsNewWindow()">Terms & Conditions </a> 
+    </div></div>
+      </div><br>
+      <div class="col-md-4">
+        <div class="card card-2">
+          <ion-item-divider> <h3>Reservation Details</h3></ion-item-divider>     
+          <p>{{data.propertyname}}</p> 
+          <p>{{data.propertyGroupAddress}}</p>
+          <p>{{data.searchFromDateTime}}</p>  <p>{{data.searchToDateTime}}</p>
+          <p>Price : {{data.calculatedAmount}}</p> <p>Available spot : {{data.noOfSpots}}</p>
+          
+          <ion-item>
+            <ion-label (click)="changeDateClick(data)" color="secondary">Change Date</ion-label>
+            <!-- <ion-datetime (ionChange)="filter()" displayFormat="MM/DD/YYYY" [(ngModel)]="changeddate" min="2020" max="2030" value="2020-11-04T11:06Z"></ion-datetime> -->
+          </ion-item>
+          
+
+
+          
+          <!-- <ion-label position="floating" style="margin-left: 322px;" >e</ion-label> -->
+          <br><br>
+          <ion-button color="secondary" (click)="goBack()">Back</ion-button>
+          <ion-button color="secondary" (click)="confirmtoaccount()">Confirm</ion-button>
+        </div>
+      </div>
+      <!-- <div class="col-md-4">
+        <div class="card card-3">
+          <h3>Theming</h3>
+          <p>Learn how to easily customize and modify your app’s design to fit your
+            brand across all mobile platform styles.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-3">
+          <h3>Theming</h3>
+          <p>Learn how to easily customize and modify your app’s design to fit your
+            brand across all mobile platform styles.</p>
+        </div>
+      </div>
+      -->
+</div>
+</div>  
+  
+
+</ion-content>

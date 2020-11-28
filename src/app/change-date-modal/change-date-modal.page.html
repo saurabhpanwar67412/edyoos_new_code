@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Change Date</ion-title>
+    <ion-buttons end>
+      <button ion-button color="primary" (click)="closeModal()">Close</button>
+      </ion-buttons>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Start Date & Time</ion-label>
+    <ion-datetime  (ionChange)="fromDateChange(data)"  displayFormat="DD-MMM-YY HH:mm" pickerFormat="DD-MMM-YY HH:mm" min="2020"  [(ngModel)]="data.changeSearchFromDateTime"></ion-datetime>
+  </ion-item>
+  <br> 
+  <ion-item>
+    <ion-label>End Date & Time</ion-label>
+    <ion-datetime  (ionChange)="toDateChange(data)" displayFormat="DD-MMM-YY HH:mm" pickerFormat="DD-MMM-YY HH:mm" min="2020"  [(ngModel)]="data.changesearchToDateTime"></ion-datetime>
+  </ion-item>
+  <span class="text-danger" *ngIf="!data.isDateRangeValid">please select valid date</span>
+  <br>
+  <br>
+          <ion-button color="secondary" (click)="closeModal(data)">Cancel </ion-button>
+          <ion-button  (click)="changeDateApply(data,i=0)" [disabled]="!data.isDateRangeValid"
+          color="primary">Apply</ion-button>
+      
+  
+
+</ion-content>

@@ -1,0 +1,85 @@
+<ion-header [translucent]="true">
+  <ion-toolbar> 
+    <ion-buttons *ngIf="!showSearchbar" slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+    <ion-title>
+   My Orders Details
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="col p-0 pl-0 w-100">
+    <div *ngFor="let order of orders" >
+
+  <p *ngIf="!order" style="margin-left: 84px;font-size: 20px;margin-top: 386px;">No order history found</p>
+
+
+  <div  *ngIf="order">
+
+    <ion-card>
+      <ion-card-header>
+        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+        <ion-card-title>{{order.parkingPlace}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <div class="col p-0 pl-md-5 pl-1 w-100">
+                                    <div class="d-md-flex">
+                                        <h3 class="h3 col-auto m-0 pl-0" style="font-size: 14px;"> <span
+                                                style="font-size: 14px;font-weight: bold;">Check-in
+                                            </span> <img style="width: 24px;" src="./assets/images/park.svg">
+                                            {{order.FromDate | date:'medium'}} {{order.fromDate | date:'medium'}}</h3>
+                                        <h3 class="h3 col-auto text-md-center px-md-2 px-0  m-0"
+                                            style="font-size: 14px;"> <span
+                                                style="font-size: 14px;font-weight: bold;">Check-out
+                                            </span> <img style="width: 24px;" src="./assets/images/placeholder.svg">
+                                            {{order.ToDate | date:'medium'}} {{order.toDate | date:'medium'}}</h3>
+                                    </div>
+                                    <div class="col p-0 pl-0 w-100">
+                                        <span class="font-weight-bold">Address:</span> <span
+                                            class="ml-2">{{order.address}}</span>
+                                    </div>
+                               </div> 
+                               <br>
+                               <div class="col-auto pl-0 ml-0">
+                                <span class="font-weight-bold">Booking Status: </span>
+                                <span *ngIf="!order.isBookingCancelled">
+                                    <!-- <img src="./assets/images/bill.svg" style="width: 20px;"> -->
+                                    <span class="text-success "> Success</span>
+                                </span>
+                                <span *ngIf="order.isBookingCancelled">
+                                    <span class="text-danger font-weight-bold"> Cancelled</span>
+                                </span>
+
+                            </div>
+                            <div class="col-auto text-right pr-0 mr-0 "
+                                                    *ngIf="order.isBookingCancelled ||order.showCancel">
+                                                    <ion-button style="font-size: 14px;" [disabled]="order.cancelBtnClick"
+                                                        class="btn bg-danger py-0 text-light"
+                                                        (click)="cancelDialog(order,{confirmDialog:true,submitDialog:false},'400px')"
+                                                        *ngIf="order.showCancel">
+                                                        <span class="spinner-border spinner-border-sm"
+                                                            *ngIf="order.cancelBtnClick" role="status"
+                                                            aria-hidden="true"></span>
+                                                        {{order.cancelBtnClick?'Loading...':'Cancel Booking'}}      </ion-button>
+                                                        <div class="ml-auto pr-3 align-self-end">
+                                                          <span class="font-weight-bold">Total: </span> <span
+                                                              class="font-weight-bold">
+                                                              {{order.propertyGroupTotalAmount | currency}}</span>
+                                                      </div>
+                                              
+                                                </div>
+                               
+       
+      </ion-card-content>
+    </ion-card>
+  
+    
+      </div>
+    </div>
+</div>
+
+ <!--  <div #mapCanvas class="map-canvas"></div>-->
+</ion-content>
