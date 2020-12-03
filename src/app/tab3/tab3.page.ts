@@ -40,32 +40,33 @@ export class Tab3Page {
   isOpen = false;
   panelOpenState;
   currentAdd: string;
-  data:  any ; 
+  data:  any ;
+  loggedin : any ; 
   constructor(private dashboardService: DashboardService, public dialog: MatDialog,
     private paymentService: PaymentService, public commonService: CommonService,
     private authenticationService: AuthenticationService, public toastController: ToastController) {}
     
-    // cancelDialog(order, request, width): void {
+    cancelDialog(order, request, width): void {
 
-      
-    //   const dialogRef = this.dialog.open(CancelConfirmDialog, {
-    //     width: width,
-    //     data: request,
-    //     minHeight: '180px',
-    //   });
+      console.log(order,request, width);
+      const dialogRef = this.dialog.open(CancelConfirmDialog, {
+        width: width,
+        data: request,
+        minHeight: '180px',
+      });
   
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     if (result) {
-    //       if (result.confirm) {
-    //         this.cancelDialog(order, { confirmDialog: false, submitDialog: true, }, '400px');
-    //       }
-    //       else if (result.submit) {
-    //         this.raiseRefundRequest(result.reason, order);
-    //       }
-    //     }
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          if (result.confirm) {
+            this.cancelDialog(order, { confirmDialog: false, submitDialog: true, }, '400px');
+          }
+          else if (result.submit) {
+            this.raiseRefundRequest(result.reason, order);
+          }
+        }
   
-    //   });
-    // }
+      });
+    }
   
     raiseRefundRequest(reason: string, order: any) {
   
@@ -109,7 +110,25 @@ export class Tab3Page {
       this.currentAdd = localStorage.getItem("currentAddress") == null ? "My+Location" : localStorage.getItem("currentAddress");
       let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
       console.log("userdetails inside constructor:::", userdetails)
+      if(userdetails == null){
+        this.loggedin = null
+        console.log("this.logged in value", this.loggedin);
+      }
+      else{
+        console.log("logined in else");
+        this.loggedin = userdetails.id;
+        
+      }
+    
+      if(userdetails  ){
+        console.log("i am true if ")
       this.getOrderById(userdetails.id, null);
+    }
+   else {
+  console.log("   i am called else");
+     this.orders= null;
+
+    }
     }
   
     getOrderById(userId, showMessage, order = null) {

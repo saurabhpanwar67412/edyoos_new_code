@@ -10,11 +10,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <p style="
-    margin-left: 112px;
-    font-size: 20px;
-    margin-top: 305px;
-">No Messages found</p>
+  <!-- <p style=" margin-left: 112px;font-size: 20px; margin-top: 305px;">No Messages found</p> -->
+<ion-list no-lines class="msgbubble" >
+  <ion-item *ngFor="let msg of messages">
+    <span [ngClass]="userId == msg.id ? 'innermsg right':'innermsg left'">{{ msg.reply }}</span>
+  </ion-item>
+</ion-list>
  <!--  <div #mapCanvas class="map-canvas"></div>-->
 
 </ion-content>

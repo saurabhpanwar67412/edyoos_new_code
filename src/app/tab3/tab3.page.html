@@ -11,9 +11,11 @@
 
 <ion-content [fullscreen]="true">
   <div class="col p-0 pl-0 w-100">
+    <p *ngIf="!loggedin" style="margin-left: 84px;font-size: 20px;margin-top: 386px;"> Please Login to see your records.</p>
     <div *ngFor="let order of orders" >
+      
 
-  <p *ngIf="!order" style="margin-left: 84px;font-size: 20px;margin-top: 386px;">No order history found</p>
+  <p *ngIf="!order" style="margin-left: 84px;font-size: 20px;margin-top: 386px;">No order history found. </p>
 
 
   <div  *ngIf="order">

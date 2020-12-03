@@ -24,18 +24,22 @@ import { PromocodeEnum } from 'src/app/shared/enum/prmocode_enum';
 import * as moment from 'moment';
 // import { DateValidationComponent } from '../../date-validation-dialog/date-validation.component';
 import { FeeType } from 'src/app/shared/enum/feetype.enum';
+// import {Stripe} from '@ionic-native/stripe/ngx';
 
 
-declare var Stripe: stripe.StripeStatic;
+// declare var Stripe: stripe.StripeStatic;
 declare var window: any;
 
-
+declare var Stripe;
 @Component({
   selector: 'app-paymentinfo',
   templateUrl: './paymentinfo.page.html',
   styleUrls: ['./paymentinfo.page.scss'],
 })
 export class PaymentinfoPage implements OnInit {
+  stripe = Stripe('YOUR_PUBLISHABLE_KEY');
+  card: any;
+  
   
   paymentForm: FormGroup;
   panelOpenState: boolean;
@@ -57,7 +61,7 @@ export class PaymentinfoPage implements OnInit {
   promoCodeId: number;
   promoCodeType: number;
   promoCode: string;
-  stripe;
+
   data : any ;
   
 
@@ -261,10 +265,11 @@ export class PaymentinfoPage implements OnInit {
 
 
   chargeCustomer() {
+    debugger ;
     this.checkOutBtnClicked = true;
 
     if (this.hasCards) {
-
+      debugger ;
       let chargeCustomer = new ChargeCustomer();
       chargeCustomer.PaymentMethodId = this.paymentForm.get(PAYMENTINFO_METADATA.card).value;
       let customerId = this.cards.find(s => s.id == chargeCustomer.PaymentMethodId).customerId;
@@ -276,6 +281,7 @@ export class PaymentinfoPage implements OnInit {
       this.chargeCustomerByPaymentId(chargeCustomer);
     }
     else {
+      debugger ;
       this.createPaymentIntent();
     }
   }
@@ -299,7 +305,7 @@ export class PaymentinfoPage implements OnInit {
 
 
   //strip
-  card;
+  // card;
   exp;
   cvc;
   cardErrors;
@@ -307,6 +313,8 @@ export class PaymentinfoPage implements OnInit {
   loading = false;
   confirmation;
   ngOnInit(): void {
+    this.setupStripe();
+    console.log("inside get ngoninit");
     this.init();
     this.getPublishableKey();
 
@@ -320,9 +328,58 @@ export class PaymentinfoPage implements OnInit {
     // });
   }
   disCountApplied: boolean = false;
+  setupStripe() {
+    let elements = this.stripe.elements();
+    var style = {
+      base: {
+        color: '#32325d',
+        lineHeight: '24px',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        }
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+
+    this.card = elements.create('card', { style: style });
+    console.log(this.card);
+    this.card.mount('#card-element');
+
+    this.card.addEventListener('change', event => {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      console.log(event)
+
+      this.stripe.createSource(this.card).then(result => {
+        if (result.error) {
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          console.log(result);
+          // this.makePayment(result.id);
+        }
+      });
+    });
+  }
+
 
   init() {
-
+    console.log("inside init");
     if (this.authenticationService.userValue) {
       this.loggedIn = true;
       this.formType = this.loggedIn ? 'user' : 'guest';
@@ -346,10 +403,12 @@ export class PaymentinfoPage implements OnInit {
   }
 
   getPublishableKey() {
+    console.log("inside get publiable key");
     this.paymentService.getPublishableKey()
       .subscribe((response) => {
         this.stripe = Stripe(response.data.publishableKey);
         // this.addStripeElement();
+        console.log("data inside the get publish key",this.stripe);
       });
 
 
@@ -472,16 +531,19 @@ export class PaymentinfoPage implements OnInit {
 
   checkout() {
 
+    debugger ; 
     var notAvailableSpots = this.placesService.cartPropertyGroup.filter(s => s.isSpotAvaliable == false);
 
     if (notAvailableSpots.length > 0) {
+      debugger ;
       this.openDialog();
     }
     else if (this.placesService.cartPropertyGroup.some(s => moment(s.searchFromDateTime).isSameOrBefore(new Date()))) {
-
+      debugger ;
       this.openDateValidationDialog();
     }
     else {
+      debugger ;
       this.chargeCustomer();
     }
 
@@ -550,10 +612,12 @@ export class PaymentinfoPage implements OnInit {
 
   public email: string;
   createPaymentIntent() {
+    debugger ;
     if (this.authenticationService.isAuthorized()) {
       this.email = this.authenticationService.userValue.email;
     }
     else {
+      debugger ;
       this.email = this.paymentForm.get(PAYMENTINFO_METADATA.email).value;
     }
 
@@ -561,7 +625,7 @@ export class PaymentinfoPage implements OnInit {
       TotalAmount: this.getTotalAmount(),
       Email: this.email
     };
-
+    debugger ;
     this.paymentService.createPaymentIntent(purchase).subscribe((response) => {
 
       this.payWithCard(this.stripe, this.card, response.data.clientSecret, response.data.customerId);
@@ -597,6 +661,7 @@ export class PaymentinfoPage implements OnInit {
           this.cardErrors = result.error;
 
         } else {
+          debugger ;
           // The payment succeeded!
           if (this.authenticationService.isAuthorized()) {
             this.saveCardDetails(result.paymentIntent.payment_method);

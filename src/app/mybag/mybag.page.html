@@ -9,31 +9,27 @@
 </ion-header>
 
 <ion-content>
-  <p *ngIf="ordersCount==0" style="  margin-left: 84px;font-size: 20px;margin-top: 386px;">No Cart Items Available</p>
+  <p *ngIf="!localdata" style="  margin-left: 84px;font-size: 20px;margin-top: 386px;">No Cart Items Available</p>
  <!--  <div #mapCanvas class="map-canvas"></div>-->
- <div class="row mt-4" *ngFor="let propertyGroup of cartPropertyGroup; let i = index">
+
+
+ <div class="row mt-4" *ngFor="let data of localdata, let i = index">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle> {{data.propertyname}}</ion-card-subtitle>
+      <ion-card-title>    {{data.pricingAmount}}</ion-card-title>
+    </ion-card-header>
   
-  <div class="col-md-12">
-
-    <div class="row">
+    <ion-card-content>
       <div class="col-md-10">
-        {{propertyGroup.propertyname}}
-      </div>
-      <div class="col-md-2">
-        ${{propertyGroup.pricingAmount}}
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-10">
-        <a routerLink="" (click)="goToPlace(propertyGroup)">Details</a>
-      </div>
+        <a routerLink="" (click)="goToPlace(data)">Details</a>
+      </div><br>
       <div class="col-md-2">
         <a routerLink="" (click)="deletePlace(i)">Delete</a>
       </div>
-    </div>
-  </div>
-
+    </ion-card-content>
+  </ion-card>
+  
 </div>
 
 

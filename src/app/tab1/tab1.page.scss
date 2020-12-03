@@ -8,6 +8,9 @@ ion-fab-button {
 
   --color: var(--ion-color-primary, #3880ff);
 }
+.button-inner{
+  position: static !important;
+}
 
 /*
  * Material Design uses the ripple for activated
