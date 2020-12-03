@@ -217,8 +217,7 @@ export class SignupPage implements OnInit {
       registerUser.Password = this.registerForm.get('passwordGroup').get('password').value;
       // registerUser.SubscribeToNewsLetter = this.registerForm.get('subscribeNewsLetter').value;
       // registerUser.IAgree = this.registerForm.get('iAgree').value;
-      //registerUser.ReturnUrl = `${window.location.origin}/login`;
-      registerUser.ReturnUrl = `${environment.basePath}/login`;
+      registerUser.ReturnUrl = `${window.location.origin}/emailconfirmation`;
       registerUser.FromClient = true;
       console.log("registerUser obj======",registerUser);
       this.registerService.RegisterUser(registerUser).subscribe((response: ApiResponse<string>) => {

@@ -18,6 +18,7 @@ import { VechicleRequestModel } from 'src/app/model/cart/booking_request.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EditLicensePlateComponent } from './EditLicensePlate/EditLicensePlate.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertController  } from '@ionic/angular';
 
 import { AuthenticationService } from '../shared/authentication/authentication.service';
 
@@ -84,31 +85,50 @@ export class ProfilePage implements OnInit {
     private base64: Base64,
     public router: Router,
     private activatedRoute: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private alertCtrl: AlertController
     ) 
-    
     {
       let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
       //let userdetails = JSON.parse(this.activatedRoute.snapshot.paramMap.get('userData'));
       console.log("userdetails inside constructor:::", userdetails)
-
-      this.userid = userdetails.id;
-      this.email = userdetails.email;
-      this.firstName = userdetails.firstName;
-      this.lastName = userdetails.lastName;
-      this.email = userdetails.email;
-      this.createImageForm();
-      this.imageForms.push(this.createFileGroup());
-  
-      for (let i = -12; i < 15; i++) {
-        if (i > -1) {
-          this.timeZones.push('+' + i);
-        }
-        else {
-          this.timeZones.push(i);
+      if(userdetails.id)
+      {
+        this.userid = userdetails.id;
+        this.email = userdetails.email;
+        this.firstName = userdetails.firstName;
+        this.lastName = userdetails.lastName;
+        this.email = userdetails.email;
+        this.createImageForm();
+        this.imageForms.push(this.createFileGroup());
+    
+        for (let i = -12; i < 15; i++) {
+          if (i > -1) {
+            this.timeZones.push('+' + i);
+          }
+          else {
+            this.timeZones.push(i);
+          }
         }
       }
+      else{
+        this.presentAlert();
+      }
+      
      }
+
+     async presentAlert() {
+      const alert = await this.alertCtrl.create({
+        header: '',
+        //subHeader: 'Registration Successful',
+        message: 'Please login first.',
+        buttons: [{
+          text: 'Ok',
+            handler: data => {}
+        }]
+      });
+      await alert.present();
+    }
 
     ngOnInit(): void {
       this.tabName = 'settings';

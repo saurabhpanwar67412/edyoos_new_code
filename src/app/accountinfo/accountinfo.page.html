@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button ></ion-back-button>
     </ion-buttons>
-    <ion-title>Account Information</ion-title>
+    <ion-title color="primary">Account Information</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +13,7 @@
     <br><br>
     <!--#form="ngForm"-->
     <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
-        <ion-label position="floating" style="margin-left: 122px;" (click)="login()">Login As Guest User</ion-label>
+        <ion-label position="floating" color="primary" style="margin-left: 122px;" (click)="login()">Login As Guest User</ion-label>
         <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input  type="email"  [formControlName]="CART_CHECKOUT_METADATA.email" required></ion-input>

@@ -38,25 +38,22 @@ export class AuthenticationService {
         return !!this.userValue;
     }
 
-    // externalFacebookLogin(token: string) {
-    //     let params = {
-    //         accessToken: token
-    //     }
-    //     return this.http.post(apiRoutes.login.externalFacebookLogin, params);
-    // }
+    externalFacebookLogin(token: string) {
+        let params = {
+            accessToken: token
+        }
+        return this.http.post(apiRoutes.login.externalFacebookLogin, params);
+    }
 
-    // appleExternalLogin(appleRequest: any) {
+    appleExternalLogin(appleRequest: any) {
+        return this.http.post(apiRoutes.login.appleExternalLogin, appleRequest);
+    }
 
-    //     return this.http.post(apiRoutes.login.appleExternalLogin, appleRequest);
-    // }
-
-    // externalGoogleLogin(params: any) {
-
-    //     return this.http.post(apiRoutes.login.externalGoogleLogin, params);
-    // }
+    externalGoogleLogin(params: any) {
+        return this.http.post(apiRoutes.login.externalGoogleLogin, params);
+    }
 
     getUserDetailsFromUrl() {
-
         let accessToken = this.getAccessToken("access_token");
         let username = this.getAccessToken("username");
         let user = new User();

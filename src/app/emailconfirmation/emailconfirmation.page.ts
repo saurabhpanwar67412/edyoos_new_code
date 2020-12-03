@@ -76,15 +76,15 @@ export class EmailconfirmationPage implements OnInit {
     });
   }
 
-  async presentAlert(message1) {
+  async presentAlert() {
     const alert = await this.alertCtrl.create({
-      header: 'Email has been confirmed!',
+      header: 'Your Email has been confirmed!',
       //subHeader: 'Registration Successful',
-      message: message1,
+      //message: message1,
       buttons: [{
         text: 'Ok',
           handler: data => {
-            this.router.navigate(['landing/home'])
+            this.router.navigate(['login'])
             this.confirmEmailForm.reset();
           }
       }]
@@ -101,10 +101,10 @@ export class EmailconfirmationPage implements OnInit {
       this.submitBtnDisable = true;
       this.emailConfirm.Password = this.confirmEmailForm.get('password').value;
       this.registerService.EmailConfirmation(this.emailConfirm).subscribe((response: any) => {
-        console.log("inside api call of EmailConfirmation::::",this.emailConfirm )
+        console.log("inside api call of EmailConfirmation::::",response )
       this.submitBtnDisable = false;
       //his.setlocalStorageAndGetCartDetails(response);
-      this.presentAlert('success-message');
+      this.presentAlert();
       }, 
       (error) => {
         this.submitBtnDisable = false;

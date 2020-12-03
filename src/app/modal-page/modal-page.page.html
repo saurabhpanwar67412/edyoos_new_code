@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ModalPage</ion-title>
-    <ion-buttons end>
+    <ion-title mode="ios" color="primary">Modal</ion-title>
+    <!-- <ion-buttons end>
       <button ion-button color="primary" (click)="closeModal()">Close</button>
-      </ion-buttons>  
+    </ion-buttons>   -->
+    <ion-icon name="close" color="primary" (click)="closeModal()"></ion-icon>
+      <!-- <ion-buttons end>
+        <ion-back-button color="primary" (click)="closeModal()"></ion-back-button>
+      </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -12,17 +16,19 @@
   <ion-card >
     <img src={{item.files[0].filePath}} />
    
-</ion-card>
+  </ion-card>
   <br>
   <ion-list padding>
+  <ion-card>
+  <div>
+    <h2> {{item.propertyname}}</h2>
+    <p>{{item.propertyGroupAddress}}</p><h3> <pre>${{item.calculatedAmount}}</pre></h3>
+    <p>{{item.distance}}</p>
+  </div>
+  <ion-button color="warning" (click)="addtobag()">Add to Bag</ion-button> 
+  <ion-button color="primary" (click)="Reservenow()">Reserve Now ${{item.calculatedAmount}} </ion-button>
 
-    <div>
-      <h2> {{item.propertyname}}</h2>
-      <p>{{item.propertyGroupAddress}}</p><h3> <pre>${{item.calculatedAmount}}</pre></h3>
-      <p>{{item.distance}}</p>
-    </div>
-    <ion-button color="warning" (click)="addtobag()">Add to Bag</ion-button> 
-    <ion-button color="primary" (click)="Reservenow()">Reserve Now ${{item.calculatedAmount}} </ion-button>
+  </ion-card>  
   </ion-list>
   <br><br>
 
