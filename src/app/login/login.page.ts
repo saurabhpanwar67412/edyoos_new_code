@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { LoginService } from '../shared/authentication/login/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserLogin } from 'src/app/model/login/login.model';
@@ -14,13 +14,20 @@ import { CustomValidators } from 'src/app/helper/custom-validators';
 import { environment } from 'src/environments/environment';
 import { PlacesService } from 'src/app/shared/places.service';
 import {NavController, AlertController} from '@ionic/angular';
+import { CartService } from 'src/app/shared/cart.service';
+import { Cart } from 'src/app/model/cart/cart.model';
+import jwt_decode from 'jwt-decode';
 
+declare var FB: any;
+declare var auth2: any;
+declare var AppleID: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
   
     loginForm: FormGroup;
@@ -30,12 +37,21 @@ export class LoginPage implements OnInit {
     returnUrl: string;
     passwordType: string = 'password';
     passwordIcon: string = 'eye-off';
-   
+    // FB: any;
+    // auth2: any;
+    // AppleID: any;
 
-  constructor(private fb: FormBuilder, public router: Router, private loginService: LoginService,
+  constructor(private fb: FormBuilder, 
+    public router: Router, 
+    private loginService: LoginService,
     private authenticationService: AuthenticationService,
-    private route: ActivatedRoute, private placesService: PlacesService,
-    private navCtrl: NavController, public alertCtrl: AlertController) { }
+    private route: ActivatedRoute, 
+    private placesService: PlacesService,
+    private navCtrl: NavController, 
+    public alertCtrl: AlertController,
+    private cartService: CartService,
+    public zone: NgZone) 
+    { }
 
   ngOnInit() {
     
@@ -202,7 +218,6 @@ onSubmit(): void {
     }
 }
 
-
 goforgetpassword(){
   this.router.navigate(['forget-password'])
 }
@@ -215,10 +230,127 @@ hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
 }
+
 goback(){
     console.log("function called");
-    this.navCtrl.back();
-    
+    this.navCtrl.back();  
 }
+
+getCartDetails() {
+    this.cartService.getCartDetails().subscribe((response) => {
+        this.placesService.cartPropertyGroup = response.data;
+        localStorage.setItem('bookedPlaces', JSON.stringify(this.placesService.cartPropertyGroup));
+        // this.placesService.addedCartPropertyGroup.next(this.placesService.cartPropertyGroup);
+    }, 
+    (error) => {
+        console.log(error);
+    })
+}
+
+setlocalStorageAndGetCartDetails(response) {
+    this.authenticationService.setUserValue(response.data);
+    let cart: Cart[] = [];
+    if (this.placesService.cartPropertyGroup.length > 0) {
+        this.placesService.cartPropertyGroup.forEach((val, index) => {
+            let cartDetails = new Cart();
+            val.PropertyGroupID = cartDetails.PropertyGroupID;
+            cart.push(cartDetails);
+        });
+        this.cartService.addCart(cart).subscribe((response) => {
+            console.log("setlocalStorageAndGetCartDetails::::", response.data);
+            this.getCartDetails();
+            if (this.returnUrl)
+                this.router.navigate([this.returnUrl]);
+            else {
+                this.zone.run(() => {
+                    this.router.navigate(['landing/home']);
+                });
+            }
+        }, 
+        (error) => {
+            console.log(error);
+        })
+    }
+    else {
+        this.getCartDetails();
+        if (this.returnUrl)
+            this.router.navigate([this.returnUrl]);
+        else {
+            this.zone.run(() => {
+                this.router.navigate(['landing/home']);
+            });
+        }
+    }
+}
+
+//GOOGLE LOGIN
+loginGmail(){
+    auth2.grantOfflineAccess().then((result) => this.signInCallback(result));
+}
+signInCallback(authResult) {
+    var params = {
+        Code: authResult.code,
+        ReturnUrl: window.location.origin,
+        GrantType: "authorization_code"
+    }
+    this.authenticationService.externalGoogleLogin(params).subscribe((response) => {
+        this.setlocalStorageAndGetCartDetails(response);
+
+    }, (error) => {
+        console.log(error);
+    })
+}
+
+//FACEBOOK LOGIN
+loginFacebook(){
+    FB.login((response) => {
+        this.statusChangeCallback(response);
+    }, { scope: 'public_profile,email' });
+}
+externalLogin(accessToken: string) {
+    this.authenticationService.externalFacebookLogin(accessToken).subscribe((response) => {
+        this.setlocalStorageAndGetCartDetails(response);
+    }, 
+    (error) => {
+        console.log(error);
+    })
+}
+statusChangeCallback(response) {
+    if (response.status === 'connected') {
+        this.externalLogin(response.authResponse.accessToken);
+    }
+}
+
+//APPLE LOGIN
+async loginApple(){
+    try {
+        const data = await AppleID.auth.signIn();
+        const jsonPayload: any = jwt_decode(data.authorization.id_token);
+        let appleRequest = {
+            UserId: jsonPayload.sub,
+            Email: null,
+            FirstName: null,
+            LastName: null
+        };
+        if (data.user) {
+            appleRequest.Email = data.user.email;
+            appleRequest.FirstName = data.user.name.firstName;
+            appleRequest.LastName = data.user.name.lastName;
+        }
+        this.appleExternalLogin(appleRequest);
+    } catch (error) {
+        console.log(error);
+    }
+}
+appleExternalLogin(appleRequest) {
+    this.authenticationService.appleExternalLogin(appleRequest).subscribe((response) => {
+        this.setlocalStorageAndGetCartDetails(response);
+    }, 
+    (error) => {
+        console.log(error);
+    })
+}
+
+
 
 }

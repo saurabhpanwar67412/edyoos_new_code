@@ -23,7 +23,9 @@ export const apiRoutes={
       resetPassword:`${environment.apiURL}/Account/ResetPassword`,
       changePassword:`${environment.apiURL}/Account/ChangePassword`,
       sendCustomerFeedBackMail:`${environment.apiURL}/Common/SendCustomerFeedBackMail`,
-      
+      externalFacebookLogin:`${environment.apiURL}/Account/ExternalFacebookLogin`,
+      externalGoogleLogin:`${environment.apiURL}/Account/ExternalGoogleLogin`,
+      appleExternalLogin:`${environment.apiURL}/Account/LoginWithApple`
    },
    cart:{
       addCart:`${environment.apiURL}/AddToCart/AddCart`,

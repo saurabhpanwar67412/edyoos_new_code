@@ -44,16 +44,30 @@
       <p class="register-text" (click)="goforgetpassword()" style="text-align: center;"><a> Forgot Password?</a> </p> <br>
       <p class="register-text" (click)="goRegister()" style="text-align: center;">Dont have account?<a> Register</a> </p> <br>
       
-      <div margin-top margin-bottom (click)="loginGmail()" class="tc flex jusify-center align-center flex-wrap w-100">
+        <div margin-top margin-bottom (click)="loginGmail()" class="tc flex jusify-center align-center flex-wrap w-100">
           <div class="w-100 tc flex align-center justify-center">
-              <button class="buttone google flex justify-center align-center" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" class="flex self-center pr2"  > Login with google</button>
+              <button class="buttone google flex justify-center align-center" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" class="flex self-center pr2" >Login with google</button>
           </div>
-      </div> 
+        </div> 
+
+        <div margin-top margin-bottom (click)="loginFacebook()" class="tc flex jusify-center align-center flex-wrap w-100">
+            <div class="w-100 tc flex align-center justify-center">
+                <button class="buttone google flex justify-center align-center" ><img src="assets/img/facebook_logo.png" class="flex self-center pr2" >Login with Facebook</button>
+            </div>
+        </div> 
+
+        <div margin-top margin-bottom (click)="loginApple()" class="tc flex jusify-center align-center flex-wrap w-100">
+            <div class="w-100 tc flex align-center justify-center">
+                <button class="buttone google flex justify-center align-center"><img src="../../assets/img/apple_logo.png" class="flex self-center pr2">Login with Apple</button>
+            </div>
+        </div> 
       
-          <div margin-top margin-bottom (click)="loginphone()" class="tc flex jusify-center align-center flex-wrap w-100">
+        <!-- <div margin-top margin-bottom (click)="loginphone()" class="tc flex jusify-center align-center flex-wrap w-100">
           <div class="w-100 tc flex align-center justify-center">
-              <button class="buttone google flex justify-center align-center" [routerLink]="['/phone-verification']" > Login with Phone</button>
+              <button class="buttone google flex justify-center align-center" [routerLink]="['/phone-verification']" >Login with Phone</button>
           </div>
-          </div> 
+        </div>  -->
+
+       
       </div>
   </ion-content>

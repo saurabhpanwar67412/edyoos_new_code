@@ -1,19 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Email Confirmation</ion-title>
+    <ion-title color="primary" mode="ios">Email Confirmation</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  iv class="container py-5">
+<ion-content padding text-center>
+
+    <div  class="form">
+        <div  class="form">
+            <form [formGroup]="confirmEmailForm" (ngSubmit)="onSubmit()">
+                <br> 
+                <ion-list>
+                    <ion-item>
+                        <ion-input [type]="passwordType" placeholder="Enter Password" (blur)="logValidationErrors()" formControlName="password"></ion-input>
+                        <!-- <ion-icon (click)='hideShowPassword()' [name]="passwordIcon" item-right></ion-icon> -->
+                    </ion-item>
+                    <br>
+                    <div *ngIf="formErrors.password" class="text-danger">
+                      {{formErrors.password}}
+                    </div>
+                   
+                    </ion-list>
+        
+                    <ion-button class="goodfont boton"  type="submit" mode="ios" fill="solid" slot="end" color="primary" [disabled]="submitBtnDisable || confirmEmailForm.invalid">
+                        <span class="spinner-border spinner-border-sm" *ngIf="submitBtnClicked" role="status" aria-hidden="true"></span>
+                           {{submitBtnClicked?'Loading...':'Submit'}}
+                    </ion-button>
+                    <div class="text-center text-danger mt-2">
+                        {{httpError}}
+                    </div>
+            </form>
+        </div>
+    </div>
+    
+  <!-- <div class="container py-5">
   <div class="row no-gutters">
       <div class="col-12 col-md-7 mx-auto px-md-5 bg-light" style="border-radius: 20px;">
           <form [formGroup]="confirmEmailForm" (ngSubmit)="onSubmit()">
               <div class="form-card">
                   <div class="form-card-grid">
                       <h1 class="h1 font-weight-bold text-center py-2" style="font-size: 30px;">Confirm Email</h1>
-                     
-                          <div class="col-12 mb-2">
+                        <div class="col-12 mb-2">
                               <div class="form-group">
                                   <input class="form-control form-control-lg" type="password"
                                       (blur)="logValidationErrors()" placeholder="Enter Password" id="password"
@@ -23,7 +50,6 @@
                                   </div>
                               </div>
                           </div>
-
                           <div class="col-12 text-center">
                               <div class="form-group mt-4 mb-3">
                                   <button class="btn-login py-2"
@@ -33,19 +59,14 @@
                                       {{submitBtnDisable?'Loading...':'Submit'}}
                                   </button>
                               </div>
-
                               <div class="text-center text-danger mt-2">
                                   {{httpError}}
                               </div>
                           </div>
-
                   </div>
               </div>
-
           </form>
-
       </div>
   </div>
-
-
+  </div> -->
 </ion-content>

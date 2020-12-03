@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>Parking Details</ion-title>
+    <ion-title mode="ios" color="primary">Parking Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -29,10 +29,10 @@
        
       </ion-card-content>
       <ion-item>
-        <ion-button fill="outline" slot="end" (click)="details(parkingDetail)">View details</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-button fill="outline" slot="end" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
+        <ion-button slot="end" color="warning" (click)="details(parkingDetail)">View details</ion-button>
+      <!-- </ion-item>
+      <ion-item> -->
+        <ion-button slot="end" color="primary" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
       </ion-item>
     </ion-card>
 

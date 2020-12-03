@@ -94,7 +94,7 @@ export class ForgetPasswordPage implements OnInit {
       this.submitBtnDisable=true;
       let forgetPassword=new ForgetPassword();
       forgetPassword.Email=this.forgetPasswordForm.get('email').value;
-      forgetPassword.ReturnUrl=`${environment.basePath}/#/pages/resetpassword`;
+      forgetPassword.ReturnUrl=`${environment.basePath}/resetpassword`;
       console.log("forgetPassword.Email::::", forgetPassword.Email)
       console.log("forgetPassword.ReturnUrl::::", forgetPassword.ReturnUrl)
 

@@ -67,6 +67,10 @@ const routes: Routes = [
   },  {
     path: 'emailconfirmation',
     loadChildren: () => import('./emailconfirmation/emailconfirmation.module').then( m => m.EmailconfirmationPageModule)
+  },
+  {
+    path: 'resetpassword',
+    loadChildren: () => import('./resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
   }
 
 
