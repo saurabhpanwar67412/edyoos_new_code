@@ -19,34 +19,43 @@ export class MybagPage implements OnInit {
   collapsed = true;
   isLoggedIn;
   cartTopStyle = '-1503px';
+  localdata : any ; 
 
   constructor(private storage: Storage,
     public router: Router,
     private placesService: PlacesService,
     private userService: UserService,
     private authenticationService: AuthenticationService) { 
-    this.get();
+      this.storage.get('booked').then((val) => {
+        console.log('Your age is', val[0]);
+        this.localdata =  val;
+      });
+   
   }
 
 
   
-  get(){
-    this.storage.get('booked').then((val) => {
-      console.log('Your age is', val);
-    });
-  }
+ 
 
   ngOnInit(): void {
     if(this.authenticationService.userValue){
+      console.log("if called");
       this.isLoggedIn = true;
     }
     else{
+      console.log("else called");
       this.isLoggedIn = false;
     }
+
+    let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
     
-    // if (localStorage.getItem('userData')) {
-    //   this.isLoggedIn = true;
-    // }
+    if (localStorage.getItem('edyoosUserDetails')) {
+      this.isLoggedIn = true;
+    }
+    else{
+
+      this.isLoggedIn = false;
+    }
 
     this.ordersCount = this.placesService.cartPropertyGroup.length;
     this.placesService.addedCartPropertyGroup.subscribe((value:any[]) => {
@@ -55,16 +64,18 @@ export class MybagPage implements OnInit {
       if(this.ordersCount==0){
         this.cartTopStyle = '-1503px';
       }
-      console.log(value);
+      console.log("value from order cart", value);
       
     });
     
 
     this.authenticationService.user.subscribe((user) => {
      if(user){
+      console.log("if called");
       this.isLoggedIn = true;
      }
      else{
+      console.log("if called");
       this.isLoggedIn = false;
      }
     });
@@ -83,25 +94,28 @@ export class MybagPage implements OnInit {
     }
   }
 
-  goToPlace(propertyGroup:any) {
-    console.log(propertyGroup);
+  goToPlace(val:any) {
+    console.log(val);
 
         let detailsRequest:any={};
 
-        detailsRequest.searchfilter = propertyGroup.city;
-        detailsRequest.latitude = propertyGroup.latitude;
-        detailsRequest.longititude = propertyGroup.longitude;
-        detailsRequest.fromdate = propertyGroup.fromDate;
-        detailsRequest.todate = propertyGroup.toDate;
-        detailsRequest.fromtime = new Date(propertyGroup.fromDate).toLocaleTimeString();
-        detailsRequest.totime = new Date(propertyGroup.todate).toLocaleTimeString();
+        detailsRequest.searchfilter = val.city;
+        detailsRequest.latitude = val.latitude;
+        detailsRequest.longititude = val.longitude;
+        detailsRequest.fromdate = val.fromDate;
+        detailsRequest.todate = val.toDate;
+        detailsRequest.fromtime = new Date(val.fromDate).toLocaleTimeString();
+        detailsRequest.totime = new Date(val.todate).toLocaleTimeString();
         detailsRequest.parkingcategory='auto';
-        this.router.navigate([`/details/${propertyGroup.propertyGroupID}`, detailsRequest]);
+        this.router.navigate([`/booking/${val.propertyGroupID}`, detailsRequest]);
   }
 
-  deletePlace(index:number){
+  deletePlace(index : number){
+    console.log("data from delete", index)
+
     this.placesService.cartPropertyGroup.splice(index,1);
 
+    localStorage.removeItem('booked[index]' );
     localStorage.setItem('bookedPlaces', JSON.stringify(this.placesService.cartPropertyGroup));
 
     this.placesService.addedCartPropertyGroup.next(this.placesService.cartPropertyGroup);

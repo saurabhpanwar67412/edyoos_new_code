@@ -34,17 +34,23 @@ export const apiRoutes={
       getCartDetails:`${environment.apiURL}/AddToCart/GetAllCartDetails`
    },
    payment:{
+      // second api to call after email and account value get .
       createPaymentIntent:`${environment.apiURL}/PaymentGateWay/create-payment-intent`,
+      //  api to get the saved card details of that particular logged in user
       GetPaymentMethodsById:`${environment.apiURL}/PaymentGateWay/GetPaymentMethodsById`,
+      // for loggined and has card customer
       chargeCustomerByPaymentId:`${environment.apiURL}/PaymentGateWay/ChargeCustomer`,
       cardSetup:`${environment.apiURL}/PaymentGateWay/card-setup`,
+      // third api to call 
       saveCard:`${environment.apiURL}/PaymentGateWay/save_card`,
       updatePaymentDetails:`${environment.apiURL}/PaymentGateWay/update_paymentMethod`,
       refundPayment:`${environment.apiURL}/PaymentGateWay/refund_payment`,
+      // first api key to get the publisblekey 
       getPublishableKey:`${environment.apiURL}/PaymentGateWay/get-publishable-key`
    },
 
    booking:{
+      // first api to call after payment
       addBookingDetails:`${environment.apiURL}/booking/AddBookingPaymentDetails`,
       getallBookingById:`${environment.apiURL}/Booking/GetBookingDetails`,
        deletePaymentCardDetails: `${environment.apiURL}/Booking/DeletePaymentCardDetails`,

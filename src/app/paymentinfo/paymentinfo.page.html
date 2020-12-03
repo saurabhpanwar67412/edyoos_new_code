@@ -16,43 +16,35 @@
          
           <ion-item-divider>
             <h3>Payment Information</h3> </ion-item-divider>
-            <!--start saurabh-->
-             <form  method="post" [formGroup]="paymentForm">
+            <!--start saurabh  [formGroup]="paymentForm" -->
+             <form  method="post" >
                          <ion-item>
                           <div class="form-group">
+                            <!--         [formControlName]="PAYMENTINFO_METADATA.cardName" -->
                 <ion-label position="floating">Card Holder Name <span class="text-danger">*</span></ion-label>
                 <ion-input style="min-height: 2.75rem;" type="text" class="form-control" id="card-name"
-                [formControlName]="PAYMENTINFO_METADATA.cardName" aria-describedby="cardname"
+         aria-describedby="cardname"
                 placeholder="Card Name"></ion-input>
                 </div>
               </ion-item>
 
-            <br>
-            <div class="form-group">
-              <ion-item>
-             <ion-label position="floating">Credit or Debit Card <span class="text-danger">*</span></ion-label>
-                <ion-input  type="tel"   id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="16" placeholder="xxxx xxxx xxxx xxxx" name="Phone"></ion-input>
-              </ion-item>
-              </div>
-<!--               
+            <br> <br>
+           
+              
                 <label for="card-element">Credit or debit number <span class="text-danger">*</span></label>
-                <div id="card-element" class="border-style" #cardElement>
+         
+            <ion-card-content>
+              <form action="/" method="post" id="payment-form">
+                <div class="form-row">
+                  <div id="card-element"> <!-- a Stripe Element will be inserted here. --> </div>
+                  <!-- Used to display Element errors -->
+                  <div id="card-errors" role="alert"></div>
                 </div>
-                <p id="card-error" role="alert" class="text-danger mb-0">{{cardErrors}}</p>
-         -->
-              
-            <br>
-            <ion-item>
-              
-              <ion-label position="floating">MM/YY</ion-label>
-              <ion-input  type="tel"   maxlength="" name="Phone" placeholder="Expiry date"></ion-input>
-              <ion-label position="floating">CVV</ion-label>
-              <ion-input  type="tel"   id="ccn" type="tel" inputmode="numeric"  autocomplete="cc-number" maxlength="3" placeholder="CVV" name="Phone"></ion-input>
-          
-              <ion-label position="floating">ZIP</ion-label>
-              <ion-input  type="tel"   id="ccn" type="tel" inputmode="numeric"  autocomplete="cc-number" maxlength="5 " placeholder="ZIP" name="Zip"></ion-input>
-          
-            </ion-item><br>
+                <ion-button type="submit" color="success" expand="full">Make Payment</ion-button>
+              </form>
+            </ion-card-content>
+           
+            .
 
             <!-- PROMOCODE START -->
              <button  color="primary" (click)="get(sdcsdc)" >Apply</button>

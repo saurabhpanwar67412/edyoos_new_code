@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
+import {Stripe} from '@ionic-native/stripe/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,6 +49,7 @@ import { Base64 } from '@ionic-native/base64/ngx';
   providers: [
     StatusBar,
     SplashScreen,
+    Stripe,
     Geolocation, NativeGeocoder, Camera, Base64, 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
