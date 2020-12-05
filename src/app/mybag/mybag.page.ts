@@ -27,7 +27,7 @@ export class MybagPage implements OnInit {
     private userService: UserService,
     private authenticationService: AuthenticationService) { 
       this.storage.get('booked').then((val) => {
-        console.log('Your age is', val[0]);
+        //console.log('Your age is', val[0]);
         this.localdata =  val;
       });
    
