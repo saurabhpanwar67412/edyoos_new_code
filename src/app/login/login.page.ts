@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
     // }
     this.loginForm = this.fb.group({
         email: [null,[Validators.required,
-        // Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")
+       // Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")
         Validators.email
         ]],
         password: [null, Validators.required],
@@ -147,6 +147,9 @@ onSubmit(): void {
         let userLogin = new UserLogin();
         userLogin.Email = this.loginForm.get('email').value;
         userLogin.Password = this.loginForm.get('password').value;
+        console.log("userLogin.Email::::", userLogin.Email);
+        console.log("userLogin.Email::::", userLogin.Email);
+
         this.submitBtnDisable = true;
         let userData: any = {};
         this.loginService.userLogin(userLogin).subscribe((response: ApiResponse<User>) => {
@@ -204,7 +207,7 @@ onSubmit(): void {
                     if (this.returnUrl)
                         this.router.navigate([this.returnUrl]);
                     else
-                        this.router.navigate(['user/dashboard/myorders']);
+                        this.router.navigate(['tab3']);
                 }
             }
         , (error) => {
@@ -263,7 +266,7 @@ setlocalStorageAndGetCartDetails(response) {
                 this.router.navigate([this.returnUrl]);
             else {
                 this.zone.run(() => {
-                    this.router.navigate(['landing/home']);
+                    this.router.navigate(['tab1']);
                 });
             }
         }, 
@@ -277,7 +280,7 @@ setlocalStorageAndGetCartDetails(response) {
             this.router.navigate([this.returnUrl]);
         else {
             this.zone.run(() => {
-                this.router.navigate(['landing/home']);
+                this.router.navigate(['tab1']);
             });
         }
     }

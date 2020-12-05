@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content class="profile">
-  <ion-card no-margin>
+  <p *ngIf="loggedin==null" style="margin-left: 84px;font-size: 20px;margin-top: 386px;"> Please Login to see your profile.</p>
+  <ion-card no-margin *ngIf="loggedin != null">
     
     
 <!-- IMAGE START -->

@@ -65,10 +65,10 @@ export class ProfilePage implements OnInit {
   firstName: any;
   lastName: any;
   email:string;
+  loggedin : any ;
 
   @ViewChild('searchBar')
   public searchElementRef: ElementRef;
-
 
   constructor(private formBuilder: FormBuilder,
     //private modalService: NgbModal,
@@ -91,44 +91,47 @@ export class ProfilePage implements OnInit {
     {
       let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
       //let userdetails = JSON.parse(this.activatedRoute.snapshot.paramMap.get('userData'));
-      console.log("userdetails inside constructor:::", userdetails)
-      if(userdetails.id)
-      {
-        this.userid = userdetails.id;
-        this.email = userdetails.email;
-        this.firstName = userdetails.firstName;
-        this.lastName = userdetails.lastName;
-        this.email = userdetails.email;
-        this.createImageForm();
-        this.imageForms.push(this.createFileGroup());
-    
-        for (let i = -12; i < 15; i++) {
-          if (i > -1) {
-            this.timeZones.push('+' + i);
-          }
-          else {
-            this.timeZones.push(i);
+      console.log("userdetails inside constructor of profile page:::", userdetails)      
+        
+        if(userdetails == null){
+          this.loggedin = null
+          console.log("this.loggedin value on profile page construtor::", this.loggedin);
+        }
+        else{
+          console.log("insidee else on profile page constructor!!");
+          this.loggedin = userdetails;
+          this.userid = userdetails.id;
+          this.email = userdetails.email;
+          this.firstName = userdetails.firstName;
+          this.lastName = userdetails.lastName;
+          this.email = userdetails.email;
+          this.createImageForm();
+          this.imageForms.push(this.createFileGroup());
+          
+          for (let i = -12; i < 15; i++) {
+            if (i > -1) {
+              this.timeZones.push('+' + i);
+            }
+            else {
+              this.timeZones.push(i);
+            }
           }
         }
-      }
-      else{
-        this.presentAlert();
-      }
-      
+
      }
 
-     async presentAlert() {
-      const alert = await this.alertCtrl.create({
-        header: '',
-        //subHeader: 'Registration Successful',
-        message: 'Please login first.',
-        buttons: [{
-          text: 'Ok',
-            handler: data => {}
-        }]
-      });
-      await alert.present();
-    }
+    //  async presentAlert() {
+    //   const alert = await this.alertCtrl.create({
+    //     header: '',
+    //     //subHeader: 'Registration Successful',
+    //     message: 'Please login first.',
+    //     buttons: [{
+    //       text: 'Ok',
+    //         handler: data => {}
+    //     }]
+    //   });
+    //   await alert.present();
+    // }
 
     ngOnInit(): void {
       this.tabName = 'settings';
@@ -240,7 +243,7 @@ export class ProfilePage implements OnInit {
 
       this.userService.getuserprofile(this.userid).subscribe((response) => {
         console.log("userid getuserprofile()::::", this.userid)
-        console.log(" response inside getuserprofile()::::", response)
+        console.log("response inside getuserprofile()::::", response)
         
         this.profileid = response.data[0].userProfileDetailsID;
         this.profileForm.patchValue(response.data[0]);

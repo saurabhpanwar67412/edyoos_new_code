@@ -109,10 +109,10 @@ export class Tab3Page {
       this.currentloc = localStorage.getItem("latandlong");
       this.currentAdd = localStorage.getItem("currentAddress") == null ? "My+Location" : localStorage.getItem("currentAddress");
       let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
-      console.log("userdetails inside constructor:::", userdetails)
+      console.log("userdetails inside constructor tab3 page:::", userdetails)
       if(userdetails == null){
         this.loggedin = null
-        console.log("this.logged in value", this.loggedin);
+        console.log("this.logged in value tab3page", this.loggedin);
       }
       else{
         console.log("logined in else");
