@@ -351,6 +351,9 @@ appleExternalLogin(appleRequest) {
     })
 }
 
+home(){
+    this.router.navigate(['/']);
+  }
 
 
 }

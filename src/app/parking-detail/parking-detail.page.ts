@@ -336,5 +336,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
      return await modalPage.present();
   }
 
-  
+  home(){
+    this.router.navigate(['/']);
+  }
   }

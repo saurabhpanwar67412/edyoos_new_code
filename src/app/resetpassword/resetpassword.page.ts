@@ -178,6 +178,8 @@ export class ResetpasswordPage implements OnInit {
   }
 
 }
+
+
 function matchPassword(group: AbstractControl): { [key: string]: any } | null {
 
   const passwordControl = group.get('password');
@@ -190,5 +192,7 @@ function matchPassword(group: AbstractControl): { [key: string]: any } | null {
     confirmPasswordControl.setErrors({'passwordMismatch': true});
     return { 'passwordMismatch': true };
   }
+  
+  
 
 }

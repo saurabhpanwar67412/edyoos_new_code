@@ -113,6 +113,9 @@ export class EmailconfirmationPage implements OnInit {
 
     }
   }
+  home(){
+    this.router.navigate(['/']);
+  }
 
 
   //http://localhost:8100/emailconfirmation?userId=355&token=CfDJ8JexowKIEzxGi3QLmjg2tmeMZAg3l%2bdLxBtWRaTer%2bhtsMhw24dwhfcbUlg7IiAisOrNrONvMxCZZ%2b5XHE4GPI4MukvJjb7QVR3JIGUUfG5Ps%2fNuWI%2fUgtkYC2yN4jwf09tAwB%2bV%2frNiMYuPpH2rhzCF3Si2mTin8fzF6LfOQPiacl1U9HQ5rmvZwLLLudHSzg%3d%3d&email=ayushgosecur@gmail.com

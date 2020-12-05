@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -13,6 +14,10 @@ export class Tab2Page {
   {reply:"nothing much",id:"1"}]
 
 
-  constructor() {}
+  constructor(private router: Router,) {}
+
+  home(){
+    this.router.navigate(['/']);
+  }
 
 }

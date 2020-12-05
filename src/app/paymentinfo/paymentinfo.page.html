@@ -13,11 +13,12 @@
       <div class="col-md-4">
         <div class="card card-1" >
 
-         
+<!--          
           <ion-item-divider>
-            <h3>Payment Information</h3> </ion-item-divider>
+            <h3>Payment Information</h3> </ion-item-divider> -->
             <!--start saurabh  [formGroup]="paymentForm" -->
-             <form  method="post" >
+            <br><br>
+             <form  method="post" [formGroup]="paymentForm">
                          <ion-item>
                           <div class="form-group">
                             <!--         [formControlName]="PAYMENTINFO_METADATA.cardName" -->
@@ -30,24 +31,22 @@
 
             <br> <br>
            
-              
-                <label for="card-element">Credit or debit number <span class="text-danger">*</span></label>
-         
             <ion-card-content>
-              <form action="/" method="post" id="payment-form">
+              <label for="card-element">Credit or debit number <span class="text-danger">*</span></label>
+         
+            
                 <div class="form-row">
                   <div id="card-element"> <!-- a Stripe Element will be inserted here. --> </div>
                   <!-- Used to display Element errors -->
                   <div id="card-errors" role="alert"></div>
                 </div>
-                <ion-button type="submit" color="success" expand="full">Make Payment</ion-button>
-              </form>
+                  
             </ion-card-content>
            
             .
 
             <!-- PROMOCODE START -->
-             <button  color="primary" (click)="get(sdcsdc)" >Apply</button>
+             <!-- <ion-button  color="primary" (click)="get(sdcsdc)" >Apply</ion-button> -->
     <!-- <div class="col-12">
       <hr class="mt-0" />
       <div class="col-xl-6 col-lg-7 col-12 pl-0">
@@ -105,7 +104,7 @@
         <div class="card card-2">
           <ion-item-divider> <h3>Vehicle Details</h3></ion-item-divider>     
         
-          <form  method="post">
+        
             <ion-item>
               <ion-label position="floating">License plate number*</ion-label>
               <ion-input  type="email" name="email"></ion-input>
@@ -128,7 +127,7 @@
           <br>
           
             <ion-button type="submit" expand="full" color="primary" (click)="checkout()">Reserve Now</ion-button>
-          </form>
+        
     
 <br>
          

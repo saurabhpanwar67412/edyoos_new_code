@@ -91,6 +91,8 @@ export class BookingPage implements OnInit {
   }
 
   confirmtoaccount(){
+    
+    console.log("this data from booking", this.data);
     let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
     console.log("user is loggedin alread", userdetails);
    if(userdetails){
@@ -155,7 +157,9 @@ export class BookingPage implements OnInit {
     }
 
    
-
+    home(){
+      this.router.navigate(['/']);
+    }
 
     
     
