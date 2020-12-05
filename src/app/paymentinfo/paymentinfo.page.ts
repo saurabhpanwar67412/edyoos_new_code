@@ -959,7 +959,9 @@ export class PaymentinfoPage implements OnInit {
   }
 
   
-
+  home(){
+    this.router.navigate(['/']);
+  }
 
 
 

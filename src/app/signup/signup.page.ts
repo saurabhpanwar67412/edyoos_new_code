@@ -247,6 +247,9 @@ export class SignupPage implements OnInit {
     }
 
   }
+  home(){
+    this.router.navigate(['/']);
+  }
 
   goLogin(){
     this.router.navigate(['login'])

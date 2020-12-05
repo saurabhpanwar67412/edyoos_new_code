@@ -725,5 +725,9 @@ export class ProfilePage implements OnInit {
   //   });
   // }
 
+  home(){
+    this.router.navigate(['/']);
+  }
+
   
 }

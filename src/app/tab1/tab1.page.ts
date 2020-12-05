@@ -463,7 +463,9 @@ export class Tab1Page implements OnInit, AfterViewInit {
 
   
 
-
+  home(){
+    this.router.navigate(['/']);
+  }
 
 
 }

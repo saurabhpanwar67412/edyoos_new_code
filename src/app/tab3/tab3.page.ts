@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/shared/authentication/authenticat
 import { CommonService } from 'src/app/shared/common.service ';
 import { ToastController } from '@ionic/angular';
 // import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'CancelConfirmDialog',
@@ -43,7 +44,7 @@ export class Tab3Page {
   data:  any ;
   loggedin : any ; 
   constructor(private dashboardService: DashboardService, public dialog: MatDialog,
-    private paymentService: PaymentService, public commonService: CommonService,
+    private paymentService: PaymentService, public commonService: CommonService,private router: Router,
     private authenticationService: AuthenticationService, public toastController: ToastController) {}
     
     cancelDialog(order, request, width): void {
@@ -197,6 +198,10 @@ export class Tab3Page {
   
     getImage(order: any): string {
       return order && order.files && order.files[0] && order.files[0].filePath ? order.files[0].filePath : '';
+    }
+
+    home(){
+      this.router.navigate(['/']);
     }
   
 }

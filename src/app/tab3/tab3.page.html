@@ -2,6 +2,8 @@
   <ion-toolbar> 
     <ion-buttons *ngIf="!showSearchbar" slot="start">
     <ion-menu-button></ion-menu-button>
+    <a (click)="home()">
+      <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>
   </ion-buttons>
     <ion-title mode="ios" color="primary"> My Orders Details </ion-title>
   </ion-toolbar>

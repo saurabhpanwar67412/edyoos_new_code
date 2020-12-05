@@ -12,8 +12,8 @@ export class PaymentsuccessPage implements OnInit {
 
   ngOnInit() {
   }
-  Home(){
-    this.router.navigate([''] );
-  }
 
+  home(){
+    this.router.navigate(['/']);
+  }
 }

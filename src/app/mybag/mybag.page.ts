@@ -95,19 +95,29 @@ export class MybagPage implements OnInit {
   }
 
   goToPlace(val:any) {
+
+   
+    let navigationExtras: any = {
+      queryParams: {
+        special: JSON.stringify(val)
+      }
+    };
+    // this.navCtrl.navigateForward('booking', this.searchobject);
+    this.router.navigate(['booking'],navigationExtras );
+
     console.log(val);
 
-        let detailsRequest:any={};
+        // let detailsRequest:any={};
 
-        detailsRequest.searchfilter = val.city;
-        detailsRequest.latitude = val.latitude;
-        detailsRequest.longititude = val.longitude;
-        detailsRequest.fromdate = val.fromDate;
-        detailsRequest.todate = val.toDate;
-        detailsRequest.fromtime = new Date(val.fromDate).toLocaleTimeString();
-        detailsRequest.totime = new Date(val.todate).toLocaleTimeString();
-        detailsRequest.parkingcategory='auto';
-        this.router.navigate([`/booking/${val.propertyGroupID}`, detailsRequest]);
+        // detailsRequest.searchfilter = val.city;
+        // detailsRequest.latitude = val.latitude;
+        // detailsRequest.longititude = val.longitude;
+        // detailsRequest.fromdate = val.fromDate;
+        // detailsRequest.todate = val.toDate;
+        // detailsRequest.fromtime = new Date(val.fromDate).toLocaleTimeString();
+        // detailsRequest.totime = new Date(val.todate).toLocaleTimeString();
+        // detailsRequest.parkingcategory='auto';
+        // this.router.navigate([`/booking/${val.propertyGroupID}`, detailsRequest]);
   }
 
   deletePlace(index : number){
@@ -124,6 +134,10 @@ export class MybagPage implements OnInit {
   signOut() {
 
    this.authenticationService.logout();
+  }
+
+  home(){
+    this.router.navigate(['/']);
   }
 
 

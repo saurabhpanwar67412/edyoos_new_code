@@ -113,6 +113,9 @@ debugger;
 
   }
 
+  home(){
+    this.router.navigate(['/']);
+  }
   
 
 }
