@@ -23,7 +23,6 @@ export class LoginService{
    forgetPassword(forgetPassword:ForgetPassword){
     return this.http.post<ApiResponse<string>>(apiRoutes.login.forgetPassword,forgetPassword);
    }
-
    resetPassword(resetPassword:ResetPassword){
      return this.http.post<ApiResponse<string>>(apiRoutes.login.resetPassword,resetPassword);
     }
