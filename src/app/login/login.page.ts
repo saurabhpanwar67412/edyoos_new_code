@@ -148,12 +148,14 @@ onSubmit(): void {
         userLogin.Email = this.loginForm.get('email').value;
         userLogin.Password = this.loginForm.get('password').value;
         console.log("userLogin.Email::::", userLogin.Email);
-        console.log("userLogin.Email::::", userLogin.Email);
+        console.log("userLogin.Password::::", userLogin.Password);
 
         this.submitBtnDisable = true;
         let userData: any = {};
         this.loginService.userLogin(userLogin).subscribe((response: ApiResponse<User>) => {
+            console.log("inside api call on login page!!")
             if (response.data) {
+
               userData = response.data;
               console.log("login data response=",userData);
                 this.submitBtnDisable = false;
@@ -170,7 +172,7 @@ onSubmit(): void {
                 if (!this.authenticationService.isAuthorized()) { 
                     this.authenticationService.setUserValue(response.data);
                     localStorage.setItem('userData', userData);
-                    this.router.navigate(['/profile'],userData);
+                    this.router.navigate(['profile'],userData);
 
                     // let cart: Cart[] = [];
                     // if (this.placesService.cartPropertyGroup.length > 0) {

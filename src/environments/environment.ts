@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  basePath: 'http://edyoosdev.com/api',
+  basePath: 'https://edyoos-uat-swaggerportal.azurewebsites.net/api',
   // apiURL: 'https://localhost:44373/api',
   mapApiKey: 'AIzaSyBXpAi3HWN4ipnapLHKpMdJy2IM61o9amU',
   blobURL: 'https://edyooswebapplogs.blob.core.windows.net',
   blobAmenitiesContainer: 'edyoos-amenieties',
-  apiURL: 'http://edyoosdev.com/api'
+  apiURL: 'https://edyoos-uat-swaggerportal.azurewebsites.net/api'
 };
 
 /*
