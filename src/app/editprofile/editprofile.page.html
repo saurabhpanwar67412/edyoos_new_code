@@ -12,8 +12,8 @@
 </ion-header>
 
 <ion-content class="profile">
-  <p *ngIf="loggedin==null" style="margin-left: 84px;font-size: 20px;margin-top: 386px;"> Please Login to see your profile.</p>
-  <ion-card no-margin *ngIf="loggedin != null">
+  
+  <ion-card no-margin >
     
     
 <!-- IMAGE START -->
@@ -51,12 +51,7 @@
               Change
             </ion-button>
           </div>
-          <div>
-            <ion-button icon-left color="secondary"  (click)="logout()"> 
-              Logout
-            </ion-button>
-          </div>
-        
+               
          
           <!-- <ion-content>
               {{imageError}}

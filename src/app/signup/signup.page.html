@@ -1,20 +1,30 @@
- <ion-header no-border>
-  <ion-toolbar no-border>
-      <ion-buttons  slot="start">
-          <ion-button [routerLink]="['/']"  >
-            <ion-icon mode="ios" color="primary" slot="icon-only" name="arrow-back"></ion-icon>
-         </ion-button>
-         <a (click)="home()">
-          <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>    
-      </ion-buttons>
-    <ion-title  mode="ios" color="primary">Sign up</ion-title>
-  </ion-toolbar>
-</ion-header>
+ <!-- <ion-header no-border> -->
+  <!-- <ion-toolbar no-border>
+    <ion-buttons  slot="start">
+        <ion-button [routerLink]="['/']"  >
+          <ion-icon mode="ios" color="primary" slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+        <a (click)="home()"></a>    
+    </ion-buttons>
+  </ion-toolbar> -->
+<!-- </ion-header> -->
+
 <ion-content padding text-center>
 
     <div  class="form">
         <img style="margin:auto;" src="assets/icon/ionic_firebase-logo.png" alt="">
-        <h1 class="goodfont">Edyoos</h1>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col >
+              <ion-icon mode="ios" color="primary" slot="icon-only" name="arrow-back" (click)="home()"></ion-icon>
+            </ion-col>
+            <ion-col >
+              <h6 style="color:black; margin-top:-10%;">REGISTER</h6>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
         <br><br><br><br>
