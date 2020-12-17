@@ -1,33 +1,39 @@
-<ion-header no-border>
+<!-- <ion-header no-border> -->
     <ion-toolbar no-border>
         <ion-buttons  slot="start">
             <ion-button (click)="goback()"  >
               <ion-icon mode="ios" color="primary" slot="icon-only" name="arrow-back"></ion-icon>
               <a (click)="home()">
-                <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>          
+                <!-- <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/>  -->
+              </a>          
             </ion-button>
         </ion-buttons>
-      <ion-title  mode="ios" color="primary">Login</ion-title>
+      <!-- <ion-title  mode="ios" color="primary">Login</ion-title> -->
   
-      <ion-buttons slot="end" >
+      <!-- <ion-buttons slot="end" >
         <ion-button (click)="goedit()">
         <ion-icon color="primary" name="ellipsis-horizontal-outline" slot="icon-only"></ion-icon>
-         <!--   <ion-icon color="primary" name="more"  slot="icon-only"></ion-icon> -->
+        <ion-icon color="primary" name="more"  slot="icon-only"></ion-icon> 
         </ion-button>
-      </ion-buttons>
+      </ion-buttons> -->
     </ion-toolbar>
-  </ion-header>
+  <!-- </ion-header> -->
   
   <ion-content padding text-center>
       <div  class="form" >
-          <h1 class="goodfont" >Edyoos</h1><br>
-  
+          <h6 style="color:gray; text-align: center; margin-top: 30%;">Welcome to</h6><br>
+          <ion-grid>
+            <ion-row>
+              <ion-col><h3 style="color: royalblue; text-align:right; margin-top:-10%;">EDYOOS</h3></ion-col>
+              <ion-col><h3 style="color:black; margin-top:-10%;">LOG-IN</h3></ion-col>
+            </ion-row>
+          </ion-grid>
+  <br><br>
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <ion-list margin-top margin-bottom>
-          <br><br><br> <br>
-          <ion-item>
-              <ion-input type="text" tabindex="20" (keyup.enter)="moveFocus(b)" placeholder="Email" 
-              formControlName="email" required></ion-input>
+          
+          <ion-item class="email"> 
+              <ion-input type="text" tabindex="20" (keyup.enter)="moveFocus(b)" placeholder="User Name Or Email Address" formControlName="email" required></ion-input>
           </ion-item>
           <br><br>
           <ion-item>
@@ -37,33 +43,47 @@
           </ion-item>
           </ion-list>
           <br>
-  
-          <ion-button type="submit" class="goodfont boton btn" margin-bottom mode="ios"  expand="block"  
+          
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <ion-checkbox slot="start" value="remember_me"></ion-checkbox>
+                  <ion-label style="margin-left: 5%;">Remember Me</ion-label>
+                </div>
+              </ion-col>
+
+              <ion-col>
+                <div>
+                  <p class="register-text" (click)="goforgetpassword()"  style="text-align:end;"><a> Forgot Password?</a> </p> 
+                </div>    
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          <ion-button type="submit" margin-bottom mode="ios"  expand="block"  
            style="max-width: 67%; margin-left: 17%;">Login</ion-button>
           <br><br>
           </form>
   
-      <p class="register-text" (click)="goforgetpassword()" style="text-align: center;"><a> Forgot Password?</a> </p> <br>
-      <p class="register-text" (click)="goRegister()" style="text-align: center;">Dont have account?<a> Register</a> </p> <br>
-      
-        <div margin-top margin-bottom (click)="loginGmail()" class="tc flex jusify-center align-center flex-wrap w-100">
-          <div class="w-100 tc flex align-center justify-center">
-              <button class="buttone google flex justify-center align-center" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" class="flex self-center pr2" >Login with google</button>
-          </div>
-        </div> 
+      <div style="text-align: center; color:gray; margin-bottom: 5%;">Or</div>
 
-        <div margin-top margin-bottom (click)="loginFacebook()" class="tc flex jusify-center align-center flex-wrap w-100">
-            <div class="w-100 tc flex align-center justify-center">
-                <button class="buttone google flex justify-center align-center" ><img src="assets/img/facebook_logo.png" class="flex self-center pr2" >Login with Facebook</button>
-            </div>
-        </div> 
+      <ion-row>
+        <ion-col class="logo-google">
+          <ion-icon name="logo-google" color="danger" (click)="loginGmail()" ></ion-icon>
+        </ion-col>
+        <ion-col  class="logo-facebook">
+          <ion-icon name="logo-facebook" color="primary" (click)="loginFacebook()"></ion-icon>
+        </ion-col>
+        <ion-col class="logo-apple">
+          <ion-icon name="logo-apple" color="dark" (click)="loginApple()"></ion-icon>
+        </ion-col>
+      </ion-row>
+        
 
-        <div margin-top margin-bottom (click)="loginApple()" class="tc flex jusify-center align-center flex-wrap w-100">
-            <div class="w-100 tc flex align-center justify-center">
-                <button class="buttone google flex justify-center align-center"><img src="../../assets/img/apple_logo.png" class="flex self-center pr2">Login with Apple</button>
-            </div>
-        </div> 
-      
+      <p class="register-text" (click)="goRegister()" style="text-align: center; margin-top: 13%;">Dont have account?<a> Sign Up</a> </p> <br>
+
+
         <!-- <div margin-top margin-bottom (click)="loginphone()" class="tc flex jusify-center align-center flex-wrap w-100">
           <div class="w-100 tc flex align-center justify-center">
               <button class="buttone google flex justify-center align-center" [routerLink]="['/phone-verification']" >Login with Phone</button>

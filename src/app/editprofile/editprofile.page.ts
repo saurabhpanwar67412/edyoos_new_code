@@ -93,14 +93,14 @@ export class EditprofilePage implements OnInit {
     {
       let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
       //let userdetails = JSON.parse(this.activatedRoute.snapshot.paramMap.get('userData'));
-      console.log("userdetails inside constructor of profile page:::", userdetails)      
+      console.log("userdetails inside constructor of edit profile page:::", userdetails)      
         
         if(userdetails == null){
           this.loggedin = null
           console.log("this.loggedin value on profile page construtor::", this.loggedin);
         }
         else{
-          console.log("insidee else on profile page constructor!!");
+          console.log("insidee else on edit profile page constructor!!");
           this.loggedin = userdetails;
           this.userid = userdetails.id;
           this.email = userdetails.email;
@@ -665,15 +665,6 @@ export class EditprofilePage implements OnInit {
     colorControl.setValue(!colorControl.value);
   }
   
-   logout(){
-            this.authenticationService.logout();
-        
-            console.log("button cliked for logout")
-            localStorage.clear();
-            this.router.navigate(['/'] );
-          }
- 
-
   editVehiclePlate(vehicleDetails: any) {
     const dialogRef = this.dialog.open(EditLicensePlateComponent, {
       width: '800px',

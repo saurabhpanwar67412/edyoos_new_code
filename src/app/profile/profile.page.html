@@ -1,75 +1,86 @@
-<ion-header  [translucent]="true">
+<!-- <ion-header  [translucent]="true"> -->
   <ion-toolbar no-border>
       <ion-buttons *ngIf="!showSearchbar" slot="start">
-        <ion-menu-button></ion-menu-button> <a (click)="home()">
-          <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>    
+        <ion-icon mode="ios" color="primary" slot="icon-only" name="arrow-back"></ion-icon> <a (click)="home()"></a>
+          <!-- <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/>      -->
       </ion-buttons>
-    <ion-title  mode="ios" color="primary">Profile</ion-title>
-    <div class="editprofile" slot="end">
-      <ion-icon name="create-outline" color="primary" (click)="goto_editprofile()"></ion-icon>
-    </div>
+    <!-- <ion-title  mode="ios" color="primary">Profile</ion-title> -->
+    <ion-icon  class="editprofile" slot="end" name="create-outline" color="primary" (click)="goto_editprofile()"></ion-icon>
   </ion-toolbar>
-</ion-header>
+<!-- </ion-header> -->
 
 <ion-content>
+  <!-- <p *ngIf="loggedin==null" style="margin-left: 13%; font-size: 120%; margin-top: 70%;"> Please Login to see your profile.</p> -->
 
+<div  >
   <div>
-    <!-- <img src="assets/img/avatar.png"> -->
-    <!-- <div ng-controller="ProfileCtrl"> -->
-     
-      <div class="list card">
-        <ion-item class="profile-item">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col>
           <div class="profile-picture big-profile-picture">
             <img src="assets/img/avatar.png">
           </div>
-          <h2 class="profile-name dark">Palak</h2>
-          <div class="profile-info">Address</div>
-          <br>
-          <br>
-        </ion-item>
-        <br>
-        <ion-item>
-          <ion-button class="button button-block button-positive profile-item" color="primary" (click)="changeImage()">
-            Change
-          </ion-button>
-          <br>
-        </ion-item>
-        <br>
-      </div>
-     
+        </ion-col>
+        <ion-col>
+          <ion-row>
+            <div class="profile-name">Palak</div>
+          </ion-row>
+          <ion-row>
+            <div class="profile-address">Address</div>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <div class="profile-email">{{email}}</div>
+      </ion-row>
+
+      <ion-row>
+        <div class="profile-number">Phone number</div>
+      </ion-row>
+
+      <ion-row>
+        <ion-button class="button" color="primary" (click)="changeImage()">
+          Change
+        </ion-button>
+      </ion-row>
+
+    </ion-grid> 
   </div>
 
-  <ion-card>
+  
     <ion-grid>
       <ion-row>
-
+      <ion-card class="cart">
         <ion-col>
-          <div class="cart">
+          <div class="insidecart">
             <ion-icon name="cart"></ion-icon> Cart<br><br>
           </div>
         </ion-col>
-
+      </ion-card>
+      <ion-card class="orders">
         <ion-col>
-          <div class="orders">
+          <div class="insideorders"> 
             <ion-icon name="briefcase"></ion-icon>  Orders<br><br>
           </div>
         </ion-col>
-        
+      </ion-card>      
       </ion-row>
     </ion-grid>
-  </ion-card>
+ 
 
   <div>
-    <!-- <ion-icon name="heart-outline" color="primary"></ion-icon>  Your Favourites<br><br> -->
     <div class="payment">
-      <ion-icon name="wallet-outline" color="primary"></ion-icon> Payment<br><br>
+      <ion-icon name="wallet-outline" color="primary" (click)="goto_payment()"></ion-icon> Payment<br><br>
     </div>
     <div class="settings">
-      <ion-icon name="settings-outline" color="primary"></ion-icon>  Settings<br><br>
+      <ion-icon name="settings-outline" color="primary" (click)="goto_settings()"></ion-icon>  Settings<br><br>
     </div>
     <div class="logout">
-      <ion-icon name="power" color="danger"></ion-icon> Logout<br><br>
+      <ion-icon name="power" color="danger" (click)="logout()"></ion-icon> Logout<br><br>
     </div>
   </div>
+</div>
 
 </ion-content>
