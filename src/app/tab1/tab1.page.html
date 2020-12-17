@@ -25,37 +25,37 @@
 
   
   <ion-toolbar slot="fixed" color="translucent"  class="toolsearch"> 
- <ion-searchbar color="light" [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Search Destination"  (ionClear)="ClearAutocomplete()"> </ion-searchbar> 
- <ion-icon slot="start" name="locate" size="large" item-right (click)="getCurrentLocation()"></ion-icon>
+ <ion-searchbar color="light" [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Search Destination"  (ionClear)="ClearAutocomplete()" style="width: 85%; color: #696969"> </ion-searchbar> 
     <!-- <input placeholder="Search for location" *ngIf="showSearchbar type="text" [(ngModel)]="autocomplete.input" class="form-control" #search [formControl]="searchControl" onfocus="this.value=''"> -->
     <ion-list [hidden]="autocompleteItems.length == 0" >
       <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item);showSpin=true;showSearchbar=false">
         {{ item.description }}
       </ion-item>
     </ion-list>
+    <ion-icon slot="start" name="locate-outline" size="large" item-right (click)="getCurrentLocation()" style="margin-left: 315px;position: absolute;margin-bottom: 73px;"></ion-icon>
     <ion-grid>
       <ion-row>
         <ion-col size="2">
-          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;padding-left: 1px;padding-right: 2px;">City</ion-button>
+          <ion-button  id="1" expand="full" color="light" style="width: 43px !important; height: 43px !important;" (click)="parkingtype(id)"></ion-button>
         </ion-col>
         <ion-col size="2">
-          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Air</ion-button>
+          <ion-button id="2" expand="full" color="light" style="width: 43px !important; height: 43px !important;" (click)="parkingtype(id)"></ion-button>
         </ion-col>
         <ion-col size="2">
-          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Truck</ion-button>
+          <ion-button id="3" expand="full" color="light" style="width: 43px !important; height: 43px !important;" (click)="parkingtype(id)"></ion-button>
         </ion-col>
         <ion-col size="2">
-          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Boat</ion-button>
+          <ion-button id="4" expand="full" color="light" style="width: 43px !important; height: 43px !important;" (click)="parkingtype(id)"></ion-button>
         </ion-col>
         <ion-col size="2">
-          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Semi</ion-button>
+          <ion-button id="5" expand="full" color="light" style="width: 43px !important; height: 43px !important;" (click)="parkingtype(id)"></ion-button>
         </ion-col>
-        <ion-col size="2">
+        <!-- <ion-col size="2">
           <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Sea</ion-button>
         </ion-col>
         <ion-col size="2">
           <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Heli</ion-button>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
 </ion-toolbar>

@@ -472,6 +472,11 @@ export class Tab1Page implements OnInit, AfterViewInit {
     await alert.present();
   }
 
+parkingtype(id){
+  console.log("id from button click", id );
+
+
+}
   
 
   home(){
