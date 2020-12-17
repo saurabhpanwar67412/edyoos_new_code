@@ -13,17 +13,24 @@
 
     <div  class="form">
         <img style="margin:auto;" src="assets/icon/ionic_firebase-logo.png" alt="">
-
-        <ion-grid>
+        <ion-icon color="primary" style="margin-top: 110px;
+        position: absolute;
+        font-size: x-large;
+        width: 40px;" slot="icon-only" name="arrow-back" (click)="home()"></ion-icon>
+        <h6 style="color: black;
+        width: 40%;
+        margin-left: 22%;
+        margin-top: 25%;">REGISTER</h6>
+        <!-- <ion-grid>
           <ion-row>
             <ion-col >
-              <ion-icon mode="ios" color="primary" slot="icon-only" name="arrow-back" (click)="home()"></ion-icon>
+               <ion-icon color="primary" slot="icon-only" name="arrow-back" (click)="home()"></ion-icon>
             </ion-col>
             <ion-col >
-              <h6 style="color:black; margin-top:-10%;">REGISTER</h6>
+              <h6 style="color:black;">REGISTER</h6>
             </ion-col>
           </ion-row>
-        </ion-grid>
+        </ion-grid> -->
 
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
@@ -91,7 +98,25 @@
         </ion-button>
         <br>
 
-        <p class="register-text" style="text-align: center;" (click)="goLogin()"> You have a account ?<a> Login</a> </p>
+        <p class="register-text" (click)="terms_and_conditions()" style="text-align: center; color:gray; margin-top: 13%;">By Registering you agree to Terms & Conditions of<a> EDYOOS</a> </p> <br>
+
+        <div style="text-align: center; color:gray; margin-bottom: 5%;">Or</div>
+
+        <ion-row>
+          <ion-col class="logo-google">
+            <ion-icon name="logo-google" color="danger" (click)="loginGmail()" ></ion-icon>
+          </ion-col>
+          <ion-col  class="logo-facebook">
+            <ion-icon name="logo-facebook" color="primary" (click)="loginFacebook()"></ion-icon>
+          </ion-col>
+          <ion-col class="logo-apple">
+            <ion-icon name="logo-apple" color="dark" (click)="loginApple()"></ion-icon>
+          </ion-col>
+        </ion-row>
+          
+  
+        <p class="register-text" (click)="goLogin()" style="text-align: center; margin-top: 13%;">You have a account ?<a> LOG-IN</a> </p> <br>
+
       </form>
     </div>
 </ion-content> 
