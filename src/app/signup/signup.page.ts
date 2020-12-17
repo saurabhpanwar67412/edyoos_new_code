@@ -255,6 +255,10 @@ export class SignupPage implements OnInit {
     this.router.navigate(['login'])
   }
 
+  terms_and_conditions(){
+
+  }
+
   hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
