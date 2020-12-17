@@ -113,6 +113,17 @@ export class Tab1Page implements OnInit, AfterViewInit {
         let mapOptions = {
           center: latLng,
           zoom: 15,
+          mapTypeControl: false,
+          streetViewControl: false,
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID]
+          }, // here´s the array of controls
+          disableDefaultUI: true, // a way to quickly hide all controls
+          scaleControl: true,
+          zoomControl: true,
+          zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE 
+          },
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
   

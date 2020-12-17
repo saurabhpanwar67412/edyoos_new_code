@@ -1,41 +1,67 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons *ngIf="!showSearchbar" slot="start">
+ <!-- <ion-header [translucent]="true"  no-border >  -->
+  <!-- <ion-toolbar>  -->
+    <!-- <ion-buttons *ngIf="!showSearchbar" slot="start">
       <ion-menu-button></ion-menu-button>
       <a (click)="home()">
         <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>  
-    </ion-buttons>
-    <ion-title mode="ios" color="primary">Find parkings</ion-title>
+    </ion-buttons> -->
+    <!-- <ion-title mode="ios" color="primary">Find parkings</ion-title> -->
     <!-- <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Search for a place"  (ionClear)="ClearAutocomplete()" (ionCancel)="showSearchbar = false"></ion-searchbar> -->
     
-    <ion-searchbar #searchBar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Search for a place"  (ionClear)="ClearAutocomplete()" (ionCancel)="showSearchbar = false"></ion-searchbar>
+  <!-- </ion-toolbar>   -->
+    <!-- <ion-button *ngIf="showSearchbar" (click)="getCurrentLocation()"  shape="round" fill="outline" >
+        Use current location
+      </ion-button> -->
+      <!-- <ion-buttons slot="end">
+        <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button> 
+        </ion-buttons>  -->
+<!-- </ion-header> -->
+
+
+
+<ion-content fullscreen> 
+
+  
+  <ion-toolbar slot="fixed" color="translucent"  class="toolsearch"> 
+ <ion-searchbar color="light" [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Search Destination"  (ionClear)="ClearAutocomplete()"> </ion-searchbar> 
+ <ion-icon slot="start" name="locate" size="large" item-right (click)="getCurrentLocation()"></ion-icon>
     <!-- <input placeholder="Search for location" *ngIf="showSearchbar type="text" [(ngModel)]="autocomplete.input" class="form-control" #search [formControl]="searchControl" onfocus="this.value=''"> -->
-    <ion-list [hidden]="autocompleteItems.length == 0" *ngIf="showSearchbar">
+    <ion-list [hidden]="autocompleteItems.length == 0" >
       <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item);showSpin=true;showSearchbar=false">
         {{ item.description }}
       </ion-item>
     </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;padding-left: 1px;padding-right: 2px;">City</ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Air</ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Truck</ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Boat</ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Semi</ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Sea</ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="full" color="light" style="width: 43px !important; height: 43px !important;">Heli</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-toolbar>
 
-    <ion-button *ngIf="showSearchbar" (click)="getCurrentLocation()"  shape="round" fill="outline" >
-      <ion-icon slot="start" name="locate"></ion-icon>
-        Use current location
-      </ion-button>
-      <ion-buttons slot="end">
-        <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
-          <ion-icon slot="icon-only" name="search"></ion-icon>
-        </ion-button> 
-       
-        
-        
-      </ion-buttons>
-
-    
-  </ion-toolbar>  
-
-</ion-header>
-<ion-content [fullscreen]="true"> 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button (click)="ShowCords()" ion-fab color="tertiary">
+    <ion-fab-button style="margin-top: -55px; position: absolute; padding-right: 11px;" (click)="ShowCords()" ion-fab color="tertiary">
       <ion-icon name="information-circle-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -48,6 +74,7 @@
       <ion-button ion-button (click)="onButtonClick()" style="height: 100%;">Demo</ion-button>
     </div> -->
   </div>   
+  
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
     <ion-fab-button>
@@ -68,4 +95,5 @@
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
+
 </ion-content>

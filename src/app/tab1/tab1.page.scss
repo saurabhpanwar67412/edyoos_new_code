@@ -1,6 +1,21 @@
 .my-custom-menu {
   --width: 500px;
 }
+
+ion-content { 
+  --background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+ 
+}  
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+    margin-top: 80px;
+}
+.toolsearch{
+  margin-top: 20px;
+    margin-top: 80px;
+}
+
 ion-fab-button {
   --background: var(--ion-color-step-150, #fff);
   --background-hover: var(--ion-color-step-200, #f2f2f2);
@@ -11,6 +26,31 @@ ion-fab-button {
 .button-inner{
   position: static !important;
 }
+ion-item{ background-color: transparent; }
+ion-searchbar {
+  background: none !important;
+
+  font-size: 1.25em !important;
+
+  // --background: none;
+ 
+}
+ion-list{
+  opacity : 0.4
+}
+.header::after {
+  background-image: none;
+}
+
+
+#map {  
+  position: absolute; 
+  height: 100%;
+  width: 100%; 
+  }
+
+
+
 
 /*
  * Material Design uses the ripple for activated
@@ -51,6 +91,12 @@ $categories: (
   padding: 10px;
   font-size: 18px;
   font-weight: bold;
+}
+:root {
+  --ion-grid-padding: 0;
+  --ion-grid-column-padding: 0;
+ 
+
 }
  
 #map {

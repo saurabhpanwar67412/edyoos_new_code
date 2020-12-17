@@ -135,7 +135,7 @@ export class Tab3Page {
     getOrderById(userId, showMessage, order = null) {
       this.dashboardService.getOrderById(userId).subscribe((response) => {
         this.orders = response.data;
-        console.log(this.orders);
+        console.log("orders from order page",this.orders);
         
         if (this.orders.length > 0) {
   
