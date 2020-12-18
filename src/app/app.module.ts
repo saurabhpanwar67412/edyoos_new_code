@@ -25,6 +25,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import {Stripe} from '@ionic-native/stripe/ngx';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,6 +47,8 @@ import {Stripe} from '@ionic-native/stripe/ngx';
     MatSelectModule,
     ConfirmDialogModule,
     BrowserAnimationsModule,
+    MatButtonModule, 
+    MatCheckboxModule,
     //NgxIntlTelInputModule
 ],
   providers: [

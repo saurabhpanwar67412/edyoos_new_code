@@ -24,7 +24,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
   showSearchbar: boolean;
   lat;
   lng;
-  selectedMode;
+  selectedMode = "city";
   displayLength;
   sortMethod;
   httpError: any;
@@ -65,7 +65,9 @@ export class Tab1Page implements OnInit, AfterViewInit {
     timeout: 5000,
     maximumAge: 0
   };
-
+  
+  modes = [ 'city' , 'airplane' , 'Truck & Trailer Parking' ,'boats', 'Semi-Truck Parking' ] ;
+imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/BlueColor-jpg/Airport@1x.jpg','assets/images/BlueColor-jpg/Truck@1x.jpg','assets/images/BlueColor-jpg/Boat@1x.jpg','assets/images/BlueColor-jpg/SemiTruck@1x.jpg',]
   constructor(
     private route: ActivatedRoute,
     private menu: MenuController,
@@ -81,6 +83,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
     public toastCtrl: ToastController,
     private alertCtrl: AlertController
   ) {
+    console.log("modes and image urls", this.modes, this.imageurls);
 
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
@@ -243,8 +246,8 @@ export class Tab1Page implements OnInit, AfterViewInit {
         lat: this.latitude,
         lng: this.longitude,
       };
-      // this.searchObjNavigate(place);
-      this.presentFilter(place);
+      this.searchObjNavigate(this.selectedMode,place);
+      // this.presentFilter(place);
       //this.presentFilter.dismiss();
     });
   }
@@ -285,7 +288,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
             let place = results[0];
             console.log("place place=", results[0]);
             //this.searchObjNavigate(place);
-            this.presentFilter(place);
+          
             // this.searchForm.updateValueAndValidity();
           }
         }
@@ -294,9 +297,9 @@ export class Tab1Page implements OnInit, AfterViewInit {
   }
 
 
-  searchObjNavigate(data,place) {
+  searchObjNavigate(mode,place) {
      
-    console.log("data from pop p ::::" , data , place );
+    console.log("data from pop p ::::" , mode , place );
     for (var i = 0; i < place.address_components.length; i++) {
 
       var addressType = place.address_components[i].types[0];
@@ -327,7 +330,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
     let length;
     search.lat = this.currentLocation.lat;
     search.lng = this.currentLocation.lng;
-    search.mode = data;
+    search.mode = mode;
 
 
     if (this.searchAddress.street_number)
@@ -350,130 +353,13 @@ export class Tab1Page implements OnInit, AfterViewInit {
     fab.close();
   }
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
-      cssClass: 'my-custom-class',
-      buttons: [{
-        text: 'Delete',
-        role: 'destructive',
-        icon: 'trash',
-        handler: () => {
+  
+  
+parkingtype(parkingtype){
 
-          console.log('Delete clicked');
-        }
-      }, {
-        text: 'Share',
-        icon: 'share',
-        handler: () => {
-          console.log('Share clicked');
-        }
-      }, {
-        text: 'Play (open modal)',
-        icon: 'caret-forward-circle',
-        handler: () => {
-          console.log('Play clicked');
-        }
-      }, {
-        text: 'Favorite',
-        icon: 'heart',
-        handler: () => {
-          console.log('Favorite clicked');
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-
-          console.log('Cancel clicked');
-        }
-      }]
-    });
-    for (let i = 0; i < 10; i++) {
-      var button = {
-        text: 'button' + i,
-        handler: () => {
-          console.log(i)
-        }
-      }
-    }
-    await actionSheet.present();
-  }
-
-  async presentFilter(place){
-    //alert("filter clicked!!")
-    const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
-      header: 'Types of parking',
-      inputs: [
-        {
-          name: 'radio1',
-          type: 'radio',
-          label: 'City Parking',
-          value: 'city',
-          checked: true
-        },
-        {
-          name: 'radio2',
-          type: 'radio',
-          label: 'Airport Parking',
-          value: 'airplane'
-        },
-        {
-          name: 'radio3',
-          type: 'radio',
-          label: 'Truck & Trailer Parking',
-          value: 'value3'
-        },
-        {
-          name: 'radio4',
-          type: 'radio',
-          label: 'Boat Parking',
-          value: 'boats'
-        },
-        {
-          name: 'radio5',
-          type: 'radio',
-          label: 'Semi-Truck Parking',
-          value: 'value5'
-        },
-        {
-          name: 'radio6',
-          type: 'radio',
-          label: 'Seaplane Parking',
-          value: 'seaplanes'
-        },
-        {
-          name: 'radio6',
-          type: 'radio',
-          label: 'Helicopter Parking',
-          value: 'helicopter'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data:string) => {
-            console.log('Confirm Ok');
-            console.log("filter selected::: with place", data, place)
-            this.searchObjNavigate(data, place);
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-parkingtype(id){
-  console.log("id from button click", id );
+this.selectedMode = parkingtype;
+  
+  console.log("id from button click", parkingtype );
 
 
 }
