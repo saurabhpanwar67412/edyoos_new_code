@@ -10,34 +10,19 @@
 <!-- </ion-header> -->
 
 <ion-content padding text-center>
-
+  <img src="assets/images/bg.jpg" style="height: 108px; width: 98px;"/>
     <div  class="form">
         <img style="margin:auto;" src="assets/icon/ionic_firebase-logo.png" alt="">
-        <ion-icon color="primary" style="margin-top: 110px;
-        position: absolute;
-        font-size: x-large;
-        width: 40px;" slot="icon-only" name="arrow-back" (click)="home()"></ion-icon>
-        <h6 style="color: black;
-        width: 40%;
-        margin-left: 22%;
-        margin-top: 25%;">REGISTER</h6>
-        <!-- <ion-grid>
-          <ion-row>
-            <ion-col >
-               <ion-icon color="primary" slot="icon-only" name="arrow-back" (click)="home()"></ion-icon>
-            </ion-col>
-            <ion-col >
-              <h6 style="color:black;">REGISTER</h6>
-            </ion-col>
-          </ion-row>
-        </ion-grid> -->
+        <ion-icon color="primary" class="back-icon" name="arrow-back" (click)="home()"></ion-icon>
+        <h6 class="register">REGISTER</h6>
 
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" style="margin-top: -76px;">
         <br><br><br><br>
+
         <ion-list>
-            <ion-item>
-              <ion-input type="text" placeholder="First Name" (blur)="logValidationErrors()"
+            <ion-item style="margin-top:0px"> 
+              <ion-label position="floating" style="color:gray; font-size: small; margin-top: 20px;">First Name</ion-label>
+              <ion-input style="max-height: 27px; margin-top: 9px;" type="text" (blur)="logValidationErrors()"
               (keyup.enter)="moveFocus(a)"  formControlName="firstName"></ion-input>
             </ion-item>
             <br>
@@ -45,8 +30,9 @@
               {{formErrors.firstName}}
             </div>
 
-            <ion-item>
-              <ion-input type="text" placeholder="Last Name" (blur)="logValidationErrors()"
+            <ion-item style="margin-top: -18px; max-block-size: 68px;">
+              <ion-label position="floating" style="margin-top: 20px; color:gray; font-size: small; margin-top: 20px;">Last Name</ion-label>
+              <ion-input type="text" (blur)="logValidationErrors()" style="max-height: 27px; margin-top: -5px;"
                 (keyup.enter)="moveFocus(b)"  formControlName="lastName"></ion-input>
             </ion-item>  
             <br>
@@ -54,20 +40,23 @@
               {{formErrors.lastName}}
             </div>
 
-            <ion-item>
-              <ion-input type="text" placeholder="Email" (blur)="logValidationErrors()"
+            <ion-item style="margin-top: -18px; max-block-size: 82px;">
+              <ion-label position="floating" style="color:gray; font-size: small; margin-top: 16px;">Email</ion-label>
+              <ion-input type="text" (blur)="logValidationErrors()" style="max-height: 27px; margin-top: 0px;"
                 (keyup.enter)="moveFocus(c)"  formControlName="email"></ion-input>
             </ion-item>
             <br>
             <div *ngIf="formErrors.email" class="text-danger">
               {{formErrors.email}}
             </div>
+
 <!-- Password start -->
             <div formGroupName="passwordGroup">
-            <ion-item>
-                <ion-input [type]="passwordType" (keyup.enter)="moveFocus(d)" 
-                placeholder="Password" (blur)="logValidationErrors()" formControlName="password"></ion-input>
-                <ion-icon (click)='hideShowPassword()' [name]="passwordIcon" item-right></ion-icon>
+            <ion-item style="margin-top: -18px; max-block-size: 86px;">
+              <ion-label position="floating" style="color:gray; font-size: small; margin-top: 16px;
+              ">Password</ion-label>
+              <ion-input style="max-height: 27px; margin-top: 0px;" [type]="passwordType" (keyup.enter)="moveFocus(d)" (blur)="logValidationErrors()" formControlName="password"></ion-input>
+              <ion-icon style="margin-left: 320px; margin-top: -24px;" (click)='hideShowPassword()' [name]="passwordIcon" item-right></ion-icon>
             </ion-item>
             <br>
             <div *ngIf="formErrors.password" class="text-danger">
@@ -78,29 +67,31 @@
 <!-- Password end -->
 <!-- Confirm Password start -->
             <div formGroupName="passwordGroup">
-            <ion-item>
-              <ion-input (keyup.enter)="register()" [type]="passwordConfirmType"
-              placeholder="Confirm password"  formControlName="passwordConfirmation"></ion-input>
-              <ion-icon (click)='hideShowConfirmPassword()' [name]="passwordConfirmIcon" item-right></ion-icon>
+            <ion-item style="margin-top: -18px; max-block-size: 68px;">
+              <ion-label position="floating" style="color:gray; font-size: small; margin-top: 16px;
+              ">Confirm password</ion-label>
+              <ion-input style="max-height: 27px; margin-top: 0px;" (keyup.enter)="register()" [type]="passwordConfirmType" formControlName="passwordConfirmation"></ion-input>
+              <ion-icon style="margin-left: 320px; margin-top: -24px;" (click)='hideShowConfirmPassword()' [name]="passwordConfirmIcon" item-right></ion-icon>
             </ion-item>
             <br>
             <div *ngIf="(formErrors.passwordConfirmation || formErrors.passwordGroup)" class="text-danger">
               {{formErrors.passwordConfirmation ? formErrors.passwordConfirmation: formErrors.passwordGroup}}
             </div> 
             </div>
+
 <!-- Confirm Password end -->
         </ion-list>
         <br>
         
-        <ion-button class="goodfont boton"  type="submit" mode="ios" fill="solid" expand="block" color="primary" [disabled]="registerForm.invalid || submitBtnClicked">
+        <ion-button class="submit-button"  type="submit" mode="ios" fill="solid" expand="block" color="primary" [disabled]="registerForm.invalid || submitBtnClicked">
           <span class="spinner-border spinner-border-sm" *ngIf="submitBtnClicked" role="status" aria-hidden="true"></span>
-             {{submitBtnClicked?'Loading...':'Sign Up'}}
+             {{submitBtnClicked?'Loading...':'Register'}}
         </ion-button>
         <br>
 
-        <p class="register-text" (click)="terms_and_conditions()" style="text-align: center; color:gray; margin-top: 13%;">By Registering you agree to Terms & Conditions of<a> EDYOOS</a> </p> <br>
+        <p class="register-text" (click)="terms_and_conditions()" style="text-align: center; color:gray; margin-top: 0%; font-size: small;">By Registering you agree to Terms & Conditions of<a> EDYOOS</a> </p> <br>
 
-        <div style="text-align: center; color:gray; margin-bottom: 5%;">Or</div>
+        <div style="text-align: center; color:gray; margin-bottom: 5%; margin-top: -4%;">Or</div>
 
         <ion-row>
           <ion-col class="logo-google">
@@ -115,7 +106,7 @@
         </ion-row>
           
   
-        <p class="register-text" (click)="goLogin()" style="text-align: center; margin-top: 13%;">You have a account ?<a> LOG-IN</a> </p> <br>
+        <p class="register-text" (click)="goLogin()" style="text-align: center; margin-top: 30px; font-size: small;">You have a account ?<a> LOG-IN</a> </p> <br>
 
       </form>
     </div>
