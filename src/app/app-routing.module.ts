@@ -6,6 +6,10 @@ import { MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
@@ -76,10 +80,12 @@ const routes: Routes = [
   {
     path: 'tab3',
     loadChildren: () => import('./tab3/tab3.module').then( m => m.Tab3PageModule)
-  },  {
+  },
+  {
     path: 'editprofile',
     loadChildren: () => import('./editprofile/editprofile.module').then( m => m.EditprofilePageModule)
   }
+  
 
   
 ];
@@ -89,4 +95,6 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  
+}

@@ -179,6 +179,7 @@
   .text-danger{
     color: red;
   }
+
   .logo-google{
     text-align: right;
     font-size:larger;
@@ -195,4 +196,27 @@
     text-align: left;
     font-size:larger;
     font-size: xx-large;
+  }
+
+  .back-icon{ 
+    margin-left: 20px;
+    position: absolute;
+    font-size: x-large;
+    width: 40px;
+    margin-top: 32px;
+    transform: scale(1.5,1.5);
+  }
+
+  .register{
+    color: black;
+    width: 40%;
+    margin-left: 17%;
+    font-weight: bold;
+    font-size: large;
+  }
+
+  .submit-button{
+    width: 320px;
+    margin-left: 22px;
+    margin-top: -4px;
   }

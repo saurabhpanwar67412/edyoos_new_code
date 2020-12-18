@@ -1,5 +1,6 @@
 <!-- <ion-header no-border> -->
-    <ion-toolbar no-border>
+    <!-- <ion-toolbar no-border> -->
+      <!-- <img src="assets/images/bg.jpg" style="height: 108px; width: 98px;"/> -->
         <!-- <ion-buttons  slot="start">
             <ion-button (click)="goback()"  >
               <ion-icon mode="ios" color="primary" slot="icon-only" name="arrow-back"></ion-icon>
@@ -15,12 +16,13 @@
         <ion-icon color="primary" name="more"  slot="icon-only"></ion-icon> 
         </ion-button>
       </ion-buttons> -->
-    </ion-toolbar>
+    <!-- </ion-toolbar> -->
   <!-- </ion-header> -->
   
   <ion-content padding text-center>
+    <img src="assets/images/bg.jpg" style="height: 108px; width: 98px;"/>
       <div  class="form" >
-          <h6 style="color:gray; text-align: center; margin-top: 30%;">Welcome to</h6><br>
+          <h6 style="color:gray; text-align: center; margin-top: 38px; font-size: small;">Welcome to</h6><br>
           <ion-grid>
             <ion-row>
               <ion-col><h3 style="color:#3880ff; text-align:right; margin-top:-10%;">EDYOOS</h3></ion-col>
@@ -32,44 +34,41 @@
           <ion-list margin-top margin-bottom>
           
           <ion-item class="email"> 
-              <ion-input type="text" tabindex="20" (keyup.enter)="moveFocus(b)" placeholder="User Name Or Email Address" formControlName="email" required></ion-input>
+            <ion-label position="floating" style="color:gray;">User Name Or Email Address</ion-label>
+            <ion-input type="text" tabindex="20" (keyup.enter)="moveFocus(b)" formControlName="email" required></ion-input>
           </ion-item>
           <br><br>
           <ion-item>
-              <ion-input (keyup.enter)="onSubmit()" [type]="passwordType" 
-              #b placeholder="Password" formControlName="password" required></ion-input>
-              <ion-icon (click)='hideShowPassword()' [name]="passwordIcon" item-right></ion-icon>
+            <ion-label position="floating" style="color:gray;">Password</ion-label>
+            <ion-input (keyup.enter)="onSubmit()" [type]="passwordType" 
+            #b formControlName="password" required></ion-input>
+            <ion-icon (click)='hideShowPassword()' [name]="passwordIcon" item-right></ion-icon>
           </ion-item>
           </ion-list>
           <br>
           
           <ion-grid>
             <ion-row>
-              <ion-col>
-                <div>
-                  <ion-checkbox slot="start" value="remember_me"></ion-checkbox>
-                  <ion-label style="margin-left: 5%;">Remember Me</ion-label>
+              <ion-col style="margin-top: -20px;">
+                <div style="margin-left: 7px;">
+                  <ion-checkbox slot="start" value="remember_me" style="height: 17px; width: 17px;"></ion-checkbox>
+                  <ion-label style="margin-left: 5%; font-size: small; color: gray;">Remember Me</ion-label>
                 </div>
               </ion-col>
 
-              <ion-col>
-                <div>
-                  <p class="register-text" (click)="goforgetpassword()"  style="text-align:end;"><a> Forgot Password?</a> </p> 
+              <ion-col style="margin-top: -30px;">
+                <div style="margin-right: 7px;">
+                  <p class="register-text" (click)="goforgetpassword()"  style="text-align:end; font-size: small;"><a> Forgot Password?</a> </p> 
                 </div>    
               </ion-col>
             </ion-row>
           </ion-grid>
           
-          <ion-button type="submit" margin-bottom mode="ios"  expand="block"  
-           style="max-width: 67%; margin-left: 17%;     
-           background-color: transparent;
-           border: 2px #3880ff;
-           opacity: 0.6;
-           ">Login</ion-button>
-          <br><br>
+          <ion-button class="submit-button" type="submit" mode="ios" expand="block" fill="outline">Login</ion-button>
+          <br><br> 
           </form>
   
-      <div style="text-align: center; color:gray; margin-bottom: 5%;">Or</div>
+      <div style="text-align: center; color:gray; margin-bottom: 33px; margin-top: 13px;">Or</div>
 
       <ion-row>
         <ion-col class="logo-google">
@@ -84,7 +83,7 @@
       </ion-row>
         
 
-      <p class="register-text" (click)="goRegister()" style="text-align: center; margin-top: 13%;">Dont have account?<a> Sign Up</a> </p> <br>
+      <p class="register-text" (click)="goRegister()" style="text-align: center; margin-top: 47px; font-size: small;">Dont have account?<a> Sign Up</a> </p> <br>
 
 
         <!-- <div margin-top margin-bottom (click)="loginphone()" class="tc flex jusify-center align-center flex-wrap w-100">
