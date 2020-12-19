@@ -4,6 +4,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController  } from '@ionic/angular';
+import {MatSelectModule} from '@angular/material/select';
 
 
 declare var google;
@@ -65,6 +66,8 @@ export class Tab1Page implements OnInit, AfterViewInit {
     timeout: 5000,
     maximumAge: 0
   };
+
+  userdetails : any ;
   
   modes = [ 'city' , 'airplane' , 'Truck & Trailer Parking' ,'boats', 'Semi-Truck Parking' ] ;
 imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/BlueColor-jpg/Airport@1x.jpg','assets/images/BlueColor-jpg/Truck@1x.jpg','assets/images/BlueColor-jpg/Boat@1x.jpg','assets/images/BlueColor-jpg/SemiTruck@1x.jpg',]
@@ -83,7 +86,16 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
     public toastCtrl: ToastController,
     private alertCtrl: AlertController
   ) {
-    console.log("modes and image urls", this.modes, this.imageurls);
+    this.userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
+    console.log("userid", this.userdetails);
+    // let userid= this.userdetails.id
+    if(this.userdetails == null ){
+      this.router.navigate(['welcome']);
+     }
+    else {
+      console.log("i am else from tab2page ");
+     
+    }
 
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };

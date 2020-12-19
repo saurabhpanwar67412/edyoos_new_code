@@ -172,7 +172,9 @@ onSubmit(): void {
                 if (!this.authenticationService.isAuthorized()) { 
                     this.authenticationService.setUserValue(response.data);
                     localStorage.setItem('userData', userData);
-                    this.router.navigate(['profile'],userData);
+                    console.log("i am going to profile");
+                    this.router.navigate([''],userData);
+                    // this.router.navigate(['home']);
 
                     // let cart: Cart[] = [];
                     // if (this.placesService.cartPropertyGroup.length > 0) {

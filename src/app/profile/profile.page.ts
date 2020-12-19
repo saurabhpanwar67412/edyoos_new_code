@@ -37,7 +37,10 @@ ngOnInit(): void{
     this.authenticationService.logout();
     console.log("button cliked for logout")
     localStorage.clear();
-    this.router.navigate(['/'] );
+    this.router.navigate(['welcome'] );
+  }
+  home(){
+    this.router.navigate(['home']);
   }
 
   goto_editprofile(){
