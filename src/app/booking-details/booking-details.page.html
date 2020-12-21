@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+      <a (click)="home()"></a>  
+    </ion-buttons>
+    <ion-title>booking details</ion-title>
+  </ion-toolbar>
+  <br>
+  <br>
+</ion-header>
+
+<ion-content> 
+
+  <div style="position:fixed; margin-left: 11px; max-width: 94%;">
+    <img src={{item.files[0].filePath}} />
+  </div>
+
+  <div style="margin-top: 192px; font-size: smaller;">
+    <ion-icon name="pin" color="warning"></ion-icon>{{item.propertyGroupAddress}}
+  </div>
+  <div style="margin-top: 6px; margin-left: 258px; font-size: smaller; color:red;">- {{item.distance}} miles away</div>
+
+  <div style="margin-top: 25px; margin-left: 11px; font-weight: bold;">About Place</div>
+  <div style="margin-top: 15px; font-size: smaller; max-width: 350px; margin-left: 11px;">
+    {{item.details}}
+  </div>
+
+  <div style="margin-top:23px; margin-left: 11px; font-weight: bold;">Amenities</div>
+  <div style="margin-top:26px; margin-left: 11px;">
+    <!-- {{item.amenitiesimg}} -->
+    {{item.amenities}}
+  </div>
+
+  <div style="margin-top:75px; margin-left: 11px; font-weight: bold;">Operational Hours</div>
+  <div *ngFor="let items of item.searchParkingOperationHours" style="color:gray; margin-top:20px; margin-left: 11px;">
+    {{items.parkingFromTime}} - {{items.parkingToTime}}
+  </div>
+
+  <div style="margin-top:40px; margin-left: 11px; font-weight: bold;">Tip to find</div>
+  <div style="margin-top:24px; margin-left: 11px; font-size: smaller; max-width: 359px;">
+    {{item.tipToFind}}
+  </div>
+</ion-content>
+
+<ion-footer style="height: 75px; background-color: #252542;">
+  <ion-icon style="color:#3880ff; font-size: larger; margin-top: 20px; margin-left: 9px;" name="information-circle">
+  </ion-icon>
+
+  <div style="max-width: 150px; color: white; font-size: 26px; font-weight: bold; margin-left: 31px;
+  margin-top: -31px;">$ {{item.pricingAmount}}</div>  
+  <br>
+  <div style="margin-top: -25px; margin-left: 25px; color: darkgray;">price per hour</div>
+
+  <ion-button slot="end" type="submit" style="position: absolute; margin-left: 170px; font-size: small; margin-top: 13px; display: block !important;" >Add to bag</ion-button>
+
+  <ion-button slot="end" type="submit" style="position: absolute; margin-left: 260px; font-size: small;
+  margin-top: 13px; display: block !important;" >Proceed to pay</ion-button>
+
+</ion-footer>

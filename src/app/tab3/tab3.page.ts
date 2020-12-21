@@ -43,6 +43,9 @@ export class Tab3Page {
   currentAdd: string;
   data:  any ;
   loggedin : any ; 
+  fromdate:any;
+  toDate:any;
+
   constructor(private dashboardService: DashboardService, public dialog: MatDialog,
     private paymentService: PaymentService, public commonService: CommonService,private router: Router,
     private authenticationService: AuthenticationService, public toastController: ToastController) {}
@@ -118,30 +121,33 @@ export class Tab3Page {
       else{
         console.log("logined in else");
         this.loggedin = userdetails.id;
-        
       }
     
       if(userdetails  ){
         console.log("i am true if ")
       this.getOrderById(userdetails.id, null);
-    }
-   else {
-  console.log("   i am called else");
-     this.orders= null;
+      }
+      else {
+        console.log("   i am called else");
+        this.orders= null;
 
-    }
+        }
     }
   
     getOrderById(userId, showMessage, order = null) {
       this.dashboardService.getOrderById(userId).subscribe((response) => {
         this.orders = response.data;
         console.log("orders from order page",this.orders);
+
         
+
         if (this.orders.length > 0) {
   
           for (let i = 0; i < this.orders.length; i++) {
-            this.orders[i].fromDate = moment(this.orders[i].fromDate).format('MMM D,YYYY hh:mm A');
-            this.orders[i].toDate = moment(this.orders[i].toDate).format('MMM D,YYYY hh:mm A');
+            // this.orders[i].fromDate = moment(this.orders[i].fromDate).format('MMM D,YYYY hh:mm A');
+            // this.orders[i].toDate = moment(this.orders[i].toDate).format('MMM D,YYYY hh:mm A');
+            this.orders[i].fromDate = moment(this.orders[i].fromDate).format("DDMMM'YY - hh:mmA");
+            this.orders[i].toDate = moment(this.orders[i].toDate).format("DDMMM'YY - hh:mmA");
             this.compareDate(this.orders[i]);
           }
   
@@ -203,5 +209,8 @@ export class Tab3Page {
     home(){
       this.router.navigate(['/']);
     }
-  
+    
+    getdiection(){
+      
+    }
 }

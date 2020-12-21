@@ -64,4 +64,8 @@ export class AppComponent {
     });
   }
 
+  signout(){
+    this.router.navigate[('signup')];
+  }
+
 }

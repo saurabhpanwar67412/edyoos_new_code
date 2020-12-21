@@ -1,9 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-      <a (click)="home()">
-        <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>  
+      <ion-back-button ></ion-back-button>
+      <a (click)="home()"></a>  
     </ion-buttons>
     <ion-title mode="ios" color="primary">Parking Details</ion-title>
   </ion-toolbar>
@@ -16,26 +15,63 @@
     <div class="ion-text-center">
     </div>
 </div>
-    <ion-card *ngFor="let parkingDetail of parkingDetailsList">
+  <ion-card *ngFor="let parkingDetail of parkingDetailsList">
+    <!-- IMAGE -->
+    <div style="position:fixed; margin-left: 11px; max-width: 94%;">
       <img src={{parkingDetail.files[0].filePath}} />
-      <ion-card-header>
-        <ion-card-subtitle> </ion-card-subtitle>
-        <ion-card-title>{{parkingDetail.propertyname}}</ion-card-title>
-      </ion-card-header>
+    </div>
+
+    <div style="font-weight:bold; font-size: 13px;">
+      {{parkingDetail.propertyname}}
+    </div>
+
+    <div style="font-size: 12px;">
+      <ion-icon name="pin" color="warning"></ion-icon>
+      <div style="color:gray;">{{order.address}}</div>
+    </div>
+
+    <div>
+      {{parkingDetail.amenitiesimg}}
+    </div>
+
+    <div style="color:red;">
+      - {{parkingDetail.distance}} miles away
+    </div>
+
+    <div>
+      $ {{parkingDetail.calculatedAmount}}<br>
+      <div style="color:gray;">Per Hour</div>
+    </div>
+
+    <div>
+      <a style="color:#3880ff" (click)="booknow()">Book Now</a>
+    </div>
+
+    <div>
+      <a style="color:#3880ff" (click)="gotoViewDetails()">View Details</a>
+    </div>
+
+    <div>
+      <a style="color:#3880ff" (click)="gotoBag()">Add to Bag</a>
+    </div>
+
+
+    <!-- <ion-card-header>
+      <ion-card-subtitle> </ion-card-subtitle>
+      <ion-card-title>{{parkingDetail.propertyname}}</ion-card-title>
+    </ion-card-header>
+    <br>
+    <ion-card-content>
+      <p *ngIf="parkingDetail.amenities!=null"><b>Amenities:</b>{{parkingDetail.amenities}} </p>
+      <p><b></b>{{parkingDetail.distance}} miles away </p>
       <br>
-      <ion-card-content>
-        <p *ngIf="parkingDetail.amenities!=null"><b>Amenities:</b>{{parkingDetail.amenities}} </p>
-        <p><b></b>{{parkingDetail.distance}} miles away </p>
-       <br>
-        <p><b>${{parkingDetail.calculatedAmount}}:</b>Per day</p>
-       
-      </ion-card-content>
-      <ion-item>
-        <ion-button slot="end" color="warning" (click)="details(parkingDetail)">View details</ion-button>
-      <!-- </ion-item>
-      <ion-item> -->
-        <ion-button slot="end" color="primary" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
-      </ion-item>
-    </ion-card>
+      <p><b>${{parkingDetail.calculatedAmount}}:</b>Per day</p>
+      
+    </ion-card-content>
+    <ion-item>
+      <ion-button slot="end" color="warning" (click)="details(parkingDetail)">View details</ion-button>
+      <ion-button slot="end" color="primary" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
+    </ion-item>
+  </ion-card> -->
 
 </ion-content>

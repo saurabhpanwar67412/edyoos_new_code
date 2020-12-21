@@ -1,27 +1,57 @@
 <ion-app [class.dark-theme]="dark"> 
-  <div id="custom-overlay"><img src="../assets/img/parking.gif"></div>
+  <div id="custom-overlay"></div>
+
   <ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content">
+  <ion-content>
+  
+  <ion-menu-toggle autoHide="false">
+    
+    <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 70px; margin-left: 23px;
+    margin-top: 45px;"/>
+    <ion-list style="margin-top: 28px;">
 
-    <ion-menu contentId="main-content">
-      <ion-content>
-       <ion-list-header>
-            Edyoos Parking
-          </ion-list-header>
- <!--        <ion-list lines="none">
-          <ion-list-header>
-            Edyoos Parking
-          </ion-list-header>
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
+      <div routerLink="/" routerLinkActive="active" routerDirection="root" detail="false">
+        <ion-label style="margin-left: 23px; color: gray;">
+          Home
+        </ion-label>
+      </div>
+      <br>
 
-          </ion-menu-toggle>
-        </ion-list>
--->
+      <div routerLink="/" routerLinkActive="active" routerDirection="root" detail="false">
+        <ion-label style="margin-left: 23px; color: gray;">
+          Find Parking Space
+        </ion-label>
+      </div>
+      <br>
+
+      <div routerLink="/profile" routerLinkActive="active" routerDirection="root" detail="false">
+        <ion-label style="margin-left: 23px; color: gray;">
+          My Account
+        </ion-label>
+      </div>
+      <br>
+
+      <div routerLink="/" routerLinkActive="active" routerDirection="root" detail="false">
+        <ion-label style="margin-left: 23px; color: gray;">
+          Contact Us
+        </ion-label>
+      </div>
+      <br>
+
+      <div routerLink="/" routerLinkActive="active" routerDirection="root" detail="false">
+        <ion-label style="margin-left: 23px; color: gray;">
+          Help
+        </ion-label>
+      </div>
+      
+
+    </ion-list>
+
+    <!-- <ion-list-header>
+      Edyoos Parking
+    </ion-list-header>
+                    
     <ion-menu-toggle autoHide="false">
     <ion-item routerLink="/" routerLinkActive="active" routerDirection="root" detail="false">
     <ion-icon slot="start" name="person"></ion-icon>
@@ -115,12 +145,23 @@
               <ion-label>Show Tutorial</ion-label>
             </ion-item>
           </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
+        </ion-list> -->
 
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+      <ion-row style="margin-bottom: 35px;">
+        <ion-col style="max-width: 95px;">
+          <img src="assets/img/avatar.png" style="height: 45px; margin-left: 23px;  border: 1px solid rgba(0, 0, 0, 0.25); padding: 3px; border-radius: 100%; -webkit-box-sizing: content-box; -moz-box-sizing:content-box; width: 53px; height: 48px; max-width: 85px;">
+        </ion-col>
+    
+        <ion-col>
+          <p class="register-text" (click)="signout()" style="font-size: medium;"><a> SIGNOUT</a> </p>
+        </ion-col>
+      </ion-row>
 
+    </ion-menu-toggle>    
+  </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 
+ 
 </ion-app>
