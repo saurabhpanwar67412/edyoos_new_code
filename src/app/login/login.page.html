@@ -25,7 +25,7 @@
           <h6 style="color:gray; text-align: center; margin-top: 38px; font-size: small;">Welcome to</h6><br>
           <ion-grid>
             <ion-row>
-              <ion-col><h3 style="color:#3880ff; text-align:right; margin-top:-10%;">EDYOOS</h3></ion-col>
+              <ion-col><h3 style="color:#727c8d; text-align:right; margin-top:-10%;">EDYOOS</h3></ion-col>
               <ion-col><h3 style="color:black; margin-top:-10%;">LOG-IN</h3></ion-col>
             </ion-row>
           </ion-grid>
@@ -38,11 +38,11 @@
             <ion-input type="text" tabindex="20" (keyup.enter)="moveFocus(b)" formControlName="email" required></ion-input>
           </ion-item>
           <br><br>
-          <ion-item>
-            <ion-label position="floating" style="color:gray;">Password</ion-label>
-            <ion-input (keyup.enter)="onSubmit()" [type]="passwordType" 
-            #b formControlName="password" required></ion-input>
-            <ion-icon (click)='hideShowPassword()' [name]="passwordIcon" item-right></ion-icon>
+          <ion-item style="max-height: 76px; margin-top: -29px;">
+            <ion-label position="floating" style="color:gray; max-width: 280px;">Password</ion-label>
+            <ion-input (keyup.enter)="onSubmit()" [type]="passwordType" #b formControlName="password" style="margin-top: -6px; max-width: 280px;" required></ion-input>
+            <ion-icon (click)='hideShowPassword()' [name]="passwordIcon" style="margin-left: 315px;
+            margin-top: -29px;" item-right></ion-icon>
           </ion-item>
           </ion-list>
           <br>

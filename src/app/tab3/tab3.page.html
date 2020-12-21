@@ -1,87 +1,117 @@
 <ion-header [translucent]="true">
   <ion-toolbar> 
     <ion-buttons *ngIf="!showSearchbar" slot="start">
-    <ion-menu-button></ion-menu-button>
-    <a (click)="home()">
-      <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>
-  </ion-buttons>
-    <ion-title mode="ios" color="primary"> My Orders Details </ion-title>
+
+      <ion-icon mode="ios" slot="icon-only" name="arrow-back"></ion-icon> 
+      <a (click)="home()"></a>
+      
+    </ion-buttons>
+    <ion-title style="margin-left: -90px;" mode="ios">My Bookings </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="col p-0 pl-0 w-100">
+<div class="col p-0 pl-0 w-100">
     <p *ngIf="!loggedin" style="margin-left: 84px;font-size: 20px;margin-top: 386px;"> Please Login to see your records.</p>
-    <div *ngFor="let order of orders" >
-      
+  <div *ngFor="let order of orders" >
 
-  <p *ngIf="!order" style="margin-left: 84px;font-size: 20px;margin-top: 386px;">No order history found. </p>
-
+      <p *ngIf="!order" style="margin-left: 84px;font-size: 20px;margin-top: 386px;">No order history found. 
+      </p>
 
   <div  *ngIf="order">
 
     <ion-card>
       <ion-card-header>
-        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-        <ion-card-title>{{order.parkingPlace}}</ion-card-title>
+        <ion-card-title style="font-size: 13px;">{{order.parkingPlace}}</ion-card-title>
       </ion-card-header>
     
       <ion-card-content>
-        <div class="col p-0 pl-md-5 pl-1 w-100">
-                                    <div class="d-md-flex">
-                                        <h3 class="h3 col-auto m-0 pl-0" style="font-size: 14px;"> <span
-                                                style="font-size: 14px;font-weight: bold;">Check-in
-                                            </span> <img style="width: 24px;" src="./assets/images/park.svg">
-                                            {{order.FromDate | date:'medium'}} {{order.fromDate | date:'medium'}}</h3>
-                                        <h3 class="h3 col-auto text-md-center px-md-2 px-0  m-0"
-                                            style="font-size: 14px;"> <span
-                                                style="font-size: 14px;font-weight: bold;">Check-out
-                                            </span> <img style="width: 24px;" src="./assets/images/placeholder.svg">
-                                            {{order.ToDate | date:'medium'}} {{order.toDate | date:'medium'}}</h3>
-                                    </div>
-                                    <div class="col p-0 pl-0 w-100">
-                                        <span class="font-weight-bold">Address:</span> <span
-                                            class="ml-2">{{order.address}}</span>
-                                    </div>
-                               </div> 
-                               <br>
-                               <div class="col-auto pl-0 ml-0">
-                                <span class="font-weight-bold">Booking Status: </span>
-                                <span *ngIf="!order.isBookingCancelled">
-                                    <!-- <img src="./assets/images/bill.svg" style="width: 20px;"> -->
-                                    <span class="text-success "> Success</span>
-                                </span>
-                                <span *ngIf="order.isBookingCancelled">
-                                    <span class="text-danger font-weight-bold"> Cancelled</span>
-                                </span>
 
-                            </div>
-                            <div class="col-auto text-right pr-0 mr-0 "
-                                                    *ngIf="order.isBookingCancelled ||order.showCancel">
-                                                    <ion-button style="font-size: 14px;" [disabled]="order.cancelBtnClick"
-                                                        class="btn bg-danger py-0 text-light"
-                                                        (click)="cancelDialog(order,{confirmDialog:true,submitDialog:false},'400px')"
-                                                        *ngIf="order.showCancel">
-                                                        <span class="spinner-border spinner-border-sm"
-                                                            *ngIf="order.cancelBtnClick" role="status"
-                                                            aria-hidden="true"></span>
-                                                        {{order.cancelBtnClick?'Loading...':'Cancel Booking'}}      </ion-button>
-                                                        <div class="ml-auto pr-3 align-self-end">
-                                                          <span class="font-weight-bold">Total: </span> <span
-                                                              class="font-weight-bold">
-                                                              {{order.propertyGroupTotalAmount | currency}}</span>
-                                                      </div>
-                                              
-                                                </div>
-                               
+        <!-- BOOKING STATUS -->
+        <div style="font-size: 11px; margin-top: -10px; margin-left: 179px;">
+          <span style="color: gray;">Booking Status - </span>
+          <span *ngIf="!order.isBookingCancelled">
+            <span  style="color:green;" > Success</span>
+          </span>
+          <span *ngIf="order.isBookingCancelled">
+            <span style="color:red;" > Cancelled</span>
+          </span>
+        </div>
+
+        <!-- ADDRESS -->
+        <div style="font-size: 12px;">
+          <ion-icon name="pin" color="warning"></ion-icon>
+          <span >Address:</span> 
+          <span >{{order.address}}</span>
+        </div>
+
+        <!-- PARKINGFROM - PARKINGUNTIL -->
+        <ion-card style="margin-left: -2px; margin-right: -5px;">
+          <div style="color:gray; margin-top: 12px; margin-left: 14px;">Parking From</div>
+          <div style="color:gray; margin-top: -18px; margin-left: 216px;">Parking Until</div>
+
+          <div style="margin-left: 12px; margin-top: 7px; font-weight: bold; font-size: 13px;
+          color: black;">{{order.fromDate}}</div>
+          <div style="margin-left: 179px; margin-top: -20px; color: black; font-size: 13px;
+          font-weight: bold; margin-bottom: 15px;">{{order.toDate}}</div>
+        </ion-card>
+
+        <!-- GET DIRECTION -->
+        <div (click)="getdiection()">
+          <ion-icon name="compass-outline" style="font-size: 20px;" color="primary"></ion-icon>
+          <a style="font-size: 13px;"> GET DIRECTION</a>
+        </div>
+
+        <!-- AMOUNT PAID -->
+        <div style="margin-left: 143px; margin-top: -21px;">
+          <div style="color: gray;" style="font-size: 13px;">Net Amount Paid :</div> 
+          <div style="color:black; font-weight: bold; margin-left: 110px; margin-top: -19px;"> 
+            {{order.propertyGroupTotalAmount | currency}}
+          </div>
+        </div>
+
+
+
+
+        <!-- <div class="col p-0 pl-md-5 pl-1 w-100">
+          <div class="d-md-flex">
+            <h3 class="h3 col-auto m-0 pl-0" style="font-size: 14px;"> 
+              <span style="font-size: 14px;font-weight: bold;">Check-in </span> 
+              <img style="width: 24px;" src="./assets/images/park.svg">
+              {{order.FromDate | date:'medium'}} {{order.fromDate | date:'medium'}}
+            </h3>
+            <h3 class="h3 col-auto text-md-center px-md-2 px-0  m-0" style="font-size: 14px;"> 
+              <span style="font-size: 14px;font-weight: bold;">Check-out</span> 
+              <img style="width: 24px;" src="./assets/images/placeholder.svg">
+              {{order.ToDate | date:'medium'}} {{order.toDate | date:'medium'}}
+            </h3>
+          </div>
+        </div>  -->
+
+        
+
+        <!-- <div class="col-auto text-right pr-0 mr-0" *ngIf="order.isBookingCancelled ||order.showCancel">
+          <ion-button style="font-size: 14px;" [disabled]="order.cancelBtnClick" class="btn bg-danger py-0 text-light" (click)="cancelDialog(order,{confirmDialog:true,submitDialog:false},'400px')"
+          *ngIf="order.showCancel">
+              <span class="spinner-border spinner-border-sm" *ngIf="order.cancelBtnClick" role="status"
+              aria-hidden="true">
+              </span>
+              {{order.cancelBtnClick?'Loading...':'Cancel Booking'}}      
+          </ion-button>
+          <div class="ml-auto pr-3 align-self-end">
+            <span class="font-weight-bold">Total: </span> 
+            <span class="font-weight-bold">
+            {{order.propertyGroupTotalAmount | currency}}</span>
+          </div>
+        </div>-->
        
       </ion-card-content>
     </ion-card>
   
     
-      </div>
     </div>
-</div>
+    </div>
+  </div>
 
  <!--  <div #mapCanvas class="map-canvas"></div>-->
 </ion-content>

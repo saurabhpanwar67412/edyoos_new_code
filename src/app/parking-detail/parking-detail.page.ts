@@ -40,6 +40,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     private router: Router,
     public modalController: ModalController) {
       this.createForms();
+      alert("inside parking detail page!");
   }
 
   async ngAfterViewInit() {
@@ -321,20 +322,30 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     
   }
   
-  async details(parkingDetail){
-    this.navdata = parkingDetail;
-    console.log("parkingDetail clicked or choosed.", parkingDetail)
-    var data = { message : 'hello world' };
-     var modalPage = await this.modalController.create(
-       {
-         component:ModalPagePage,
-         componentProps: {
-          'message': this.navdata,  
-        }
-       }
-     ); 
-     return await modalPage.present();
+  details(parkingDetail){
+    let selectparkingdetails = parkingDetail;
+    let navigationExtras: any = {
+      queryParams: {
+        special: JSON.stringify(selectparkingdetails)
+      }
+    };
+    this.router.navigate(['booking-details'], navigationExtras);
   }
+
+  // async details(parkingDetail){
+  //   this.navdata = parkingDetail;
+  //   console.log("parkingDetail clicked or choosed.", parkingDetail)
+  //   var data = { message : 'hello world' };
+  //    var modalPage = await this.modalController.create(
+  //      {
+  //        component:ModalPagePage,
+  //        componentProps: {
+  //         'message': this.navdata,  
+  //       }
+  //      }
+  //    ); 
+  //    return await modalPage.present();
+  // }
 
   home(){
     this.router.navigate(['/']);

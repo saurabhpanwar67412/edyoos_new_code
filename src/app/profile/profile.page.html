@@ -72,14 +72,14 @@
  
 
   <div>
-    <div class="payment">
-      <ion-icon name="wallet-outline" color="primary" (click)="goto_payment()"></ion-icon> Payment<br><br>
+    <div class="payment" (click)="goto_payment()">
+      <ion-icon name="wallet-outline" color="primary" ></ion-icon> Payment<br><br>
     </div>
-    <div class="settings">
-      <ion-icon name="settings-outline" color="primary" (click)="goto_settings()"></ion-icon>  Settings<br><br>
+    <div class="settings" (click)="goto_settings()">
+      <ion-icon name="settings-outline" color="primary" ></ion-icon>  Settings<br><br>
     </div>
-    <div class="logout">
-      <ion-icon name="power" color="danger" (click)="logout()"></ion-icon> Logout<br><br>
+    <div class="logout"  (click)="logout()">
+      <ion-icon name="power" color="danger"></ion-icon> Logout<br><br>
     </div>
   </div>
 </div>
