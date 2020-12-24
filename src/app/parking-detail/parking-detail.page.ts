@@ -8,6 +8,8 @@ import * as moment from 'moment';
 import { NavController,LoadingController,ModalController  } from '@ionic/angular';
 import {BookingPageModule} from '../booking/booking.module';
 import {ModalPagePage} from "../modal-page/modal-page.page";
+import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -31,16 +33,13 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   searchobject = new SearchRequest();
   navdata : any ;
   selectedMode:any;
+  imageurl: string;
+  item:any=[];
 
-  constructor( private route: ActivatedRoute,
-    private placesService: PlacesService,
-    private formBuilder: FormBuilder,
-    private navCtrl: NavController,
-    public loadingCtrl: LoadingController,
-    private router: Router,
-    public modalController: ModalController) {
+  constructor( private route: ActivatedRoute, private storage: Storage, private placesService: PlacesService,
+    private formBuilder: FormBuilder, private navCtrl: NavController, public loadingCtrl: LoadingController,
+    private router: Router, public modalController: ModalController) {
       this.createForms();
-      alert("inside parking detail page!");
   }
 
   async ngAfterViewInit() {
@@ -49,6 +48,8 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   }
 
   async ngOnInit() {
+    this.imageurl = environment.blobURL + '/images/Amenieties' ;
+    console.log("this.imageurlthis.imageurl:::::", this.imageurl);
     this.loading = await this.loadingCtrl.create({
       message: 'Please wait...'
     });
@@ -312,13 +313,15 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     let selectparkingdetails = parkingDetail;
     console.log("parkingDetail =>>", parkingDetail)
     console.log( "  this.searchobject newly created",   this.searchobject)
+    this.storage.set('booked', this.item);
+    console.log("ADDED TO BAG!!!! (paring detail page-> addtobag)")
     let navigationExtras: any = {
       queryParams: {
         special: JSON.stringify(selectparkingdetails)
       }
     };
     // this.navCtrl.navigateForward('booking', this.searchobject);
-    this.router.navigate(['booking'],navigationExtras );
+    //this.router.navigate(['booking'],navigationExtras );
     
   }
   
@@ -331,21 +334,6 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     };
     this.router.navigate(['booking-details'], navigationExtras);
   }
-
-  // async details(parkingDetail){
-  //   this.navdata = parkingDetail;
-  //   console.log("parkingDetail clicked or choosed.", parkingDetail)
-  //   var data = { message : 'hello world' };
-  //    var modalPage = await this.modalController.create(
-  //      {
-  //        component:ModalPagePage,
-  //        componentProps: {
-  //         'message': this.navdata,  
-  //       }
-  //      }
-  //    ); 
-  //    return await modalPage.present();
-  // }
 
   home(){
     this.router.navigate(['/']);

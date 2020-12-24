@@ -1,8 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button ></ion-back-button>
-      <a (click)="home()"></a>  
+      <ion-icon color="primary" class="back-icon" name="arrow-back" (click)="home()"></ion-icon>  
     </ion-buttons>
     <ion-title mode="ios" color="primary">Parking Details</ion-title>
   </ion-toolbar>
@@ -12,66 +11,46 @@
 
 <div *ngIf="showMessage">
     <p  class="msg">{{message}}</p>
-    <div class="ion-text-center">
-    </div>
+    <div class="ion-text-center"></div>
 </div>
-  <ion-card *ngFor="let parkingDetail of parkingDetailsList">
+  <ion-card *ngFor="let parkingDetail of parkingDetailsList" (click)="details(parkingDetail)">
     <!-- IMAGE -->
-    <div style="position:fixed; margin-left: 11px; max-width: 94%;">
-      <img src={{parkingDetail.files[0].filePath}} />
+    <div style="margin-left: 11px; max-width: 93%; margin-top: 15px; margin-right: 12px;">
+      <img style=" height: 225px;" src={{parkingDetail.files[0].filePath}} /> 
     </div>
 
-    <div style="font-weight:bold; font-size: 13px;">
+    <div style="font-weight:bold; font-size: 13px; margin-top: 20px;  margin-left: 11px;">
       {{parkingDetail.propertyname}}
     </div>
 
     <div style="font-size: 12px;">
-      <ion-icon name="pin" color="warning"></ion-icon>
-      <div style="color:gray;">{{order.address}}</div>
+      <ion-icon name="pin" color="warning" style="font-size: 20px; margin-top: 5px;"></ion-icon>
+      <div style="color:gray; margin-left: 17px; margin-top: -18px;">{{parkingDetail.propertyGroupAddress}}</div>
     </div>
-
-    <div>
-      {{parkingDetail.amenitiesimg}}
-    </div>
-
-    <div style="color:red;">
-      - {{parkingDetail.distance}} miles away
-    </div>
-
-    <div>
-      $ {{parkingDetail.calculatedAmount}}<br>
-      <div style="color:gray;">Per Hour</div>
-    </div>
-
-    <div>
-      <a style="color:#3880ff" (click)="booknow()">Book Now</a>
-    </div>
-
-    <div>
-      <a style="color:#3880ff" (click)="gotoViewDetails()">View Details</a>
-    </div>
-
-    <div>
-      <a style="color:#3880ff" (click)="gotoBag()">Add to Bag</a>
+  
+    <div *ngIf="parkingDetail.amenities" style="margin-top: 10px; margin-left: 10px; height: 55px; width: 250px; margin-top: 11px;">
+      <ion-row>
+        <ion-col *ngFor="let subCategory of parkingDetail.amenities.split(',');let i=index">
+          <img src="{{imageurl}}/{{subCategory.trim().replace(' ','').replace('/','').toLowerCase() | removewhitespaces}}.png" alt="" />
+        </ion-col>
+      </ion-row>     
     </div>
 
 
-    <!-- <ion-card-header>
-      <ion-card-subtitle> </ion-card-subtitle>
-      <ion-card-title>{{parkingDetail.propertyname}}</ion-card-title>
-    </ion-card-header>
-    <br>
-    <ion-card-content>
-      <p *ngIf="parkingDetail.amenities!=null"><b>Amenities:</b>{{parkingDetail.amenities}} </p>
-      <p><b></b>{{parkingDetail.distance}} miles away </p>
-      <br>
-      <p><b>${{parkingDetail.calculatedAmount}}:</b>Per day</p>
-      
-    </ion-card-content>
-    <ion-item>
-      <ion-button slot="end" color="warning" (click)="details(parkingDetail)">View details</ion-button>
-      <ion-button slot="end" color="primary" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
-    </ion-item>
-  </ion-card> -->
+    <div style="color:red; margin-top: 8px; margin-left: 10px;">
+      - {{parkingDetail.distance}} Miles away
+    </div>
+
+    <div style="float: right; margin-top:-65px; margin-right: 15px;">
+      <div style="font-weight: 700; font-size: 18px;">$ {{parkingDetail.calculatedAmount}}</div>
+      <div style="color: gray;font-size: 10px;">Per Hour</div>
+    </div>
+
+    <div style="float: right;margin-top: 31ox;margin-right: 10px;margin-top: -16px;margin-bottom: 10px;">
+      <a style="color:#3880ff" (click)="booking(parkingDetail)">Add to Bag</a>
+    </div>
+
+
+  </ion-card> 
 
 </ion-content>

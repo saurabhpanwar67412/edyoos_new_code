@@ -28,7 +28,7 @@
       <ion-card-content>
 
         <!-- BOOKING STATUS -->
-        <div style="font-size: 11px; margin-top: -10px; margin-left: 179px;">
+        <div style="font-size: 11px; margin-top: -10px;">
           <span style="color: gray;">Booking Status - </span>
           <span *ngIf="!order.isBookingCancelled">
             <span  style="color:green;" > Success</span>
@@ -39,8 +39,8 @@
         </div>
 
         <!-- ADDRESS -->
-        <div style="font-size: 12px;">
-          <ion-icon name="pin" color="warning"></ion-icon>
+        <div style="font-size: 12px; margin-left: -5px;">
+          <ion-icon name="pin" color="warning" style-="font-size: 15px;"></ion-icon>
           <span >Address:</span> 
           <span >{{order.address}}</span>
         </div>

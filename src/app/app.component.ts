@@ -59,7 +59,7 @@ export class AppComponent {
       this.splashScreen.hide();
       setTimeout(()=>{
         document.getElementById("custom-overlay").style.display = "none";
-      },4000)
+      },2000)
       // this.router.navigate(['/']);
     });
   }

@@ -27,11 +27,12 @@ import { Base64 } from '@ionic-native/base64/ngx';
 import {Stripe} from '@ionic-native/stripe/ngx';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RemovewhitespacesPipe } from './removewhitespaces.pipe';
 
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, RemovewhitespacesPipe],
   entryComponents: [],
   imports: [
     BrowserModule, 
@@ -49,14 +50,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ConfirmDialogModule,
     BrowserAnimationsModule,
     MatButtonModule, 
-    MatCheckboxModule,
+    MatCheckboxModule
     //NgxIntlTelInputModule
 ],
   providers: [
     StatusBar,
     SplashScreen,
     Stripe,
-    Geolocation, NativeGeocoder, Camera, Base64, 
+    Geolocation, NativeGeocoder, Camera, Base64, RemovewhitespacesPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
