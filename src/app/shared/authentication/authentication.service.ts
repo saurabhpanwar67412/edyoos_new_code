@@ -46,21 +46,23 @@ export class AuthenticationService {
     }
 
     appleExternalLogin(appleRequest: any) {
+
         return this.http.post(apiRoutes.login.appleExternalLogin, appleRequest);
     }
 
     externalGoogleLogin(params: any) {
+
         return this.http.post(apiRoutes.login.externalGoogleLogin, params);
     }
 
     getUserDetailsFromUrl() {
+
         let accessToken = this.getAccessToken("access_token");
         let username = this.getAccessToken("username");
         let user = new User();
         user.username = username;
         user.access_token = accessToken;
         user.email = this.getAccessToken("email");
-        //user.firstName = this.getAccessToken("firstName");
         user.role = this.getAccessToken("role");
         user.id = +this.getAccessToken("Id");
 
@@ -76,28 +78,23 @@ export class AuthenticationService {
         return (results !== null) ? results[1] : null;
     }
 
-    // login(username: string, password: string) {
-    //     return this.http.post<any>(`${environment.apiURL}/users/authenticate`, { username, password })
-    //         .pipe(map(user => {
-    //             // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-    //             user.authdata = window.btoa(username + ':' + password);
-    //             localStorage.setItem('user', JSON.stringify(user));
-    //             this.userSubject.next(user);
-    //             return user;
-    //         }));
-    // }
 
     logout() {
+        try {
+            FB.logout(function (response) {
+            });
+        }
+        catch (exception) {
 
-        // this.placesService.cartPropertyGroup = [];
+        }
 
-        // localStorage.setItem('bookedPlaces', JSON.stringify(this.placesService.cartPropertyGroup));
 
-        // this.placesService.addedCartPropertyGroup.next(this.placesService.cartPropertyGroup);
+        this.placesService.cartPropertyGroup = [];
 
-        // remove user from local storage to log user out
+        localStorage.setItem('bookedPlaces', JSON.stringify(this.placesService.cartPropertyGroup));
+
         localStorage.removeItem('edyoosUserDetails');
         this.userSubject.next(null);
-        this.router.navigate(['landing']);
+        this.router.navigate(['landing/home']);
     }
 }

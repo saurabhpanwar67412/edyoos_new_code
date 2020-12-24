@@ -1,4 +1,4 @@
-export const PAYMENTINFO_METADATA = {
+export const CART_CHECKOUT_METADATA = {
   card: 'card',
   cardName: 'cardName',
   cardNumber: 'cardNumber',

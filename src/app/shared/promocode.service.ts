@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { apiRoutes } from 'src/app/shared/routes/apiroutes';
-import { ApiResponse } from 'src/app/model/apiresponse.model';
-import { PromocodeRequest } from 'src/app/model/cart/promocode_request.model';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../model/apiresponse.model';
+import { apiRoutes } from './routes/apiroutes';
+import { PromocodeRequest } from '../model/cart/promocode_request.model';
 
 
 @Injectable({

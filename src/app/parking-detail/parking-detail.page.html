@@ -1,10 +1,41 @@
 <ion-header>
+  <div *ngFor="let parkingDetail of parkingDetailsList"></div>
+ 
+  
+<ion-icon defaultHref="/" name="arrow-back-outline"style="
+border: 1px solid red;width: 15%; margin-top: 35px; position: absolute;"></ion-icon>  
   <ion-toolbar>
+    
     <ion-buttons slot="start">
-      <ion-back-button ></ion-back-button>
-      <a (click)="home()"></a>  
+      <div id="header1">
+        <div style="margin-top: 22px; height: 10px;border-bottom: 1px solid #3880ff;">     
+        <span style=" float: right; margin-top: -20px; " ><a (click)="openModal()"><img src="../../../../assets/images/bkedit-icon.png" alt="" /> </a></span>
+      </div>
+      <hr>
+      <div style="margin-top: -20px; height: 26px; text-align: center;">
+        <p>A div element .</p>
+      </div>
+    </div>
+    <div class="btn-group" style="float: right;margin-left: 292px;">
+      <button> View Map</button>
+     
+    </div>
+    
+<div *ngIf="hideMe"> here your content</div>
+    <div>
+      
+      <ion-datetime *ngIf="Isshowing" pickerFormat="DD MMMM YYYY" [min]="datePickerMin" [(ngModel)]="datePicker" (ionChange)=changeDate()></ion-datetime>
+    </div>
+      <!-- <dp-date-picker placeholder="Check in"  [config]="config"
+                (onChange)="fromDateChange(parkingDetail)" theme="dp-material" mode="daytime" #checkIn>
+              </dp-date-picker> -->
+      
     </ion-buttons>
-    <ion-title mode="ios" color="primary">Parking Details</ion-title>
+      
+      <!-- <a (click)="home()">
+        <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>   -->
+    
+    
   </ion-toolbar>
 </ion-header>
 
@@ -15,63 +46,36 @@
     <div class="ion-text-center">
     </div>
 </div>
-  <ion-card *ngFor="let parkingDetail of parkingDetailsList">
-    <!-- IMAGE -->
-    <div style="position:fixed; margin-left: 11px; max-width: 94%;">
+    <ion-card *ngFor="let parkingDetail of parkingDetailsList">
       <img src={{parkingDetail.files[0].filePath}} />
-    </div>
-
-    <div style="font-weight:bold; font-size: 13px;">
-      {{parkingDetail.propertyname}}
-    </div>
-
-    <div style="font-size: 12px;">
-      <ion-icon name="pin" color="warning"></ion-icon>
-      <div style="color:gray;">{{order.address}}</div>
-    </div>
-
-    <div>
-      {{parkingDetail.amenitiesimg}}
-    </div>
-
-    <div style="color:red;">
-      - {{parkingDetail.distance}} miles away
-    </div>
-
-    <div>
-      $ {{parkingDetail.calculatedAmount}}<br>
-      <div style="color:gray;">Per Hour</div>
-    </div>
-
-    <div>
-      <a style="color:#3880ff" (click)="booknow()">Book Now</a>
-    </div>
-
-    <div>
-      <a style="color:#3880ff" (click)="gotoViewDetails()">View Details</a>
-    </div>
-
-    <div>
-      <a style="color:#3880ff" (click)="gotoBag()">Add to Bag</a>
-    </div>
-
-
-    <!-- <ion-card-header>
-      <ion-card-subtitle> </ion-card-subtitle>
-      <ion-card-title>{{parkingDetail.propertyname}}</ion-card-title>
-    </ion-card-header>
-    <br>
-    <ion-card-content>
-      <p *ngIf="parkingDetail.amenities!=null"><b>Amenities:</b>{{parkingDetail.amenities}} </p>
-      <p><b></b>{{parkingDetail.distance}} miles away </p>
+      <ion-card-header>
+        <ion-card-subtitle> </ion-card-subtitle>
+        <ion-card-title>{{parkingDetail.propertyname}}</ion-card-title>
+      </ion-card-header>
       <br>
-      <p><b>${{parkingDetail.calculatedAmount}}:</b>Per day</p>
+      <ion-card-content>
+        <p *ngIf="parkingDetail.amenities!=null"><b>Amenities:</b>{{parkingDetail.amenities}} </p>
+        <p><b></b>{{parkingDetail.distance}} miles away </p>
+       <br>
+        <p><b>${{parkingDetail.calculatedAmount}}:</b>Per day</p>
+       
+      </ion-card-content>
+      <ion-item>
+        <ion-button slot="end" color="warning" (click)="details(parkingDetail)">View details</ion-button>
+      <!-- </ion-item>
+      <ion-item> -->
+        <ion-button slot="end" color="primary" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
       
-    </ion-card-content>
-    <ion-item>
-      <ion-button slot="end" color="warning" (click)="details(parkingDetail)">View details</ion-button>
-      <ion-button slot="end" color="primary" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
-    </ion-item>
-  </ion-card> -->
+        <ion-button slot="end" color="primary" (click)="payment(parkingDetail)">payment ${{parkingDetail.calculatedAmount}}</ion-button>
+      </ion-item>
+    </ion-card>
+    <ion-card style="position: fixed;width: 100%;bottom: 82px;padding-left: 5px;background: transparent;">
+      <div class="btn-group1">
+        <button (click)="sort(SortMethodEnum.closest)">Closest</button> </div>
+        <div class="btn-group2" (click)="sort(SortMethodEnum.cheapest)"><button>Low to High</button></div>
+       <div class="btn-group3"> <button>High to Low </button> </div>
+       <div class="btn-group4"> <button>Sort & Filter</button></div>
+      
+    </ion-card>
 
 </ion-content>

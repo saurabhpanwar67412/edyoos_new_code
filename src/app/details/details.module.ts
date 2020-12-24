@@ -7,7 +7,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { FormsModule } from '@angular/forms';
 import { GoogleMap } from '@angular/google-maps';
 import { AgmCoreModule } from '@agm/core';
-import { SharedModule } from '../shared/shared.module';
+// import { SharedModule } from '../shared/shared.module';
 import { DetailsPageComponent } from './details-page/details-page.component';
 //import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ShareModalComponent } from './share-modal/share-modal.component';
@@ -19,7 +19,7 @@ import { ItemAddedComponent } from './item-added/item-added.component';
   declarations: [DetailsPageComponent],
   imports: [
     DetailsRoutingModule,
-    SharedModule,
+    // SharedModule,
     // GoogleMapsModule,
     // DpDatePickerModule
     

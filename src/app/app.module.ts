@@ -27,6 +27,7 @@ import { Base64 } from '@ionic-native/base64/ngx';
 import {Stripe} from '@ionic-native/stripe/ngx';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -50,7 +51,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BrowserAnimationsModule,
     MatButtonModule, 
     MatCheckboxModule,
-    //NgxIntlTelInputModule
+    //NgxIntlTelInputModule,
+    // MatSnackBar,
 ],
   providers: [
     StatusBar,
