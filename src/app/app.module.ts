@@ -27,16 +27,14 @@ import { Base64 } from '@ionic-native/base64/ngx';
 import {Stripe} from '@ionic-native/stripe/ngx';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-<<<<<<< HEAD
 import { RemovewhitespacesPipe } from './removewhitespaces.pipe';
-=======
 // import { MatSnackBar } from '@angular/material/snack-bar';
->>>>>>> d93a032b38ce98f3448b6de41a56047f47a7d4c2
-
+import { ApiService } from './api.service';
+import { NotificationsComponent } from '../app/notifications/notifications.component';
 
 
 @NgModule({
-  declarations: [AppComponent, RemovewhitespacesPipe],
+  declarations: [AppComponent, RemovewhitespacesPipe,NotificationsComponent],
   entryComponents: [],
   imports: [
     BrowserModule, 
@@ -54,19 +52,15 @@ import { RemovewhitespacesPipe } from './removewhitespaces.pipe';
     ConfirmDialogModule,
     BrowserAnimationsModule,
     MatButtonModule, 
-<<<<<<< HEAD
-    MatCheckboxModule
-    //NgxIntlTelInputModule
-=======
+
     MatCheckboxModule,
-    //NgxIntlTelInputModule,
-    // MatSnackBar,
->>>>>>> d93a032b38ce98f3448b6de41a56047f47a7d4c2
+   
 ],
   providers: [
     StatusBar,
     SplashScreen,
     Stripe,
+    ApiService,
     Geolocation, NativeGeocoder, Camera, Base64, RemovewhitespacesPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -24,7 +24,7 @@
       flex-direction: column;
   }
   .ameimg img {
-    width: 18px;
+    width: 1s8px;
   }
   .btn-group1 button {
     background-color: #161529; /* Green background */
@@ -653,3 +653,19 @@
     width:70px
   }
   
+<<<<<<< HEAD
+=======
+  .ameimg{
+    // background: #4c99f9;
+      display: flex;
+      padding: 2px;
+      border-radius: 2px;
+      min-width: 26px;
+      min-height: 26px;
+      justify-content: center;
+      flex-direction: column;
+  }
+  .ameimg img {
+    width: 18px;
+  }
+>>>>>>> ce89bccc1dc1404f1c0795e2dc4947397017228a

@@ -36,8 +36,10 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   loading: any;
   searchobject = new SearchRequest();
   navdata : any ;
+  selectedMode:any;
+  imageurl: string;
+  item:any=[];
   displayedPlaces: any[] = [];
-  selectedMode;
   sortMethod;
   SortMethodEnum = SortMethodEnum;
   reserveNow: boolean = false;
@@ -47,8 +49,6 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   public toDate;  
   hideMe ; 
   Isshowing : boolean=false;
-  imageurl: string;
-  item:any=[];
 
   constructor( private route: ActivatedRoute,
     private placesService: PlacesService,

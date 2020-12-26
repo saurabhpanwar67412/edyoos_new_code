@@ -39,7 +39,7 @@ export class BookingDetailsPage implements OnInit {
 
     let selectparkingdetails = this.item;
     console.log("parkingDetail =>>", selectparkingdetails)
-    this.storage.set('booked', this.item);
+    // this.storage.set('booked', this.item);
     let navigationExtras: any = {
       queryParams: {
         special: JSON.stringify(selectparkingdetails)
@@ -51,7 +51,7 @@ export class BookingDetailsPage implements OnInit {
 }
 
   back(){
-    this.navctrl.pop();
+    // this.navctrl.pop();
   }
 
 }
