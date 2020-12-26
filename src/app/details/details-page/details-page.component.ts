@@ -337,25 +337,25 @@ export class DetailsPageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  initializeGeocode(address: google.maps.LatLngLiteral) {
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder();
-      this.geoCoder.geocode(
-        { location: { lat: address.lat, lng: address.lng } },
-        (results, status) => {
-          console.log(results);
-          console.log(status);
-          if (status === 'OK') {
-            if (results[0]) {
-              // debugger
-              this.formattedAddress = results[0].formatted_address;
-              this.changeDetectorRef.detectChanges();
-            }
-          }
-        }
-      );
-    });
-  }
+  // initializeGeocode(address: google.maps.LatLngLiteral) {
+  //   this.mapsAPILoader.load().then(() => {
+  //     this.geoCoder = new google.maps.Geocoder();
+  //     this.geoCoder.geocode(
+  //       { location: { lat: address.lat, lng: address.lng } },
+  //       (results, status) => {
+  //         console.log(results);
+  //         console.log(status);
+  //         if (status === 'OK') {
+  //           if (results[0]) {
+  //             // debugger
+  //             this.formattedAddress = results[0].formatted_address;
+  //             this.changeDetectorRef.detectChanges();
+  //           }
+  //         }
+  //       }
+  //     );
+  //   });
+  // }
 
   // openSearchPopup() {
   //   this.modalService.open(AddCartComponent, { centered: true });

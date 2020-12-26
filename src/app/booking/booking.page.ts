@@ -11,6 +11,8 @@ import { PlacesService } from 'src/app/shared/places.service';
 import { Cart } from 'src/app/model/cart/cart.model';
 import { AvailableSpotsRequest } from 'src/app/model/Booking/available_spots.model';
 import {ChangeDateModalPage} from '../change-date-modal/change-date-modal.page';
+import { NotificationsComponent } from '../notifications/notifications.component';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-booking',
@@ -32,7 +34,8 @@ export class BookingPage implements OnInit {
     private fb: FormBuilder,
     private loginService: LoginService, private authenticationService: AuthenticationService,
     private cartService: CartService,
-    private placesService: PlacesService,public modalController: ModalController) {
+    private placesService: PlacesService,public modalController: ModalController,
+    public popoverController: PopoverController) {
     this.route.queryParams.subscribe(params => {
       if (params && params.special) {
         this.data = JSON.parse(params.special);
@@ -41,6 +44,17 @@ export class BookingPage implements OnInit {
     });
   }
    
+  
+
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: NotificationsComponent,
+      showBackdrop  : false , 
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
 
   ngOnInit() {
      this.bookedPlaces = this.placesService.cartPropertyGroup;

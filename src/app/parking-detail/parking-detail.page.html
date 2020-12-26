@@ -7,6 +7,7 @@ border: 1px solid red;width: 15%; margin-top: 35px; position: absolute;"></ion-i
   <ion-toolbar>
     
     <ion-buttons slot="start">
+      <ion-icon color="primary" class="back-icon" name="arrow-back" (click)="home()"></ion-icon> 
       <div id="header1">
         <div style="margin-top: 22px; height: 10px;border-bottom: 1px solid #3880ff;">     
         <span style=" float: right; margin-top: -20px; " ><a (click)="openModal()"><img src="../../../../assets/images/bkedit-icon.png" alt="" /> </a></span>
@@ -43,39 +44,54 @@ border: 1px solid red;width: 15%; margin-top: 35px; position: absolute;"></ion-i
 
 <div *ngIf="showMessage">
     <p  class="msg">{{message}}</p>
-    <div class="ion-text-center">
-    </div>
+    <div class="ion-text-center"></div>
 </div>
-    <ion-card *ngFor="let parkingDetail of parkingDetailsList">
-      <img src={{parkingDetail.files[0].filePath}} />
-      <ion-card-header>
-        <ion-card-subtitle> </ion-card-subtitle>
-        <ion-card-title>{{parkingDetail.propertyname}}</ion-card-title>
-      </ion-card-header>
-      <br>
-      <ion-card-content>
-        <p *ngIf="parkingDetail.amenities!=null"><b>Amenities:</b>{{parkingDetail.amenities}} </p>
-        <p><b></b>{{parkingDetail.distance}} miles away </p>
-       <br>
-        <p><b>${{parkingDetail.calculatedAmount}}:</b>Per day</p>
-       
-      </ion-card-content>
-      <ion-item>
-        <ion-button slot="end" color="warning" (click)="details(parkingDetail)">View details</ion-button>
-      <!-- </ion-item>
-      <ion-item> -->
-        <ion-button slot="end" color="primary" (click)="booking(parkingDetail)">Book Now ${{parkingDetail.calculatedAmount}}</ion-button>
-      
-        <ion-button slot="end" color="primary" (click)="payment(parkingDetail)">payment ${{parkingDetail.calculatedAmount}}</ion-button>
-      </ion-item>
-    </ion-card>
-    <ion-card style="position: fixed;width: 100%;bottom: 82px;padding-left: 5px;background: transparent;">
-      <div class="btn-group1">
-        <button (click)="sort(SortMethodEnum.closest)">Closest</button> </div>
-        <div class="btn-group2" (click)="sort(SortMethodEnum.cheapest)"><button>Low to High</button></div>
-       <div class="btn-group3"> <button>High to Low </button> </div>
-       <div class="btn-group4"> <button>Sort & Filter</button></div>
-      
-    </ion-card>
+  <ion-card *ngFor="let parkingDetail of parkingDetailsList" (click)="details(parkingDetail)">
+    <!-- IMAGE -->
+    <div style="margin-left: 11px; max-width: 93%; margin-top: 15px; margin-right: 12px;">
+      <img style=" height: 225px;" src={{parkingDetail.files[0].filePath}} /> 
+    </div>
+
+    <div style="font-weight:bold; font-size: 13px; margin-top: 20px;  margin-left: 11px;">
+      {{parkingDetail.propertyname}}
+    </div>
+
+    <div style="font-size: 12px;">
+      <ion-icon name="pin" color="warning" style="font-size: 20px; margin-top: 5px;"></ion-icon>
+      <div style="color:gray; margin-left: 17px; margin-top: -18px;">{{parkingDetail.propertyGroupAddress}}</div>
+    </div>
+  
+    <div *ngIf="parkingDetail.amenities" style="margin-top: 10px; margin-left: 10px; height: 55px; width: 250px; margin-top: 11px;">
+      <ion-row>
+        <ion-col *ngFor="let subCategory of parkingDetail.amenities.split(',');let i=index">
+          <img src="{{imageurl}}/{{subCategory.trim().replace(' ','').replace('/','').toLowerCase() | removewhitespaces}}.png" alt="" />
+        </ion-col>
+      </ion-row>     
+    </div>
+
+
+    <div style="color:red; margin-top: 8px; margin-left: 10px;">
+      - {{parkingDetail.distance}} Miles away
+    </div>
+
+    <div style="float: right; margin-top:-65px; margin-right: 15px;">
+      <div style="font-weight: 700; font-size: 18px;">$ {{parkingDetail.calculatedAmount}}</div>
+      <div style="color: gray;font-size: 10px;">Per Hour</div>
+    </div>
+
+    <div style="float: right;margin-top: 31ox;margin-right: 10px;margin-top: -16px;margin-bottom: 10px;">
+      <a style="color:#3880ff" (click)="booking(parkingDetail)">Add to Bag</a>
+    </div>
+
+
+  </ion-card> 
+  <ion-card style="position: fixed;width: 100%;bottom: 82px;padding-left: 5px;background: transparent;">
+    <div class="btn-group1">
+      <button (click)="sort(SortMethodEnum.closest)">Closest</button> </div>
+      <div class="btn-group2" (click)="sort(SortMethodEnum.cheapest)"><button>Low to High</button></div>
+     <div class="btn-group3"> <button>High to Low </button> </div>
+     <div class="btn-group4"> <button>Sort & Filter</button></div>
+    
+  </ion-card>
 
 </ion-content>

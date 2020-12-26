@@ -640,3 +640,16 @@
     width:70px
   }
   
+  .ameimg{
+    // background: #4c99f9;
+      display: flex;
+      padding: 2px;
+      border-radius: 2px;
+      min-width: 26px;
+      min-height: 26px;
+      justify-content: center;
+      flex-direction: column;
+  }
+  .ameimg img {
+    width: 18px;
+  }

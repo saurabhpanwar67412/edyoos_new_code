@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-booking-details',
@@ -10,6 +11,8 @@ export class BookingDetailsPage implements OnInit {
 
   item:any=[];
   amenities:any=[];
+  imageurl: string;
+
   //operationaldays:any=[];
 
   constructor(private route: ActivatedRoute, private router: Router) 
@@ -28,11 +31,27 @@ export class BookingDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.imageurl = environment.blobURL + '/images/Amenieties' ;
+    console.log("this.imageurlthis.imageurl:::::", this.imageurl);
   }
 
-  home(){
-    this.router.navigate(['/']);
+  proceedtopay(){
+
+    let selectparkingdetails = this.item;
+    console.log("parkingDetail =>>", selectparkingdetails)
+    // this.storage.set('booked', this.item);
+    let navigationExtras: any = {
+      queryParams: {
+        special: JSON.stringify(selectparkingdetails)
+      }
+    };
+    // this.navCtrl.navigateForward('booking', this.searchobject);
+    this.router.navigate(['booking'],navigationExtras );
+
+}
+
+  back(){
+    // this.navctrl.pop();
   }
 
 }

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { BookingDetailsPageRoutingModule } from './booking-details-routing.module';
 
 import { BookingDetailsPage } from './booking-details.page';
+import { RemovewhitespacesPipe } from '../removewhitespaces.pipe'
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { BookingDetailsPage } from './booking-details.page';
     IonicModule,
     BookingDetailsPageRoutingModule
   ],
-  declarations: [BookingDetailsPage]
+  declarations: [BookingDetailsPage, RemovewhitespacesPipe]
 })
 export class BookingDetailsPageModule {}

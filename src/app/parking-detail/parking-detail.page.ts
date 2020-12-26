@@ -11,6 +11,8 @@ import {ModalPagePage} from "../modal-page/modal-page.page";
 import sort from 'fast-sort';
 import { ChangeDetectorRef } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
+import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage';
 
 import { AvailableSpotsRequest } from 'src/app/model/Booking/available_spots.model';
 declare var jQuery:any;
@@ -34,8 +36,10 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   loading: any;
   searchobject = new SearchRequest();
   navdata : any ;
+  selectedMode:any;
+  imageurl: string;
+  item:any=[];
   displayedPlaces: any[] = [];
-  selectedMode;
   sortMethod;
   SortMethodEnum = SortMethodEnum;
   reserveNow: boolean = false;
@@ -45,16 +49,11 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   public toDate;  
   hideMe ; 
   Isshowing : boolean=false;
-  constructor( private route: ActivatedRoute,
-    private placesService: PlacesService,
-    private formBuilder: FormBuilder,
-    private navCtrl: NavController,
-    public loadingCtrl: LoadingController,
-    private router: Router,
-    private changeDetectorRef: ChangeDetectorRef,
-    private modalCtrl: ModalController) {
+
+  constructor( private route: ActivatedRoute, private storage: Storage, private placesService: PlacesService,
+    private formBuilder: FormBuilder, private navCtrl: NavController, public loadingCtrl: LoadingController,
+    private router: Router, public modalCtrl: ModalController, private changeDetectorRef:ChangeDetectorRef) {
       this.createForms();
-     
   }
 
   async ngAfterViewInit() {
@@ -272,6 +271,8 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
      total = 0;
 
   async ngOnInit() {
+    this.imageurl = environment.blobURL + '/images/Amenieties' ;
+    console.log("this.imageurlthis.imageurl:::::", this.imageurl);
     this.loading = await this.loadingCtrl.create({
       message: 'Please wait...'
     });
@@ -535,13 +536,15 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     let selectparkingdetails = parkingDetail;
     console.log("parkingDetail =>>", parkingDetail)
     console.log( "  this.searchobject newly created",   this.searchobject)
+    this.storage.set('booked', this.item);
+    console.log("ADDED TO BAG!!!! (paring detail page-> addtobag)")
     let navigationExtras: any = {
       queryParams: {
         special: JSON.stringify(selectparkingdetails)
       }
     };
     // this.navCtrl.navigateForward('booking', this.searchobject);
-    this.router.navigate(['booking'],navigationExtras );
+    //this.router.navigate(['booking'],navigationExtras );
     
   }
   payment(parkingDetail){
@@ -579,21 +582,6 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     };
     this.router.navigate(['booking-details'], navigationExtras);
   }
-
-  // async details(parkingDetail){
-  //   this.navdata = parkingDetail;
-  //   console.log("parkingDetail clicked or choosed.", parkingDetail)
-  //   var data = { message : 'hello world' };
-  //    var modalPage = await this.modalController.create(
-  //      {
-  //        component:ModalPagePage,
-  //        componentProps: {
-  //         'message': this.navdata,  
-  //       }
-  //      }
-  //    ); 
-  //    return await modalPage.present();
-  // }
 
   home(){
     this.router.navigate(['/']);
