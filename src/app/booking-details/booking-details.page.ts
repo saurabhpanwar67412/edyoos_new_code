@@ -17,6 +17,7 @@ export class BookingDetailsPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router) 
   { 
+    console.log("testing inside booking page");
     this.route.queryParams.subscribe(params => {
       if (params && params.special) {
         this.item = JSON.parse(params.special);

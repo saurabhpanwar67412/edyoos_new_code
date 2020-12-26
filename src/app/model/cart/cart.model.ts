@@ -3,6 +3,8 @@ export class Cart{
     UserID:number;
     FromDate:Date;
     ToDate:Date;
+    FromTime:string;
+    ToTime:string;
     Amount:number;
     PropertyGroupID:number;
     CreatedBy:string;

@@ -4,7 +4,7 @@ import { Component, Input, ElementRef, AfterViewInit } from '@angular/core';
 @Component({
   selector: 'app-read-more',
   template: `
-        <div class="p-3" [innerHTML]="text" [class.collapsed]="isCollapsed" [style.height]="isCollapsed ? maxHeight+'px' : 'auto'">
+        <div [innerHTML]="text" [class.collapsed]="isCollapsed" [style.height]="isCollapsed ? maxHeight+'px' : 'auto'">
         </div>
   <div class="pl-3 py-1"><a *ngIf="isCollapsable" class="mt-2 btn-link" style="cursor:pointer" (click)="isCollapsed =! isCollapsed">Read {{isCollapsed? 'more':'less'}}</a>
  </div>

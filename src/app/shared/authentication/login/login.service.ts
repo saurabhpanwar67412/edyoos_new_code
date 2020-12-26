@@ -7,7 +7,7 @@ import { ApiResponse } from 'src/app/model/apiresponse.model';
 import { ForgetPassword } from 'src/app/model/login/forget_password.model';
 import { catchError } from 'rxjs/operators';
 import { ResetPassword } from 'src/app/model/login/reset_password.model';
-// import { ChangePassword } from 'src/app/model/login/change_password.model';
+import { ChangePassword } from 'src/app/model/login/change_password.model';
 import { User } from 'src/app/model/login/user.model';
 
 @Injectable({
@@ -23,10 +23,11 @@ export class LoginService{
    forgetPassword(forgetPassword:ForgetPassword){
     return this.http.post<ApiResponse<string>>(apiRoutes.login.forgetPassword,forgetPassword);
    }
+
    resetPassword(resetPassword:ResetPassword){
-     return this.http.post<ApiResponse<string>>(apiRoutes.login.resetPassword,resetPassword);
-    }
-   // changePassword(changePassword:ChangePassword){
-   //  return this.http.post<ApiResponse<string>>(apiRoutes.login.changePassword,changePassword);
-   // }
+    return this.http.post<ApiResponse<string>>(apiRoutes.login.resetPassword,resetPassword);
+   }
+   changePassword(changePassword:ChangePassword){
+    return this.http.post<ApiResponse<string>>(apiRoutes.login.changePassword,changePassword);
+   }
 }

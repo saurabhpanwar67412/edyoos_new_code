@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { Mode } from '../landing/main/main.component.metadata';
+import { Mode } from '../parking-detail/parking.metadata';
 import { map, catchError, delay } from 'rxjs/operators';
 import { of, Subject, Observable } from 'rxjs';
 import { IPlace } from './place';
@@ -14,7 +14,7 @@ import { AvailableSpotsRequest } from '../model/Booking/available_spots.model';
 })
 export class PlacesService {
 
-  //svehicleCategory: Subject<Mode> = new Subject<Mode>();
+  vehicleCategory: Subject<Mode> = new Subject<Mode>();
 
   itemsCountChanged: Subject<number> = new Subject<number>();
   itemsCount;
@@ -160,6 +160,7 @@ export class PlacesService {
   getSearchResultForAuto(searchRequest:SearchRequest):Observable<any>{
     return this.http.post<ApiResponse<any>>(apiRoutes.search.getSearchResultForAuto,searchRequest);
   }
+
   GetSearchResultforSeaPlanes(searchRequest:SearchRequest):Observable<any>{
     return this.http.post<ApiResponse<any>>(apiRoutes.search.GetSearchResultforSeaPlanes,searchRequest);
   }
@@ -186,7 +187,7 @@ export class PlacesService {
     return this.http.get<ApiResponse<any>>(`${apiRoutes.detail.GetPropertyGroupDetail}?propertyGroupId=${propertyGroupID}`);
   }
 
-  CheckForAvaliableSpots(availableSpotsRequest:AvailableSpotsRequest):Observable<any>{
+  CheckForAvaliableSpots(availableSpotsRequest:any):Observable<any>{
     return this.http.post<ApiResponse<any>>(apiRoutes.booking.CheckForAvaliableSpots,availableSpotsRequest);
   }
   SpotAvalibilityCheckonCheckOut(availableSpotsRequest:AvailableSpotsRequest):Observable<any>{

@@ -28,6 +28,8 @@ export class TrackPropertyGroup {
     PropertyName: string;
     FromDate: Date;
     ToDate: Date;
+    FromTime:string;
+    ToTime:string;
     PropertyGroupAmount: number;
     AdditionalFee:number;
     PropertyGroupTotalAmount:number;

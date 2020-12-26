@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { BookingPageRoutingModule } from './booking-routing.module';
 
 import { BookingPage } from './booking.page';
+import {MatTabsModule} from '@angular/material/tabs';
+// import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BookingPageRoutingModule
+    BookingPageRoutingModule,
+    MatTabsModule
   ],
   declarations: [BookingPage]
 })
