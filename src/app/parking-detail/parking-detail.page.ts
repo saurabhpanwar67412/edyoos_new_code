@@ -48,6 +48,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   public fromDate;
   public toDate;  
   hideMe ; 
+ 
   Isshowing : boolean=false;
 
   constructor( private route: ActivatedRoute, private storage: Storage, private placesService: PlacesService,
@@ -344,7 +345,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
             // this.setplaces(response);
             this.parkingDetailsList = response.data;
             this.searchobject= response.data;
-            console.log("response",response.data);
+            console.log("response from home",response.data);
             this.loading.dismiss();
           }, (error) => {
             // this.displayedPlaces = [];
@@ -612,5 +613,16 @@ async openModal() {
 //   }, 100);
 
 // }
+
+viewonmap(){
+  let selectparkingdetails = this.parkingDetailsList;
+  let navigationExtras: any = {
+    queryParams: {
+      special: JSON.stringify(selectparkingdetails)
+    }
+  };
+  this.router.navigate([''], navigationExtras);
+  
+}
 
   }

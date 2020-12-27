@@ -67,6 +67,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
     maximumAge: 0
   };
 
+  markers:any=[];
   userdetails : any ;
   
   modes = [ 'city' , 'airplane' , 'Truck & Trailer Parking' ,'boats', 'Semi-Truck Parking' ] ;
@@ -84,7 +85,8 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
     private ngZone: NgZone,
     private platform: Platform,
     public toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    
   ) {
     this.userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
     console.log("userid", this.userdetails);
@@ -96,6 +98,12 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
       console.log("i am else from tab2page ");
      
     }
+    this.route.queryParams.subscribe(params => {
+      if (params && params.special) {
+        this.markers = JSON.parse(params.special);
+        console.log("data from parking details for view map",this.markers);
+      }
+    });
 
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };

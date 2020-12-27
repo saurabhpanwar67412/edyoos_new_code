@@ -28,7 +28,7 @@ import {Stripe} from '@ionic-native/stripe/ngx';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RemovewhitespacesPipe } from './removewhitespaces.pipe';
-import { ApiService } from './api.service';
+// import { ApiService } from './api.service';
 import { NotificationsComponent } from '../app/notifications/notifications.component';
 
 
@@ -60,7 +60,7 @@ import { NotificationsComponent } from '../app/notifications/notifications.compo
     StatusBar,
     SplashScreen,
     Stripe,
-    ApiService,
+    // ApiService,
     Geolocation, NativeGeocoder, Camera, Base64, RemovewhitespacesPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
