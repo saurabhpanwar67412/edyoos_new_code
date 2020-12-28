@@ -56,11 +56,14 @@ export class AppComponent {
     this.platform.ready().then(() => {
       
       this.statusBar.styleDefault();
-     
-      setTimeout(()=>{
-        this.splashScreen.hide();
+      this.splashScreen.hide();
+
+      // setTimeout(()=>{
+      //   this.splashScreen.hide();
+      // },5000)
+
         // document.getElementById("custom-overlay").style.display = "none";
-      },1000)
+     
       // this.router.navigate(['/']);
     });
   }

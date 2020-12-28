@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-booking-details',
@@ -15,7 +16,10 @@ export class BookingDetailsPage implements OnInit {
 
   //operationaldays:any=[];
 
-  constructor(private route: ActivatedRoute, private router: Router) 
+  constructor(private route: ActivatedRoute, 
+    private router: Router, 
+    private navCtrl: NavController,
+    public toastController: ToastController) 
   { 
     console.log("testing inside booking page");
     this.route.queryParams.subscribe(params => {
@@ -36,7 +40,6 @@ export class BookingDetailsPage implements OnInit {
   }
 
   proceedtopay(){
-
     let selectparkingdetails = this.item;
     console.log("parkingDetail =>>", selectparkingdetails)
     // this.storage.set('booked', this.item);
@@ -47,11 +50,18 @@ export class BookingDetailsPage implements OnInit {
     };
     // this.navCtrl.navigateForward('booking', this.searchobject);
     this.router.navigate(['booking'],navigationExtras );
-
 }
 
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your item has been added to bag!',
+      duration: 2000
+    });
+    toast.present();
+  }
+
   back(){
-    // this.navctrl.pop();
+    this.navCtrl.back();
   }
 
 }
