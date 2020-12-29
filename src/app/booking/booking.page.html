@@ -2,16 +2,94 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-      <a (click)="home()">
-        <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/> </a>  
+      <ion-icon style="font-size: x-large; color:black;"class="back-icon" name="arrow-back" (click)="goBack()"></ion-icon>
     </ion-buttons>
-    <ion-title mode="ios" color="primary">Booking Details</ion-title>
+    <ion-title style="color:black; margin-left: -55px; padding-right: 0px; font-size: medium;">Review and book your parking space</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
- <div class="container" >
+
+  <div style="margin-left: 11px; max-width: 94%; margin-top: 10px">
+    <img src={{data.files[0].filePath}} />
+  </div>
+
+  <div style="font-weight:bold; font-size: 13px; margin-top: 20px;  margin-left: 11px;">
+    {{data.propertyname}}
+  </div>
+
+  <div style="font-size: 12px;">
+    <ion-icon name="pin" color="warning" style="font-size: 20px; margin-top: 5px;"></ion-icon>
+    <div style="color:gray; margin-left: 17px; margin-top: -18px;">{{data.propertyGroupAddress}}</div>
+  </div>
+
+<!-- BOOKING DETAILS CARD -->
+  <ion-card style="max-width: 100%;">
+    <ion-item>
+      <ion-icon name="calendar-outline" style="font-size: larger; color: gray;"></ion-icon>
+      <ion-label (click)="changeDateClick(data)" style="color:gray; font-size: small; margin-left: 5px;
+      margin-top: 14px;">Booking Window</ion-label>
+
+      <ion-label slot="end" color="primary" style="text-align: right; margin-right: -3px;">Edit</ion-label>
+      <ion-icon slot="end" name="create-outline" color="primary" style="font-size:larger; margin-right:0px;"></ion-icon>
+    </ion-item>
+
+    <div style="color:gray; margin-top: 12px; margin-left: 14px;">Parking From</div>
+    <div style="color:gray; margin-top: -18px; margin-left: 216px;">Parking Until</div>
+
+    <div style="margin-left: 12px; margin-top: 7px; font-weight: bold; font-size: 13px;
+    color: black;">
+      {{data.fromDate}}
+    </div>
+    <div style="margin-left: 179px; margin-top: -20px; color: black; font-size: 13px;
+    font-weight: bold; margin-bottom: 15px;">
+      {{data.toDate}}
+    </div>
+  </ion-card>
+
+  <!-- PAYMENT CARD -->
+  <ion-card>
+
+    <ion-item style="margin-left: -10px;">
+      <ion-grid>
+        <ion-row style="margin-bottom: 10px;">
+          <img style="max-width:6%; color:gray; margin-left:6px;" src="./assets/images/paymentcard.png">
+          <div style="color:gray; margin-left:7px; font-size:small; padding-top: 4px;">Payment Method</div>
+        </ion-row>
+        <ion-row style="margin-bottom: 3px;">
+          <div style="color:gray; font-size:small; margin-left:6px;">Edyoos supports all major credit cards</div><br>
+        </ion-row>
+        <ion-row>
+          <label style="font-size:small; color: #3880ff;">100% <span style="color:red;">SECURE</span> checkout Guaranteed</label>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item>
+       <img style="max-width: 9%;" src="./assets/images/bkpay-afs.png" alt="" /> 
+       <img style="max-width: 9%;margin-left: 10px;" src="./assets/images/bkpay-visa.png" alt="" /> 
+       <img style="max-width: 9%;margin-left: 10px;" src="./assets/images/bkpay-master.png" alt="" /> 
+       <img style="max-width: 9%;margin-left: 10px;" src="./assets/images/bkpay-amex.png" alt="" /> 
+       <img style="max-width: 9%;margin-left: 10px;" src="./assets/images/bkpay-card.png" alt="" /> 
+       <img style="max-width: 9%;margin-left: 10px;" src="./assets/images/bkpay-etc.png" alt="" /> 
+       <label style="font-size:x-small; margin-left:40px; margin-top:4px; padding-top:-15px;">Powered By <img src="./assets/images/bkpay-stripe.png" alt=""/></label>
+    </ion-item>
+
+    <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+      <div class="form-row" style="margin-top:10px;">
+        <label style="color: gray; margin-left: 12px;" for="card-info">Card Details</label>
+        <div style="margin-top: 10px; margin-left: 10px; margin-bottom: 10px;" id="card-info" #cardInfo></div>
+    
+        <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+      </div>
+    </form>
+  </ion-card>
+  
+
+
+
+
+ <!-- <div class="container" >
     <div class="row">
       <div class="col-md-4">
         <div class="card card-1" >
@@ -37,19 +115,16 @@
           <p>Price : {{data.calculatedAmount}}</p> <p>Available spot : {{data.noOfSpots}}</p>
           
           <ion-item>
-            <ion-label (click)="changeDateClick(data)" color="secondary">Change Date</ion-label> -->
-            <!-- <ion-datetime (ionChange)="filter()" displayFormat="MM/DD/YYYY" [(ngModel)]="changeddate" min="2020" max="2030" value="2020-11-04T11:06Z"></ion-datetime> -->
+            <ion-label (click)="changeDateClick(data)" color="secondary">Change Date</ion-label> 
           </ion-item>
           
-
-
-          
-        
      <br><br> 
           <ion-button color="secondary" (click)="goBack()">Back</ion-button>
           <ion-button color="secondary" (click)="presentPopover()">Confirm</ion-button>
         </div>
       </div>
+    </div>
+  </div>   -->
       <!-- <div class="col-md-4">
         <div class="card card-3">
           <h3>Theming</h3>
@@ -63,10 +138,20 @@
           <p>Learn how to easily customize and modify your app’s design to fit your
             brand across all mobile platform styles.</p>
         </div>
-      </div>
-      -->
-</div>
-</div>  
-
-
+      </div> -->
+     
 </ion-content>
+
+<ion-footer style="height: 75px; background-color: #252542;">
+  <ion-icon (click)="presentPopover()" style="color:#3880ff; font-size: larger; margin-top: 20px; margin-left: 9px;" name="information-circle">
+  </ion-icon>
+
+  <div style="max-width: 150px; color: white; font-size: 26px; font-weight: bold; margin-left: 31px;
+  margin-top: -31px;">$ {{data.pricingAmount}}</div>  
+  <br>
+  <div style="margin-top: -25px; margin-left: 25px; color: darkgray;">price per hour</div>
+
+  <ion-button slot="end" type="submit" style="position: absolute; margin-left: 280px; font-size: x-small;
+  margin-top: 20px; display: block !important;" (click)="proceedtopay()">Proceed to pay</ion-button>
+
+</ion-footer>

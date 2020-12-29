@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-icon color="primary" class="back-icon" name="arrow-back" (click)="back()"></ion-icon>
+      <ion-icon style="color:black; font-size: x-large;" class="back-icon" name="arrow-back" (click)="back()"></ion-icon>
     </ion-buttons>
-    <ion-title>booking details</ion-title>
+    <ion-title>Booking Details</ion-title>
   </ion-toolbar>
   <br>
   <br>
@@ -43,6 +43,7 @@
   <div style="margin-top:10px; margin-left: 11px; font-size: smaller; max-width: 359px; text-align: justify;">
     {{item.tipToFind}}
   </div>
+  <br>
 </ion-content>
 
 <ion-footer style="height: 75px; background-color: #252542;">
@@ -52,9 +53,9 @@
   <div style="max-width: 150px; color: white; font-size: 26px; font-weight: bold; margin-left: 31px;
   margin-top: -31px;">$ {{item.pricingAmount}}</div>  
   <br>
-  <div style="margin-top: -25px; margin-left: 25px; color: darkgray;">price per hour</div>
+  <div style="margin-top: -25px; margin-left: 25px; color: darkgray; font-size: smaller;">price per hour</div>
 
-  <ion-button slot="end" type="submit" style="position: absolute; margin-left: 200px; font-size: x-small; margin-top: 20px; display: block !important;" >Add to bag</ion-button>
+  <ion-button slot="end" type="submit" style="position: absolute; margin-left: 205px; font-size: x-small; margin-top: 20px; display: block !important;" (click)="presentToast()">Add to bag</ion-button>
 
   <ion-button slot="end" type="submit" style="position: absolute; margin-left: 280px; font-size: x-small;
   margin-top: 20px; display: block !important;" (click)="proceedtopay()">Proceed to pay</ion-button>

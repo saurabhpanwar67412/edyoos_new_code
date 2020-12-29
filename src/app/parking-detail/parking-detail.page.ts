@@ -5,14 +5,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SEARCH_FORM_METADATA, SortMethodEnum,Mode } from './parking.metadata';
 import { SearchRequest } from 'src/app/model/search/search_request.model';
 import * as moment from 'moment';
-import { NavController,LoadingController,ModalController  } from '@ionic/angular';
+import { NavController, LoadingController, ModalController, ToastController  } from '@ionic/angular';
 import {BookingPageModule} from '../booking/booking.module';
 import {ModalPagePage} from "../modal-page/modal-page.page";
+import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage';
 import sort from 'fast-sort';
 import { ChangeDetectorRef } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
-import { environment } from '../../environments/environment';
-import { Storage } from '@ionic/storage';
 
 import { AvailableSpotsRequest } from 'src/app/model/Booking/available_spots.model';
 declare var jQuery:any;
@@ -51,10 +51,18 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
  
   Isshowing : boolean=false;
 
-  constructor( private route: ActivatedRoute, private storage: Storage, private placesService: PlacesService,
-    private formBuilder: FormBuilder, private navCtrl: NavController, public loadingCtrl: LoadingController,
-    private router: Router, public modalCtrl: ModalController, private changeDetectorRef:ChangeDetectorRef) {
+  constructor( private route: ActivatedRoute,
+    private placesService: PlacesService,
+    private formBuilder: FormBuilder,
+    private navCtrl: NavController,
+    public loadingCtrl: LoadingController,
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
+    private storage: Storage,
+    private modalCtrl: ModalController,
+    public toastController: ToastController) {
       this.createForms();
+     
   }
 
   async ngAfterViewInit() {
@@ -533,7 +541,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     this.navCtrl.back();
   }
 
-  booking(parkingDetail) {
+  async booking(parkingDetail) {
     let selectparkingdetails = parkingDetail;
     console.log("parkingDetail =>>", parkingDetail)
     console.log( "  this.searchobject newly created",   this.searchobject)
@@ -544,10 +552,15 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
         special: JSON.stringify(selectparkingdetails)
       }
     };
+    const toast = await this.toastController.create({
+      message: 'Your item has been added to bag!',
+      duration: 2000
+    });
+    toast.present();
     // this.navCtrl.navigateForward('booking', this.searchobject);
     //this.router.navigate(['booking'],navigationExtras );
-    
   }
+
   payment(parkingDetail){
     let selectparkingdetails = parkingDetail;
     let navigationExtras: any = {
