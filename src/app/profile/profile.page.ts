@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../shared/authentication/authentication.service';
+import { AlertController} from '@ionic/angular';
 
 
 @Component({
@@ -13,10 +14,12 @@ export class ProfilePage implements OnInit {
   
 loggedin : any ;
 email:any;
+name:any; 
 
 constructor(public router: Router,
   private route: ActivatedRoute,
-  private authenticationService: AuthenticationService
+  private authenticationService: AuthenticationService,
+  public alertCtrl: AlertController,
   ){
     let userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
     console.log("inside constructor of profile ppage")
@@ -26,6 +29,7 @@ constructor(public router: Router,
     }
     else{
       this.email = userdetails.email;
+      this.name= userdetails.firstName + userdetails.lastName;
     }
 }
 
@@ -33,14 +37,38 @@ ngOnInit(): void{
   
 }
 
-  logout(){
-    this.authenticationService.logout();
-    console.log("button cliked for logout")
-    localStorage.clear();
-    this.router.navigate(['welcome'] );
+  async presentalert(){
+    const alert =  await this.alertCtrl.create({
+      //header: 'Registration Successful',
+      //subHeader: 'Registration Successful',
+      message: 'Are you sure you ant to logout?',
+      buttons: [
+        {
+        text: 'Yes',
+        handler: data => {
+            this.authenticationService.logout();
+            console.log("button cliked for logout")
+            localStorage.clear();
+            this.router.navigate(['welcome'] );
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: data => {
+            alert.dismiss();
+          }
+        }
+    ]
+    });
+     await alert.present();
   }
-  home(){
-    this.router.navigate(['home']);
+
+  logout(){
+    this.presentalert();
+  }
+
+  back(){
+    this.router.navigate(['tab1']);
   }
 
   goto_editprofile(){

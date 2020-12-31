@@ -204,7 +204,7 @@ onSubmit(): void {
                             // this.router.navigate(['user/dashboard/myorders']);
                             console.log("userDatauserData:;", userData)
                             localStorage.setItem('userData', userData);
-                            this.router.navigate(['/profile'],userData);
+                            this.router.navigate(['tab1'],userData);
                     }
                 }
                 else {

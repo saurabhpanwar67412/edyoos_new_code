@@ -1,10 +1,9 @@
-<ion-app [class.dark-theme]="dark"> 
-  <!-- <div id="custom-overlay"></div> -->
-  <!-- <div id="custom-overlay"><img src="../assets/img/parking.gif"></div> -->
+<ion-app  [class.dark-theme]="dark"> 
+  <!-- <div id="custom-overlay"></div> *ngIf="loggedIn"-->
 
   <ion-split-pane contentId="main-content">
-  <ion-menu contentId="main-content">
-  <ion-content>
+  <ion-menu *ngIf="loggedIn" contentId="main-content">
+  <ion-content >
   
   <ion-menu-toggle autoHide="false">
     
@@ -150,7 +149,7 @@
 
       <ion-row style="margin-bottom: 35px;">
         <ion-col style="max-width: 95px;">
-          <img src="assets/img/avatar.png" style="height: 45px; margin-left: 23px;  border: 1px solid rgba(0, 0, 0, 0.25); padding: 3px; border-radius: 100%; -webkit-box-sizing: content-box; -moz-box-sizing:content-box; width: 53px; height: 48px; max-width: 85px;">
+          <img class="signup-image" src="assets/img/avatar.png">
         </ion-col>
     
         <ion-col>
