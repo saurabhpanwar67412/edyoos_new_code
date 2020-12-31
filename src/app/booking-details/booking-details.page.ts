@@ -55,7 +55,9 @@ export class BookingDetailsPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Your item has been added to bag!',
-      duration: 2000
+      duration: 2000,
+      //css-class: toast-container,
+      position: 'top'
     });
     toast.present();
   }

@@ -51,7 +51,7 @@
             <ion-row>
               <ion-col style="margin-top: -20px;">
                 <div style="margin-left: 7px;">
-                  <ion-checkbox slot="start" value="remember_me" style="height: 17px; width: 17px;"></ion-checkbox>
+                  <ion-checkbox slot="start" id="rememberMe" value="remember-me" formControlName="rememberMe" style="height: 17px; width: 17px;"></ion-checkbox>
                   <ion-label style="margin-left: 5%; font-size: small; color: gray;">Remember Me</ion-label>
                 </div>
               </ion-col>
@@ -64,7 +64,10 @@
             </ion-row>
           </ion-grid>
           
-          <ion-button class="submit-button" type="submit" mode="ios" expand="block" fill="outline">Login</ion-button>
+          <ion-button class="submit-button" type="submit" mode="ios" expand="block" fill="outline" [disabled]="loginForm.invalid || submitBtnDisable">
+            <span class="spinner-border spinner-border-sm" *ngIf="submitBtnDisable" role="status" aria-hidden="true"></span>
+            {{submitBtnDisable?'Loading...':'Login'}}
+          </ion-button>
           <br><br> 
           </form>
   

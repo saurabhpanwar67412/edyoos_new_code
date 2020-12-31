@@ -25,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'tab5',
-        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
+        //loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },  
       {
         path: '',
