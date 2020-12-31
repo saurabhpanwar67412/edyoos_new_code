@@ -320,6 +320,7 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
   searchObjNavigate(mode,place) {
      
     console.log("data from pop p ::::" , mode , place );
+    console.log("place=",place);
     for (var i = 0; i < place.address_components.length; i++) {
 
       var addressType = place.address_components[i].types[0];
@@ -358,8 +359,10 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
     if (this.searchAddress.locality)
       search.locality = this.searchAddress.locality;
 
+      search.place = place.formatted_address;
+     
     console.log("search=", search);
-    this.router.navigate(['/parking-detail', search]);
+     this.router.navigate(['/parking-detail', search]);
 
   }
 
