@@ -346,7 +346,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
       // ).value;
 
       console.log("this.selectedModethis.selectedMode:::::", this.selectedMode)
-
+debugger ;
       if (this.selectedMode == Mode.City) {
         this.placesService.getSearchResultForAuto(searchRequest)
           .subscribe((response) => {
