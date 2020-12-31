@@ -12,11 +12,18 @@
 <ion-content> 
 
   <div style="margin-left: 11px; max-width: 94%;">
-    <img src={{item.files[0].filePath}} />
+    <!-- <img src={{item.files[0].filePath}} /> -->
+    <ion-slides class="slide-padding" pager="false">
+      <ion-slide *ngFor="let image of item.files">
+          <div class="container">
+              <ion-img src="{{image.filePath}}"></ion-img>
+          </div>
+      </ion-slide>
+    </ion-slides>
   </div>
 
   <div style="margin-top: 10px; font-size: smaller;">
-    <ion-icon name="pin" color="warning" style="font-size: 20px;"></ion-icon>{{item.propertyGroupAddress}}
+    <ion-icon name="location" color="warning" style="font-size: 15px; margin-left: 10px;"></ion-icon>{{item.propertyGroupAddress}}
   </div>
   <div style="margin-top: 6px; margin-left: 10px; font-size: smaller; color:red;">- {{item.distance}} miles away</div>
 
@@ -27,19 +34,93 @@
 
   <div *ngIf="item.amenities" style="margin-top:23px; margin-left: 11px; font-weight: bold;">Amenities</div>
   <div *ngIf="item.amenities" style="margin-top:10px; margin-left: 11px;">
-    <ion-row>
-      <ion-col *ngFor="let subCategory of item.amenities.split(',');let i=index">
-        <img src="{{imageurl}}/{{subCategory.trim().replace(' ','').replace('/','').toLowerCase() | removewhitespaces}}.png" alt="" />
+    <ion-row *ngFor="let subCategory of item.amenities.split(',');let i=index">
+      <ion-col size="auto">
+          <img src="{{imageurl}}/{{subCategory.trim().replace(' ','').replace('/','').toLowerCase() | removewhitespaces}}.png" alt="" />
+      </ion-col>
+      <ion-col>
+        <div style="color:gray; margin-top: 5px;">{{subCategory}}</div>
       </ion-col>
     </ion-row>
   </div>
 
   <div style="margin-top:15px; margin-left: 11px; font-weight: bold;">Operational Hours</div>
-  <div *ngFor="let items of item.searchParkingOperationHours" style="color:gray; margin-top:20px; margin-left: 11px;">
+  <!-- <div *ngFor="let items of item.searchParkingOperationHours" style="color:gray; margin-top:20px; margin-left: 11px;">
     {{items.parkingFromTime}} - {{items.parkingToTime}}
+  </div> -->
+  <div style="margin-top: 10px;">
+    <ion-grid>
+
+      <ion-row style="font-weight: bold;"> 
+        <ion-col>Day</ion-col>
+        <ion-col>From Time</ion-col>
+        <ion-col>To Time</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Sunday</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[0].parkingFromTime">{{item.searchParkingOperationHours[0].parkingFromTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[0].parkingFromTime==''">-</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[0].parkingToTime">{{item.searchParkingOperationHours[0].parkingToTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[0].parkingToTime==''">-</ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Monday</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[1].parkingFromTime">{{item.searchParkingOperationHours[1].parkingFromTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[1].parkingFromTime==''">-</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[1].parkingToTime">{{item.searchParkingOperationHours[1].parkingToTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[1].parkingToTime==''">-</ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Tuesday</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[2].parkingFromTime">{{item.searchParkingOperationHours[2].parkingFromTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[2].parkingFromTime==''">-</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[2].parkingToTime">{{item.searchParkingOperationHours[2].parkingToTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[2].parkingToTime==''">-</ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Wednesday</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[3].parkingFromTime">{{item.searchParkingOperationHours[3].parkingFromTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[3].parkingFromTime==''">-</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[3].parkingToTime">{{item.searchParkingOperationHours[3].parkingToTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[3].parkingToTime==''">-</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Thursday</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[4].parkingFromTime">{{item.searchParkingOperationHours[4].parkingFromTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[4].parkingFromTime==''">-</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[4].parkingToTime">{{item.searchParkingOperationHours[4].parkingToTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[4].parkingToTime==''">-</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Friday</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[5].parkingFromTime">{{item.searchParkingOperationHours[5].parkingFromTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[5].parkingFromTime==''">-</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[5].parkingToTime">{{item.searchParkingOperationHours[5].parkingToTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[5].parkingToTime==''">-</ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col>Saturday</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[6].parkingFromTime">{{item.searchParkingOperationHours[6].parkingFromTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[6].parkingFromTime==''">-</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[6].parkingToTime">{{item.searchParkingOperationHours[6].parkingToTime}}</ion-col>
+        <ion-col *ngIf="item.searchParkingOperationHours[6].parkingToTime==''">-</ion-col>
+
+      </ion-row>
+    </ion-grid>
   </div>
 
-  <div style="margin-top:35px; margin-left: 11px; font-weight: bold;">Tip to find</div>
+  <div style="margin-top:25px; margin-left: 11px; font-weight: bold;">Tip to find</div>
   <div style="margin-top:10px; margin-left: 11px; font-size: smaller; max-width: 359px; text-align: justify;">
     {{item.tipToFind}}
   </div>
