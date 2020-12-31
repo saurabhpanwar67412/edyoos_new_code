@@ -38,7 +38,7 @@
         
         <ion-col size="2" *ngFor="let mode of modes; let i = index">
           
-          <ion-button  expand="full" color="light" style="width: 43px !important; height: 43px !important;" (click)="parkingtype(mode)">  <img src="{{imageurls[i]}}" style="width: 30px !important ;height: 30px !important;max-width:none !important; "></ion-button>
+          <ion-button [ngClass]="isClicked() ? 'btn red': 'btn'" expand="full" color="light" style="width: 43px !important; height: 43px !important;" (click)="parkingtype(mode)">  <img src="{{imageurls[i]}}" style="width: 30px !important ;height: 30px !important;max-width:none !important; "></ion-button>
 
         </ion-col>
         

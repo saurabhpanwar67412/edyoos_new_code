@@ -56,14 +56,13 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      setTimeout(()=>{
-        document.getElementById("custom-overlay").style.display = "none";
-      },4000)
-   
+
       // setTimeout(()=>{
       //   this.splashScreen.hide();
-      //   // document.getElementById("custom-overlay").style.display = "none";
-      // },1000)
+      // },5000)
+
+        // document.getElementById("custom-overlay").style.display = "none";
+     
       // this.router.navigate(['/']);
     });
   }

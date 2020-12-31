@@ -109,6 +109,13 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
   }
+
+  isClick: boolean=false;
+
+isClicked(){
+ return this.isClick;
+}
+
   ngAfterViewInit() {
     console.log("ng tab1 after called")
     // this.loadMap();
@@ -379,12 +386,10 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
   
   
 parkingtype(parkingtype){
-
+  this.isClick=!this.isClick;
 this.selectedMode = parkingtype;
   
   console.log("id from button click", parkingtype );
-
-
 }
   
 

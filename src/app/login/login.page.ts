@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserLogin } from 'src/app/model/login/login.model';
 import { ForgetPassword } from 'src/app/model/login/forget_password.model';
 import { ApiResponse } from 'src/app/model/apiresponse.model';
-// import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
 import { ErrorModel } from 'src/app/model/login/error.model';
 import { Router, ActivatedRoute } from '@angular/router';
 // import swal from 'sweetalert2';
@@ -50,6 +50,7 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController, 
     public alertCtrl: AlertController,
     private cartService: CartService,
+    private cookieService: CookieService,
     public zone: NgZone) 
     { }
 
@@ -62,12 +63,12 @@ export class LoginPage implements OnInit {
         }
 
     });
-    // let email = atob(this.cookieService.get('secure_data1'));
-    // let password = atob(this.cookieService.get('secure_data2'));
+    let email = atob(this.cookieService.get('secure_data1'));
+    let password = atob(this.cookieService.get('secure_data2'));
     let rememberMe: boolean = false;
-    // if (email && password) {
-    //     rememberMe = true;
-    // }
+    if (email && password) {
+        rememberMe = true;
+    }
     this.loginForm = this.fb.group({
         email: [null,[Validators.required,
        // Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")
@@ -152,6 +153,7 @@ onSubmit(): void {
 
         this.submitBtnDisable = true;
         let userData: any = {};
+        console.log("outside api call!!");
         this.loginService.userLogin(userLogin).subscribe((response: ApiResponse<User>) => {
             console.log("inside api call on login page!!")
             if (response.data) {
@@ -162,12 +164,12 @@ onSubmit(): void {
                 this.httpError = null;
                 let rememberMe: boolean = this.loginForm.get('rememberMe').value;
                 if (rememberMe) {
-                    // this.cookieService.set('secure_data1', btoa(userLogin.Email));
-                    // this.cookieService.set('secure_data2', btoa(userLogin.Password));
+                    this.cookieService.set('secure_data1', btoa(userLogin.Email));
+                    this.cookieService.set('secure_data2', btoa(userLogin.Password));
                 }
                 else {
-                    // this.cookieService.delete('secure_data1');
-                    // this.cookieService.delete('secure_data2');
+                    this.cookieService.delete('secure_data1');
+                    this.cookieService.delete('secure_data2');
                 }
                 if (!this.authenticationService.isAuthorized()) { 
                     this.authenticationService.setUserValue(response.data);
@@ -215,6 +217,10 @@ onSubmit(): void {
                 }
             }
         , (error) => {
+            console.log("inside error function!!")
+            let error1= "Please enter valid email or password!"
+            this.presentAlert(error1);
+
             this.submitBtnDisable = false;
             if (error == 'Password has expired') {
                 this.presentAlert(error);

@@ -30,9 +30,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RemovewhitespacesPipe } from './removewhitespaces.pipe';
 // import { ApiService } from './api.service';
 import { NotificationsComponent } from '../app/notifications/notifications.component';
-
-
-
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent, RemovewhitespacesPipe,NotificationsComponent],
@@ -53,8 +51,9 @@ import { NotificationsComponent } from '../app/notifications/notifications.compo
     ConfirmDialogModule,
     BrowserAnimationsModule,
     MatButtonModule, 
-    MatCheckboxModule
-    //NgxIntlTelInputModule
+
+    MatCheckboxModule,
+   
 ],
   providers: [
     StatusBar,
@@ -62,6 +61,8 @@ import { NotificationsComponent } from '../app/notifications/notifications.compo
     Stripe,
     // ApiService,
     Geolocation, NativeGeocoder, Camera, Base64, RemovewhitespacesPipe,
+    StatusBar, SplashScreen, Stripe, Geolocation, NativeGeocoder, Camera, Base64, 
+    RemovewhitespacesPipe, CookieService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
