@@ -202,6 +202,7 @@ export class SignupPage implements OnInit {
 
 
   onSubmit(): void {
+    
     console.log("calling registration submit!!!", this.registerForm);
     console.log("registerForm isValid!! ",this.registerForm.invalid);
     if (this.registerForm.invalid) {

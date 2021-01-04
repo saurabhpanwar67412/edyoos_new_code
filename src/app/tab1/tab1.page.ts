@@ -516,6 +516,7 @@ openbookingInTab(){
   searchObjNavigate(mode,place) {
      
     console.log("data from pop p ::::" , mode , place );
+    console.log("place=",place);
     for (var i = 0; i < place.address_components.length; i++) {
 
       var addressType = place.address_components[i].types[0];
@@ -554,8 +555,10 @@ openbookingInTab(){
     if (this.searchAddress.locality)
       search.locality = this.searchAddress.locality;
 
+      search.place = place.formatted_address;
+     
     console.log("search=", search);
-    this.router.navigate(['/parking-detail', search]);
+     this.router.navigate(['/parking-detail', search]);
 
   }
 

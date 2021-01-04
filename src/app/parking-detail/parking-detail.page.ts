@@ -8,16 +8,17 @@ import * as moment from 'moment';
 import { NavController, LoadingController, ModalController, ToastController  } from '@ionic/angular';
 import {BookingPageModule} from '../booking/booking.module';
 import {ModalPagePage} from "../modal-page/modal-page.page";
-import { environment } from '../../environments/environment';
-import { Storage } from '@ionic/storage';
 import sort from 'fast-sort';
 import { ChangeDetectorRef } from '@angular/core';
-import { ModalComponent } from '../modal/modal.component';
 import { PopoverController } from '@ionic/angular';
 import { MoreComponent } from '../more/more.component';
 
+import { ModalPage } from '../modal/modal.page';
+import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage';
 
 import { AvailableSpotsRequest } from 'src/app/model/Booking/available_spots.model';
+import { convertIntoDate } from 'src/app/shared/datetime.utility';
 declare var jQuery:any;
 @Component({
   selector: 'app-parking-detail',
@@ -54,6 +55,9 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   selectparkingdetails ;
  
   Isshowing : boolean=false;
+  checkIn:any;
+  checkOut:any;
+  flag:string;
 
   constructor( private route: ActivatedRoute,
     private placesService: PlacesService,
@@ -291,6 +295,8 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     });
     await this.loading.present();
     this.getDataFromQueryParams();
+    console.log("searchAddress Parking page=",this.searchAddress)
+    console.log("selectedMode in parkingPage=",this.selectedMode);
   }
 
   getDataFromQueryParams() {
@@ -305,6 +311,8 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
 
       if (params.get('mode')){
         this.selectedMode = params.get('mode');
+        this.searchAddress.selectedMode = params.get('mode');
+
       }
 
       let searchAddress: string;
@@ -317,6 +325,38 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
         this.searchAddress.locality = params.get('locality');
         // searchAddress = searchAddress ? searchAddress + ',' + params.get('locality') : params.get('locality');
       }
+      if (params.get('state')) {
+        this.searchAddress.state = params.get('state');
+      }
+      this.searchAddress.place = params.get('place');
+      if(params.get('lat')){
+        this.searchAddress.latitude = params.get('lat');
+      }
+      if(params.get('lng')){
+        this.searchAddress.longitude = params.get('lng');
+
+      }
+      if (params.get('fromDate') && params.get('toDate')) {
+        this.searchAddress.fromDate = params.get('fromDate');
+        this.checkIn = params.get('fromDate');
+        this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
+        this.searchAddress.toDate = params.get('toDate');
+        this.checkOut = params.get('toDate');
+        this.checkOut = moment(this.checkOut).format('MM-DD-YYYY hh:mm:ss A');
+      }else{
+        this.checkIn = new Date().toISOString();
+        this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
+        this.checkOut = moment(this.checkIn).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');
+      }
+      
+      if (params.get('fromTime')) {
+        this.searchAddress.fromTime = params.get('fromTime');
+      }
+      if (params.get('toTime')) {
+        this.searchAddress.toTime = params.get('toTime');
+      }
+
+      console.log("searchAddress ParkingDtls=",this.searchAddress);
       this.search();
     })
   }
@@ -325,8 +365,16 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     console.log("search calling");
     if (this.currentLocation.lng && this.currentLocation.lat) {
       this.httpError = null;
-      let fromDate = this.dateForm.get(SEARCH_FORM_METADATA.fromDate).value;
-      let toDate = this.dateForm.get(SEARCH_FORM_METADATA.toDate).value;
+      
+      
+       let fromDate = this.dateForm.get(SEARCH_FORM_METADATA.fromDate).value;
+       let toDate = this.dateForm.get(SEARCH_FORM_METADATA.toDate).value;
+       if(this.searchAddress.fromDate){
+        fromDate = this.searchAddress.fromDate;
+        toDate = this.searchAddress.toDate;
+        console.log("fromDate in if=",fromDate+" toDtae=",toDate)
+      }
+      
       let searchRequest = new SearchRequest();
       // searchFilter = searchFilter?.split(',')[0];
       if (this.searchAddress.street_number) {
@@ -337,10 +385,18 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
       }
       searchRequest.Latitude = +this.currentLocation.lat;
       searchRequest.Longititude = +this.currentLocation.lng;
-      searchRequest.FromDate = fromDate;
-      searchRequest.ToDate = toDate;
-      searchRequest.FromTime = moment(searchRequest.FromDate).format("hh:mm:ss A");
-      searchRequest.ToTime = moment(searchRequest.ToDate).format("hh:mm:ss A");
+      // searchRequest.FromDate = fromDate;
+      // searchRequest.ToDate = toDate;
+
+      searchRequest.FromDate = new Date(convertIntoDate(fromDate));
+      searchRequest.ToDate = new Date(convertIntoDate(toDate));
+    if(this.searchAddress.fromTime){
+      searchRequest.FromTime = this.searchAddress.fromTime
+      searchRequest.ToTime = this.searchAddress.toTime;
+    }else{
+      searchRequest.FromTime = moment(fromDate).format("hh:mm:ss A");
+      searchRequest.ToTime = moment(toDate).format("hh:mm:ss A");
+    }
       //searchRequest.mode = this.mode;
       // this.searchService.fromDate = this.dateForm.get(
       //   SEARCH_FORM_METADATA.fromDate
@@ -349,8 +405,8 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
       //   SEARCH_FORM_METADATA.toDate
       // ).value;
 
+      console.log("searchRequest in Parking=",searchRequest);
       console.log("this.selectedModethis.selectedMode:::::", this.selectedMode)
-// debugger ;
       if (this.selectedMode == Mode.City) {
         this.placesService.getSearchResultForAuto(searchRequest)
           .subscribe((response) => {
@@ -594,9 +650,12 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   
   details(parkingDetail){
     let selectparkingdetails = parkingDetail;
+    console.log("selectParkingDetails=",selectparkingdetails)
+    console.log("In parking detail searchAddress=",this.searchAddress)
     let navigationExtras: any = {
       queryParams: {
-        special: JSON.stringify(selectparkingdetails)
+        special: JSON.stringify(selectparkingdetails),
+        searchAddress:JSON.stringify(this.searchAddress)
       }
     };
     this.router.navigate(['booking-details'], navigationExtras);
@@ -635,9 +694,9 @@ openpakingInTab(){
  
 async openModal() {
   const modal = await this.modalCtrl.create({
-    component: ModalComponent,
+    component: ModalPage,
     componentProps: { 
-      Mode: this.selectedMode,
+      searchAddress:this.searchAddress
       
     }
   });

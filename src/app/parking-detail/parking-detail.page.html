@@ -42,7 +42,7 @@
 
         <!-- FIRST DIV -->
         <div style="margin-top: 22px; height: 25px; border-bottom: 1px solid gray;">   
-          <div style="max-width: 237px; margin-top: -18px; margin-left: 10px; font-size: medium;">Address</div>  
+          <div style="max-width: 237px; margin-top: -18px; margin-left: 10px; font-size: medium;">{{searchAddress.place}}</div>  
           <ion-icon (click)="openModal()" slot="end" name="create-outline" color="primary" style="font-size:larger; float:right; margin-top: -21px;"></ion-icon>
         </div>
         <hr>
@@ -56,10 +56,10 @@
           <div><ion-icon style="margin-left: 110px; color: gray;" name="arrow-forward-outline"></ion-icon></div>
         
           <div style="margin-left: 10px; font-size: x-small; margin-top: -15px;">
-            20Nov'20 - 05:30 pm
+            {{checkIn}}
           </div>
           <div style="float: right; font-size: x-small; margin-top: -15px; margin-right: 35px;">
-            21Nov'20 - 08:00 am
+            {{checkOut}}
           </div>
           <div><ion-icon name="calendar-outline" style="font-size: larger; color: gray; float:right;  margin-top:-27px; margin-right: 4px;"></ion-icon></div>
         </div>
