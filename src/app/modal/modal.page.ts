@@ -125,7 +125,7 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
 dismiss() {
     this.modalCtrl.dismiss();
   }
-  
+  // saurabh modal
   async ngOnInit(){
     this.searchForm = this.fb.group({
       city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
