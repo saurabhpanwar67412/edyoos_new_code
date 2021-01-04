@@ -92,21 +92,31 @@ export class BookingPage implements OnInit {
         this.searchAddress.longitude = this.data.longitude;
       
 
-        if (this.data.length > 0) {
-          for (let i = 0; i < this.data.length; i++) {
-            console.log("previous fromdate::::", this.data[i].fromDate)
-            console.log("previous todate::::", this.data[i].toDate)
-            this.data[i].fromDate = moment(this.data[i].fromDate).format("DDMMM'YY - hh:mmA");
-            this.data[i].toDate = moment(this.data[i].toDate).format("DDMMM'YY - hh:mmA");
-            console.log("end fromdate::::", this.data[i].fromDate)
-            console.log("end todate::::", this.data[i].toDate)
-          }
-        }
+        // if (this.data.length > 0) {
+        //   for (let i = 0; i < this.data.length; i++) {
+        //     console.log("previous fromdate::::", this.data[i].fromDate)
+        //     console.log("previous todate::::", this.data[i].toDate)
+        //     this.data[i].fromDate = moment(this.data[i].fromDate).format("DDMMM'YY - hh:mmA");
+        //     this.data[i].toDate = moment(this.data[i].toDate).format("DDMMM'YY - hh:mmA");
+        //     console.log("end fromdate::::", this.data[i].fromDate)
+        //     console.log("end todate::::", this.data[i].toDate)
+        //   }
+        // }
+      }
+      if(this.searchAddress.fromDate){
+        console.log("in if");
+        this.checkIn = this.searchAddress.fromDate
+        this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
+        this.checkOut = this.searchAddress.toDate;
+        this.checkOut = moment(this.checkOut).format('MM-DD-YYYY hh:mm:ss A');
+      }else{
+        console.log("in else");
+        this.checkIn = new Date().toISOString();
+          this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
+          this.checkOut = moment(this.checkIn).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');
       }
     });
-
-    this.checkIn = new Date().toISOString();
-    this.checkOut = moment(this.checkIn).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');
+    
 
   }
    
@@ -124,6 +134,8 @@ export class BookingPage implements OnInit {
 
   ngOnInit() {
     this.flag = 'parking';
+    console.log("ngOnInit calling");
+    console.log("ngOnInit calling",this.searchAddress);
     // this.data = this.placesService.cartPropertyGroup;
     // this.data.forEach((o) => {
     //   // o.checkoutAmount=o.calculatedAmount;
@@ -141,11 +153,13 @@ export class BookingPage implements OnInit {
     console.log("searchAddress in ngInit Booking=",this.searchAddress)
 
     if(this.searchAddress){
+      console.log("in if");
       this.checkIn = this.searchAddress.fromDate
       this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
       this.checkOut = this.searchAddress.toDate;
       this.checkOut = moment(this.checkOut).format('MM-DD-YYYY hh:mm:ss A');
     }else{
+      console.log("in else");
       this.checkIn = new Date().toISOString();
         this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
         this.checkOut = moment(this.checkIn).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');

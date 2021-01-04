@@ -257,10 +257,12 @@ dismiss() {
       (predictions, status) => {
         this.autocompleteItems = [];
         this.zone.run(() => {
+          if(predictions!=null){
           predictions.forEach((prediction) => {
             //  console.log("prediction=",prediction);
             this.autocompleteItems.push(prediction);
           });
+        }
         });
       });
   }
@@ -466,9 +468,8 @@ this.selectedMode = parkingtype;
    console.log("toDt="+toDate);
    console.log("this.autocomplete.input=",this.autocomplete.input);
 
-this.searchAddress = this.navParams.get('searchAddress');
-  //  this.searchAddress.fromDate = fromDate;
-  //  this.searchAddress.toDate = toDate;
+    this.searchAddress.fromDate = fromDate;
+    this.searchAddress.toDate = toDate;
 let searchRequest = new SearchRequest();
 
       console.log("this.searchAddress=",this.searchAddress)
@@ -519,8 +520,8 @@ let searchRequest = new SearchRequest();
     }else{
       let availableSpotsRequest = new AvailableSpotsRequest();
       availableSpotsRequest.PropertyGroupID = this.parkingData.propertyGroupID;
-      availableSpotsRequest.FromDate = fromDate;
-      availableSpotsRequest.ToDate = toDate;
+      availableSpotsRequest.FromDate = searchRequest.FromDate;
+      availableSpotsRequest.ToDate = searchRequest.ToDate;
       availableSpotsRequest.FromTime = moment(fromDate).format("hh:mm:ss A");
       availableSpotsRequest.ToTime = moment(toDate).format("hh:mm:ss A");
       availableSpotsRequest.PropertyGroupAmount = this.parkingData.pricingAmount;

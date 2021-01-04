@@ -345,8 +345,10 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
         this.checkOut = moment(this.checkOut).format('MM-DD-YYYY hh:mm:ss A');
       }else{
         this.checkIn = new Date().toISOString();
+        this.searchAddress.fromDate = this.checkIn;
         this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
-        this.checkOut = moment(this.checkIn).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');
+        this.checkOut = moment(new Date().toISOString()).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');
+        this.searchAddress.toDate = this.checkOut;
       }
       
       if (params.get('fromTime')) {

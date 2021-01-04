@@ -234,11 +234,11 @@ isClicked(){
       }).catch((error) => {
         console.log('Error getting location', error);
       });
+    if (this.displayedPlaces!=undefined && this.displayedPlaces.length > 0) {
       for (let i = 0; i < this.displayedPlaces.length; i++) {
         console.log("I value from home", i );
       this.addMarker(this.displayedPlaces[i], i)
     }
-    if (this.displayedPlaces.length > 0) {
       this.map.setCenter(this.markers[0].getPosition());
       this.map.setZoom(14);
 
@@ -286,10 +286,11 @@ openbookingInTab(){
           lat: this.map.center.lat(),
           lng: this.map.center.lng(),
         };
-        for (let i = 0; i < this.displayedPlaces.length; i++) {
-          this.addMarker(this.displayedPlaces[i], i)
-        }
-        if (this.displayedPlaces.length > 0) {
+       
+        if (this.displayedPlaces!=undefined && this.displayedPlaces.length > 0) {
+          for (let i = 0; i < this.displayedPlaces.length; i++) {
+            this.addMarker(this.displayedPlaces[i], i)
+          }
           this.map.setCenter(this.markers[0].getPosition());
           this.map.setZoom(14);
     
