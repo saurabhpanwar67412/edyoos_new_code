@@ -1,0 +1,85 @@
+<ion-header>
+	<ion-toolbar>
+	
+    <ion-buttons fill="outline" slot="end">
+			<ion-button (click)="dismiss()">
+				Cancel
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content >
+  <ion-toolbar *ngIf="flag==parking" slot="fixed" color="translucent"  class="toolsearch">
+    <ion-searchbar  value="hello" [(ngModel)]="autocomplete.input" color="light" (ionInput)="UpdateSearchResults()" placeholder="Search Destination"  (ionClear)="ClearAutocomplete()" style="width: 85%; color: #696969"> </ion-searchbar> 
+     
+       <ion-list [hidden]="autocompleteItems.length == 0" >
+         <div *ngFor="let item of autocompleteItems">
+       <ion-item  tappable (click)="SelectSearchResult(item);showSpin=true;showSearchbar=false">
+         {{ item.description }}
+       </ion-item>
+      </div>
+       </ion-list>
+      </ion-toolbar>
+      <br>
+  <br>
+ 
+  <!-- <ion-input style="visibility:hidden" type="text"  formControlName="s></ion-input> -->
+  <ion-item *ngIf="flag==parking">
+    <ion-label>Parking Type</ion-label>
+    <ion-select   okText="Okay" cancelText="Dismiss" [(ngModel)]="parkingType" (ionChange)="changeMode()">
+      <ion-select-option *ngFor="let mode of modes" [value]="mode" selected>{{mode}}</ion-select-option>
+      <!-- <ion-select-option value="airplane">Airport Parking</ion-select-option>
+      <ion-select-option value="Semi-Truck Parking">Semi Truck</ion-select-option>
+      <ion-select-option value="Truck & Trailer Parking">Truck & Trailer</ion-select-option>
+      <ion-select-option value="boats">Boat</ion-select-option> -->
+    </ion-select>
+
+    <!-- <ion-select [(ngModel)]="signup.state" (ionChange)="getcitylist(signup.state)" placeholder="Please Select State">
+      <ion-option *ngIf="signup.state==0" value="0" [selected]="true">Select State</ion-option>
+      <ion-option *ngFor="let state of statelist" [value]="state.state_id">{{state.state_name}}</ion-option>
+  </ion-select> -->
+  </ion-item>
+  
+  
+<!-- <ion-select [(ngModel)]="signup.state" (ionChange)="getcitylist(signup.state)" value="{{Mode}}">
+    <ion-option *ngIf="signup.state==0" value="0" [selected]="true">Select State</ion-option>
+    <ion-option *ngFor="let state of statelist" [value]="state.state_id">{{state.state_name}}</ion-option>
+</ion-select> -->
+
+
+ <!-- <ion-toolbar slot="fixed" color="translucent"  class="toolsearch">  -->
+    <!--</ion-toolbar> -->
+
+     <ion-item>
+      <ion-label>Check In</ion-label>
+      <ion-datetime displayFormat="DD-MMM-YY HH:mm" [(ngModel)]="checkIn"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Check Out</ion-label>
+      <ion-datetime displayFormat="DD-MMM-YY HH:mm" [(ngModel)]="checkOut"></ion-datetime>
+    </ion-item>
+
+    <div #map id="map"  style="visibility:hidden"></div>
+
+    <ion-button color="primary"  (click)="search()"> Search</ion-button>
+	 	 <!-- <ion-grid>
+		 <ion-row>
+		   
+			 
+			<ion-item>
+				<ion-label>Parking Type</ion-label>
+				<ion-select *ngFor="let mode of modes; let i = index" value>
+				  <ion-select-option selected>{{mode}}</ion-select-option>
+				  
+				</ion-select>
+			  </ion-item>
+		
+		
+		 </ion-row>
+	   </ion-grid> -->
+   
+   
+</ion-content>

@@ -30,7 +30,7 @@
       <ion-label (click)="changeDateClick(data)" style="color:gray; font-size: small; margin-left: 5px;
       margin-top: 14px;">Booking Window</ion-label>
 
-      <ion-label slot="end" color="primary" style="text-align: right; margin-right: -3px;">Edit</ion-label>
+      <ion-label slot="end" color="primary" style="text-align: right; margin-right: -3px;" (click)="openModal()">Edit</ion-label>
       <ion-icon slot="end" name="create-outline" color="primary" style="font-size:larger; margin-right:0px;"></ion-icon>
     </ion-item>
 
@@ -38,12 +38,12 @@
     <div style="color:gray; margin-top: -18px; margin-left: 216px;">Parking Until</div>
 
     <div style="margin-left: 12px; margin-top: 7px; font-weight: bold; font-size: 13px;
-    color: black;">
-      {{data.fromDate}}
+    color: black;" >
+    {{checkIn}}
     </div>
     <div style="margin-left: 179px; margin-top: -20px; color: black; font-size: 13px;
     font-weight: bold; margin-bottom: 15px;">
-      {{data.toDate}}
+    {{checkOut}}
     </div>
   </ion-card>
 
@@ -84,8 +84,52 @@
       </div>
     </form>
   </ion-card>
-  
 
+<ion-card>
+  <div class="custom-row" [formGroup]="profileForm">
+        
+    <ion-item>
+      <!-- <ion-label color="dark" position="stacked">First Name:</ion-label> -->
+      <ion-input [(ngModel)]="firstName"  type="text"  placeholder="First Name" [formControlName]="Profile_METADATA.firstName" required></ion-input>
+    </ion-item>
+    <div *ngIf="!profileForm?.get(Profile_METADATA.firstName).valid && profileForm?.get(Profile_METADATA.firstName).touched && profileForm?.get(Profile_METADATA.firstName).hasError('required')" class="text-danger">
+        First Name is required
+    </div>
+
+    <ion-item>
+      <ion-input [(ngModel)]="lastName" type="text"  placeholder="Last Name" [formControlName]="Profile_METADATA.lastName" required></ion-input>
+    </ion-item>
+    <div *ngIf="!profileForm?.get(Profile_METADATA.lastName).valid && profileForm?.get(Profile_METADATA.lastName).touched && profileForm?.get(Profile_METADATA.lastName).hasError('required')" class="text-danger">
+       Last Name is required
+    </div>
+
+    <ion-item>
+      <ion-input [(ngModel)]="email"  type="text"  placeholder="Email" [formControlName]="Profile_METADATA.email" required></ion-input>
+    </ion-item>
+    <div *ngIf="!profileForm?.get(Profile_METADATA.email).valid && profileForm?.get(Profile_METADATA.email).touched && profileForm?.get(Profile_METADATA.email).hasError('required')" class="text-danger">
+        Email is required
+    </div>  
+    <div *ngIf="!profileForm?.get(Profile_METADATA.email).valid && profileForm?.get(Profile_METADATA.email).touched && profileForm?.get(Profile_METADATA.email).hasError('emailVaidatorsfor')" class="text-danger">
+        Please provide valid email address
+    </div>
+
+
+    <ion-item>
+      <ion-input matInput type="number" [(ngModel)]="phoneNumber" placeholder="Phone Number" [formControlName]="Profile_METADATA.phoneNumber" required onkeydown="javascript:return event.keyCode == 69 ? false : true"
+      onKeyPress="if(this.value.length==10) return false;"></ion-input>
+    </ion-item>
+    <div *ngIf="!profileForm?.get(Profile_METADATA.phoneNumber).valid && profileForm?.get(Profile_METADATA.phoneNumber).touched && (profileForm?.get(Profile_METADATA.phoneNumber).hasError('required') || profileForm?.get(Profile_METADATA.phoneNumber).hasError('pattern'))" class="text-danger">
+       Phone number is required
+    </div>
+  </div>
+
+  <div class="col-12 m-0 text-lg-right text-center">
+    <ion-button icon-left color="secondary" (click)="save()" [disabled]="(profileForm.invalid || !profileForm.dirty)">
+      Update
+    </ion-button>
+  </div>
+  
+</ion-card>
 
 
 
@@ -147,7 +191,7 @@
   </ion-icon>
 
   <div style="max-width: 150px; color: white; font-size: 26px; font-weight: bold; margin-left: 31px;
-  margin-top: -31px;">$ {{data.pricingAmount}}</div>  
+  margin-top: -31px;">$ {{data.calculatedAmount}}</div>  
   <br>
   <div style="margin-top: -25px; margin-left: 25px; color: darkgray;">price per hour</div>
 

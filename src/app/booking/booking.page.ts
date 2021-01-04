@@ -15,6 +15,8 @@ import { NotificationsComponent } from '../notifications/notifications.component
 import { PopoverController } from '@ionic/angular';
 import  { NgForm } from "@angular/forms"
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service'
+import { ModalPage } from '../modal/modal.page';
+import { Profile_METADATA, emailVaidatorsfor, logValidationErrors, errorMessages } from '../editprofile/profile-page-metadata';
 
 @Component({
   selector: 'app-booking',
@@ -43,8 +45,19 @@ export class BookingPage implements OnInit {
   card: any;
   cardHandler = this.onChange.bind(this);
   error: string;
+  searchAddress:any;
+  checkIn:any;
+  checkOut:any;
+  flag :string;
+  profileForm: FormGroup;
+  firstName: any;
+  lastName: any;
+  email:string;
+  phoneNumber:any;
+  Profile_METADATA = Profile_METADATA;
 
   constructor(private route: ActivatedRoute, 
+  
     private router: Router,
     private navCtrl: NavController,
     private fb: FormBuilder,
@@ -52,15 +65,32 @@ export class BookingPage implements OnInit {
     private authenticationService: AuthenticationService,
     private cartService: CartService,
     private placesService: PlacesService,
-    public modalController: ModalController,
+    public modalCtrl: ModalController,
     public popoverController: PopoverController,
+
     private cd: ChangeDetectorRef,
     private stripeService:AngularStripeService) {
+      this.profileForm = this.fb.group({
+        [Profile_METADATA.firstName]: ['', Validators.required],
+        [Profile_METADATA.lastName]: ['', Validators.required],
+        [Profile_METADATA.email]: ['', [Validators.required, emailVaidatorsfor.emailVaidator]],
+        [Profile_METADATA.phoneNumber]: ['', [Validators.required, Validators.pattern('^[1234567890][0-9]{9}$')]]
+      });
+
+
 
     this.route.queryParams.subscribe(params => {
+      if(params && params.searchAddress){
+        this.searchAddress = JSON.parse(params.searchAddress)
+      }
+     
+
       if (params && params.special) {
         this.data = JSON.parse(params.special);
         console.log("this.data from navigation",this.data);
+        this.searchAddress.latitude = this.data.latitude;
+        this.searchAddress.longitude = this.data.longitude;
+      
 
         if (this.data.length > 0) {
           for (let i = 0; i < this.data.length; i++) {
@@ -75,6 +105,9 @@ export class BookingPage implements OnInit {
       }
     });
 
+    this.checkIn = new Date().toISOString();
+    this.checkOut = moment(this.checkIn).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');
+
   }
    
   async presentPopover(ev: any) {
@@ -87,18 +120,36 @@ export class BookingPage implements OnInit {
     return await popover.present();
   }
 
+
+
   ngOnInit() {
-    this.bookedPlaces = this.placesService.cartPropertyGroup;
-    this.bookedPlaces.forEach((o) => {
-      // o.checkoutAmount=o.calculatedAmount;
-      o.changeDateClick = false;
-      o.isDateRangeValid = true;
-      o.changeSearchFromDateTime = moment(o.searchFromDateTime);
-      o.changesearchToDateTime = moment(o.searchToDateTime);
-      o.searchFromDateTime = moment(o.searchFromDateTime);
-      o.searchToDateTime = moment(o.searchToDateTime);
-      o.isSpotAvaliable = true;
-    });
+    this.flag = 'parking';
+    // this.data = this.placesService.cartPropertyGroup;
+    // this.data.forEach((o) => {
+    //   // o.checkoutAmount=o.calculatedAmount;
+    //   o.changeDateClick = false;
+    //   o.isDateRangeValid = true;
+    //   o.changeSearchFromDateTime = moment(o.searchFromDateTime);
+    //   o.changesearchToDateTime = moment(o.searchToDateTime);
+    //   o.searchFromDateTime = moment(o.searchFromDateTime);
+    //   o.searchToDateTime = moment(o.searchToDateTime);
+    //   o.isSpotAvaliable = true;
+
+
+    // });
+
+    console.log("searchAddress in ngInit Booking=",this.searchAddress)
+
+    if(this.searchAddress){
+      this.checkIn = this.searchAddress.fromDate
+      this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
+      this.checkOut = this.searchAddress.toDate;
+      this.checkOut = moment(this.checkOut).format('MM-DD-YYYY hh:mm:ss A');
+    }else{
+      this.checkIn = new Date().toISOString();
+        this.checkIn = moment(this.checkIn).format('MM-DD-YYYY hh:mm:ss A');
+        this.checkOut = moment(this.checkIn).add(1, 'h').format('MM-DD-YYYY hh:mm:ss A');
+    }
 
     this.calculateTotal();
     // this.createForm();
@@ -106,6 +157,7 @@ export class BookingPage implements OnInit {
       if (params.get('reservenow')) {
         this.reserveNow = true;
       }
+   
       if (params.get('spot')) {
         const spot = params.get('spot') ? JSON.parse(params.get('spot').toString().toLowerCase()) :
           new AvailableSpotsRequest();
@@ -124,12 +176,27 @@ export class BookingPage implements OnInit {
         this.card.mount(this.cardInfo.nativeElement);
         this.card.addEventListener('change', this.cardHandler);
     });
+
+    // this.getDataFromQueryParams();
+  }
+
+  getDataFromQueryParams() {
+    this.route.paramMap.subscribe((params) => {
+      console.log("parkingggg=",params.get('parkingData'))
+
+      if (params.get('parkingData')){
+        this.data = params.get('parkingData');
+        // this.searchAddress.selectedMode = params.get('mode');
+
+      }
+    });
+
   }
 
   calculateTotal() {
     this.total = 0;
-    this.bookedPlaces.forEach((place) => {
-    });
+    // this.data.forEach((place) => {
+    // });
   }
 
   goBack(){
@@ -168,7 +235,7 @@ export class BookingPage implements OnInit {
   async changeDateClick(data) {
     console.log("place",data);
     console.log("parkingDetail clicked or choosed.")
-    var modalPage = await this.modalController.create(
+    var modalPage = await this.modalCtrl.create(
       {
         component:ChangeDateModalPage,
         componentProps: {
@@ -220,6 +287,34 @@ export class BookingPage implements OnInit {
     } else {
       console.log('Success!', token);
     }
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalPage,
+      componentProps: { 
+        // Mode: this.selectedMode,
+         searchAddress:this.searchAddress,
+         flag:this.flag,
+         parkingData:this.data
+        
+      }
+    });
+    return await modal.present();
+  }
+
+  save(){
+    let bookingObj : any = {};
+    let firstName = this.firstName;
+    let lastName = this.lastName;
+    let email = this.email;
+    let phoneNumber = this.phoneNumber;
+    bookingObj.firstName = firstName;
+    bookingObj.lastName = lastName;
+    bookingObj.email = email;
+    bookingObj.phoneNumber = phoneNumber;
+    console.log("bookingObj=",bookingObj);
+
   }
 
     

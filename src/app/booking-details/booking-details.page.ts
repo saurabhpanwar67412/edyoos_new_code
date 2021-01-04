@@ -13,6 +13,7 @@ export class BookingDetailsPage implements OnInit {
   item:any=[];
   amenities:any=[];
   imageurl: string;
+  searchAddress:any;
 
   //operationaldays:any=[];
 
@@ -26,6 +27,10 @@ export class BookingDetailsPage implements OnInit {
       if (params && params.special) {
         this.item = JSON.parse(params.special);
         console.log("this.data on booking-details page::",this.item);
+      }
+      if(params && params.searchAddress){
+        console.log("going here balle=",JSON.parse(params.searchAddress))
+        this.searchAddress = JSON.parse(params.searchAddress);
       }
     });
 
@@ -45,9 +50,11 @@ export class BookingDetailsPage implements OnInit {
     // this.storage.set('booked', this.item);
     let navigationExtras: any = {
       queryParams: {
-        special: JSON.stringify(selectparkingdetails)
+        special: JSON.stringify(selectparkingdetails),
+        searchAddress:JSON.stringify(this.searchAddress)
       }
     };
+    console.log("Booking Details navigationExtras=",navigationExtras);
     // this.navCtrl.navigateForward('booking', this.searchobject);
     this.router.navigate(['booking'],navigationExtras );
 }
