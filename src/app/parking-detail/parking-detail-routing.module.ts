@@ -7,7 +7,8 @@ import { RemovewhitespacesPipe } from '../removewhitespaces.pipe';
 const routes: Routes = [
   {
     path: '',
-    component: ParkingDetailPage
+    component: ParkingDetailPage,
+    
   }
 ];
 

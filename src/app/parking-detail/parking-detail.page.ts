@@ -1,5 +1,5 @@
 import { Component, OnInit,AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { PlacesService } from 'src/app/shared/places.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SEARCH_FORM_METADATA, SortMethodEnum,Mode } from './parking.metadata';
@@ -13,6 +13,9 @@ import { Storage } from '@ionic/storage';
 import sort from 'fast-sort';
 import { ChangeDetectorRef } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
+import { PopoverController } from '@ionic/angular';
+import { MoreComponent } from '../more/more.component';
+
 
 import { AvailableSpotsRequest } from 'src/app/model/Booking/available_spots.model';
 declare var jQuery:any;
@@ -48,6 +51,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
   public fromDate;
   public toDate;  
   hideMe ; 
+  selectparkingdetails ;
  
   Isshowing : boolean=false;
 
@@ -60,7 +64,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     private storage: Storage,
     private modalCtrl: ModalController,
-    public toastController: ToastController) {
+    public toastController: ToastController,public popoverController: PopoverController) {
       this.createForms();
      
   }
@@ -536,16 +540,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     });
   }
 
-  viewmap(parkingDetailsList){
-    console.log("view on map parkingdetaillist", parkingDetailsList[0].latitude);
-
-    for (let i in parkingDetailsList.length) {
-
-      console.log(parkingDetailsList[i].latitude); 
-    }
-
-  }
-
+  
   goBack(){
     console.log("go back calling")
     this.navCtrl.back();
@@ -611,6 +606,31 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
     this.router.navigate(['/']);
   }
 
+openbagInTab(){
+  this.router.navigateByUrl('/tabs/tab4');
+
+}
+openparkingInTab(){
+  this.router.navigateByUrl('/');
+}
+openbookingInTab(){
+  this.router.navigateByUrl('/tabs/tab3');
+  
+}
+async presentPopover(ev: any) {
+  const popover = await this.popoverController.create({
+    component: MoreComponent,
+    cssClass: 'popover',
+    event: ev,
+    translucent: true
+  });
+  return await popover.present();
+}
+openpakingInTab(){
+
+  this.router.navigateByUrl('/tabs/tab1');
+}
+
   
  
 async openModal() {
@@ -637,14 +657,23 @@ async openModal() {
 
 // }
 
-viewonmap(){
+viewmap(){
   let selectparkingdetails = this.parkingDetailsList;
+
+  // localStorage.setItem('selectparkingdetails', this.selectparkingdetails);
+  // let navigationExtras: NavigationExtras = {
+  //   state: {
+  //     user: this.selectparkingdetails
+  //   }
+  //   };
   let navigationExtras: any = {
     queryParams: {
       special: JSON.stringify(selectparkingdetails)
     }
   };
-  this.router.navigate([''], navigationExtras);
+
+  console.log("selectparkingdetails extras foem view onmap", selectparkingdetails);
+  this.router.navigate(['tab1'], navigationExtras);
   
 }
 

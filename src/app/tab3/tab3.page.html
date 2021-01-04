@@ -1,12 +1,11 @@
 <ion-header [translucent]="true">
-  <ion-toolbar> 
+  <ion-toolbar>
     <ion-buttons *ngIf="!showSearchbar" slot="start">
-
-      <ion-icon mode="ios" slot="icon-only" name="arrow-back"></ion-icon> 
-      <a (click)="home()"></a>
-      
+      <ion-menu-button></ion-menu-button>
+      <a (click)="home()"> </a> 
+      <!-- <img src="assets/images/edyoos-logo.svg" class="img-logo" style="height: 34px;"/>-->
     </ion-buttons>
-    <ion-title style="margin-left: -90px;" mode="ios">My Bookings </ion-title>
+    <ion-title mode="ios" color="primary">My Bookings </ion-title>
   </ion-toolbar>
 </ion-header>
 

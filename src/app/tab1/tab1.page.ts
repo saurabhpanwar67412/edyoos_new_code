@@ -7,6 +7,7 @@ import { AlertController  } from '@ionic/angular';
 import {MatSelectModule} from '@angular/material/select';
 
 
+
 declare var google;
 @Component({
   selector: 'app-tab1',
@@ -49,13 +50,15 @@ export class Tab1Page implements OnInit, AfterViewInit {
     country: 'short_name',
     postal_code: 'short_name',
   };
-
+  // Add it as a property:
+  
 
   @ViewChild('map', { static: false }) mapElement: ElementRef;
   address: string;
   map:any
   long: string;
   autocomplete: { input: string; };
+  
   autocompleteItems: any[];
   location: any;
   placeid: any;
@@ -68,7 +71,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
     maximumAge: 0
   };
 
-  
+  fromparkingflag : boolean ;
 image : any ;
   markers: google.maps.Marker[] = [];
   userdetails : any ;
@@ -93,29 +96,42 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
     
   ) {
 
-    if (this.displayedPlaces.length > 0) {
-      // this.initializeMap(this.displayedPlaces[0].latitude, this.displayedPlaces[0].longitude);
-    }
     this.userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
+    // this.displayedPlaces = localStorage.getItem('selectparkingdetails');
     console.log("userid", this.userdetails);
     // let userid= this.userdetails.id
     if(this.userdetails == null ){
       this.router.navigate(['welcome']);
      }
     else {
-      console.log("i am else from tab2page ");
+     console.log("i am else from tab2page ");
      
     }
+    // debugger;
     this.route.queryParams.subscribe(params => {
       if (params && params.special) {
-        this.markers = JSON.parse(params.special);
-        console.log("data from parking details for view map",this.markers);
+        this.displayedPlaces = JSON.parse(params.special);
+        console.log("this.data from navigation tab 1",this.displayedPlaces);
       }
     });
 
+    // this.displayedPlaces = JSON.parse(localStorage.getItem('selectparkingdetails'));
+    
+    console.log("flag", );
+   
+   if(this.displayedPlaces){
+
+     this.fromparkingflag = true;
+     
+   }
+   else{
+     this.fromparkingflag = false;
+   }
+    console.log("data from parking details for view map",this.displayedPlaces);
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
+   
   }
 
   isClick: boolean=false;
@@ -132,13 +148,36 @@ isClicked(){
   searchAddress: any = {};
   
   async ngOnInit(){
-    this.loadMap();
+    this.autocomplete.input = '';
+   
+    console.log("data from displayed places", this.displayedPlaces);
+    
+      // this.viewonmapload();
+      // this.ios = this.config.get('mode') === 'ios';
+
+  
+    this.loadMap(this.displayedPlaces);
+    this.ClearAutocomplete();
     this.ios = this.config.get('mode') === 'ios';
     // throw new Error('Method not implemented.');
+
   }
 
+  deleteMarkers() {
+    this.clearMarkers();
+    this.markers = [];
+  }
+  clearMarkers() {
+    this.setMapOnAll(null);
+  }
+  setMapOnAll(map) {
+    for (let i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+    }
+  }
   viewonmapload(){
-     // console.log("placeAddressComponents=",place.address_components);
+    this.deleteMarkers();
+     
   
       //FIRST GET THE LOCATION FROM THE DEVICE.
       this.geolocation.getCurrentPosition().then((resp) => {
@@ -195,47 +234,66 @@ isClicked(){
       }).catch((error) => {
         console.log('Error getting location', error);
       });
+      for (let i = 0; i < this.displayedPlaces.length; i++) {
+        console.log("I value from home", i );
+      this.addMarker(this.displayedPlaces[i], i)
+    }
+    if (this.displayedPlaces.length > 0) {
+      this.map.setCenter(this.markers[0].getPosition());
+      this.map.setZoom(14);
+
+    }
 
   }
 
+  
+openbagInTab(){
+  this.router.navigateByUrl('/tabs/tab4');
+
+}
+openparkingInTab(){
+  this.router.navigateByUrl('/');
+}
+openbookingInTab(){
+  this.router.navigateByUrl('/tabs/tab3');
+  
+}
+
+
     //LOADING THE MAP HAS 2 PARTS.
-    loadMap() {
+    loadMap(displayedPlaces) {
+      console.log("displayedPlaces from loadmap", displayedPlaces);
 
       // console.log("placeAddressComponents=",place.address_components);
   
       //FIRST GET THE LOCATION FROM THE DEVICE.
       this.geolocation.getCurrentPosition().then((resp) => {
         console.log("res=", resp)
-  
         let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-  
         let mapOptions = {
           center: latLng,
           zoom: 15,
           mapTypeControl: false,
           streetViewControl: false,
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID]
-          }, // here´s the array of controls
           disableDefaultUI: true, // a way to quickly hide all controls
-          scaleControl: true,
-          zoomControl: true,
-          zoomControlOptions: {
-            style: google.maps.ZoomControlStyle.LARGE 
-          },
-          mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-  
+
+     
         //LOAD THE MAP WITH THE PREVIOUS VALUES AS PARAMETERS.
         this.getAddressFromCoords(resp.coords.latitude, resp.coords.longitude);
-  
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
         this.currentLocation = {
           lat: this.map.center.lat(),
           lng: this.map.center.lng(),
-  
         };
-  
+        for (let i = 0; i < this.displayedPlaces.length; i++) {
+          this.addMarker(this.displayedPlaces[i], i)
+        }
+        if (this.displayedPlaces.length > 0) {
+          this.map.setCenter(this.markers[0].getPosition());
+          this.map.setZoom(14);
+    
+        }
         this.map.addListener('tilesloaded', () => {
           console.log('accuracy', this.map, this.map.center.lat());
           this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
@@ -245,8 +303,70 @@ isClicked(){
       }).catch((error) => {
         console.log('Error getting location', error);
       });
+      
     }
 
+    
+    hover_image: any;
+    addMarker(place, i) {
+
+      const marker = new google.maps.Marker({
+        position: new google.maps.LatLng(place.latitude, place.longitude),
+        map: this.map,
+  
+        // label: '$' + place.pricingAmount,
+        label: {
+          color: 'red',
+          fontSize: Number(place.calculatedAmount) > 99 ? '8px' : '10px',
+          fontWeight: '900',
+          text: '$' + Number(place.calculatedAmount).toFixed()
+  
+        },
+        icon: this.image,
+        // shape: shape,
+        zIndex: i + 1
+      });
+  
+      google.maps.event.addListener(marker, 'click', ((marker, i) => {
+        return () => {
+          console.log("hello")
+          // this.goToPlace(place);
+        };
+      })(marker, i));
+  
+      google.maps.event.addListener(marker, 'mouseover', ((marker, i) => {
+        return () => {
+  
+          for (var j = 0; j < this.markers.length; j++) {
+            this.markers[j].setIcon(this.image);
+            this.markers[j].setZIndex(j + 1);
+          }
+          marker.setIcon(this.hover_image);
+          marker.setZIndex(1000);
+          let markerLabel = marker.getLabel();
+          markerLabel.color = 'white'
+          marker.setLabel(markerLabel);
+  
+        };
+      })(marker, i));
+  
+      google.maps.event.addListener(marker, 'mouseout', ((marker, i) => {
+        return () => {
+  
+          for (var j = 0; j < this.markers.length; j++) {
+            this.markers[j].setIcon(this.image);
+            this.markers[j].setZIndex(j + 1);
+            let markerLabel = marker.getLabel();
+            markerLabel.color = 'red'
+            marker.setLabel(markerLabel);
+          }
+        };
+      })(marker, i));
+  
+      this.markers.push(marker);
+  
+    }
+  
 
   getAddressFromCoords(lattitude, longitude) {
     console.log("getAddressFromCoords " + lattitude + " " + longitude);
