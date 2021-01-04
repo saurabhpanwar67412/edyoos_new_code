@@ -39,6 +39,7 @@ export class Tab1Page implements OnInit, AfterViewInit {
   geo: any;
   geoCoder;
   selectedRadioGroup:any;
+  
 
   componentForm = {
     street_number: 'short_name',
@@ -67,7 +68,9 @@ export class Tab1Page implements OnInit, AfterViewInit {
     maximumAge: 0
   };
 
-  markers:any=[];
+  
+image : any ;
+  markers: google.maps.Marker[] = [];
   userdetails : any ;
   
   modes = [ 'city' , 'airplane' , 'Truck & Trailer Parking' ,'boats', 'Semi-Truck Parking' ] ;
@@ -87,7 +90,12 @@ imageurls = ['assets/images/BlueColor-jpg/CityParking@1x.jpg','assets/images/Blu
     public toastCtrl: ToastController,
     private alertCtrl: AlertController,
     
+    
   ) {
+
+    if (this.displayedPlaces.length > 0) {
+      // this.initializeMap(this.displayedPlaces[0].latitude, this.displayedPlaces[0].longitude);
+    }
     this.userdetails = JSON.parse(localStorage.getItem('edyoosUserDetails'));
     console.log("userid", this.userdetails);
     // let userid= this.userdetails.id
@@ -128,7 +136,68 @@ isClicked(){
     this.ios = this.config.get('mode') === 'ios';
     // throw new Error('Method not implemented.');
   }
+
+  viewonmapload(){
+     // console.log("placeAddressComponents=",place.address_components);
   
+      //FIRST GET THE LOCATION FROM THE DEVICE.
+      this.geolocation.getCurrentPosition().then((resp) => {
+        console.log("res=", resp)
+  
+        let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+  
+        let mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeControl: false,
+          streetViewControl: false,
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID]
+          }, // here´s the array of controls
+          disableDefaultUI: true, // a way to quickly hide all controls
+          scaleControl: true,
+          zoomControl: true,
+          zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE 
+          },
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        this.image = {
+          url:
+            `${location.origin}/assets/images/map-marker-icon.png`,
+          // This marker is 20 pixels wide by 32 pixels high.
+          //  size: new google.maps.Size(20, 32),
+          // The origin for this image is (0, 0).
+          // origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          //  anchor: new google.maps.Point(0, 32),
+          // scaledSize: new google.maps.Size(32, 38),
+          labelOrigin: new google.maps.Point(17, 15)
+  
+        };
+  
+        //LOAD THE MAP WITH THE PREVIOUS VALUES AS PARAMETERS.
+        this.getAddressFromCoords(resp.coords.latitude, resp.coords.longitude);
+  
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        this.currentLocation = {
+          lat: this.map.center.lat(),
+          lng: this.map.center.lng(),
+  
+        };
+  
+        this.map.addListener('tilesloaded', () => {
+          console.log('accuracy', this.map, this.map.center.lat());
+          this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
+          this.lat = this.map.center.lat()
+          this.long = this.map.center.lng()
+        });
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+
+  }
+
     //LOADING THE MAP HAS 2 PARTS.
     loadMap() {
 

@@ -186,7 +186,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
          // o.isSpotAvaliable = true;
          jQuery('#datetimepicker').datetimepicker({
            onChangeDateTime:function( ct ){
-            debugger;
+            // debugger;
             jQuery('#todatetimepicker').datetimepicker({minDate:ct,format:'Y-m-d g:i A'});
             jQuery('#datetimepicker').datetimepicker('hide');
             jQuery('#todatetimepicker').datetimepicker('show');
@@ -346,7 +346,7 @@ export class ParkingDetailPage implements OnInit,AfterViewInit {
       // ).value;
 
       console.log("this.selectedModethis.selectedMode:::::", this.selectedMode)
-debugger ;
+// debugger ;
       if (this.selectedMode == Mode.City) {
         this.placesService.getSearchResultForAuto(searchRequest)
           .subscribe((response) => {
@@ -534,6 +534,16 @@ debugger ;
       [SEARCH_FORM_METADATA.toDate]: [toDate],
       [SEARCH_FORM_METADATA.sort]: ['']
     });
+  }
+
+  viewmap(parkingDetailsList){
+    console.log("view on map parkingdetaillist", parkingDetailsList[0].latitude);
+
+    for (let i in parkingDetailsList.length) {
+
+      console.log(parkingDetailsList[i].latitude); 
+    }
+
   }
 
   goBack(){
